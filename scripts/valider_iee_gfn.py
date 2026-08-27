@@ -46,13 +46,23 @@ pour soutenir le mode de vie d'un Français.
      dont pêche                                      {fr(g['empreinte_peche'])}
      dont sol bâti                                   {fr(g['empreinte_bati'])}
 
-  BIOCAPACITÉ DISPONIBLE                             {fr(g['biocapacite'])} gha/pers
-  DÉFICIT                                            {fr(g['deficit'])} gha/pers
+  Biocapacité de la France                           {fr(g['biocapacite'])} gha/pers
+  Biocapacité mondiale par humain                    {fr(g['biocapacite_mondiale'])} gha/pers
 
-  ⇒ RAPPORT EMPREINTE / BIOCAPACITÉ  =  {fr(g['ratio'])}
+DEUX ÉTALONS POSSIBLES, ET ILS NE DISENT PAS LA MÊME CHOSE :
 
-En clair : il faudrait **{fr(g['ratio'], 2)} France** pour soutenir le mode de vie
-français. C'est le « x » que l'IEE doit transformer en note.
+  x mondial     = empreinte ÷ biocapacité MONDIALE  = {fr(g['ratio_mondial'])}
+      « il faudrait {fr(g['ratio_mondial'], 2)} Terres si tout le monde vivait comme
+        un Français »  → note le COMPORTEMENT
+  x territorial = empreinte ÷ biocapacité FRANÇAISE = {fr(g['ratio_territorial'])}
+      « il faudrait {fr(g['ratio_territorial'], 2)} France pour nourrir la France »
+        → note la GÉOGRAPHIE
+
+⇒ **Étalon retenu : le mondial** (décision D13). Sous l'étalon
+  territorial, l'Australie — qui consomme 74 % de nature de plus que la
+  France — recevrait 2,3 fois plus de monnaie, parce qu'elle a de
+  l'espace ; et le Bangladesh, qui consomme 7 fois moins, serait moins
+  bien noté que la France, parce qu'il est dense. Incitation perverse.
 """)
 
     titre("CE QUE NOTRE APPROXIMATION RATE")
@@ -66,65 +76,64 @@ C'était l'hypothèse annoncée (« le carbone est la composante dominante »).
 Elle est **vérifiée** : dominante, oui — majoritaire de peu.
 """)
 
-    titre("ET SURTOUT : NOTRE SEUIL ÉTAIT DEUX FOIS TROP SÉVÈRE")
+    titre("NOTRE APPROXIMATION EST JUSTE À 15 % PRÈS")
     ratio_proxy = co2_hab / SEUIL_CO2_T_HAB
-    seuil_cal = co2_hab / g["ratio"]
+    seuil_cal = co2_hab / g["ratio_mondial"]
     print(f"""
-Comparons les deux mesures de pression pour la même année {ANNEE} :
+Comparons les deux mesures de pression pour la même année {ANNEE},
+sur l'étalon retenu (mondial) :
 
   notre approximation : {fr(co2_hab)} tCO₂/hab ÷ {fr(SEUIL_CO2_T_HAB)} t  =  x = {fr(ratio_proxy)}
-  Global Footprint Network                          x = {fr(g['ratio'])}
+  Global Footprint Network, nombre de Terres        x = {fr(g['ratio_mondial'])}
 
-  ⇒ notre approximation SURESTIME la pression d'un facteur {fr(ratio_proxy / g['ratio'])}.
+  ⇒ écart : facteur {fr(ratio_proxy / g['ratio_mondial'])}. **Notre approximation surestime la
+    pression de {fr(100 * (ratio_proxy / g['ratio_mondial'] - 1), 0)} %.**
 
-Ce n'est pas une erreur de calcul : les deux mesurent des choses
-différentes.
+C'est un résultat remarquablement bon, et il n'est pas fortuit. Les deux
+mesures posent la même question — « quelle part des ressources de la
+planète, par tête ? » — l'une par le carbone, l'autre par les hectares
+globaux. Elles convergent parce que le carbone pèse {fr(100 * g['part_carbone'], 0)} % de
+l'empreinte, et que le reste (cultures, forêts, pêche) est réparti de
+façon assez proche de la moyenne mondiale pour un pays comme la France.
 
-  • Notre seuil ({fr(SEUIL_CO2_T_HAB)} t) vient du budget climatique mondial 1,5 °C
-    partagé également par tête. C'est une référence **planétaire et
-    morale** : « quelle part du ciel chaque humain peut-il utiliser ? »
-  • Le rapport du GFN compare l'empreinte à la biocapacité **du pays
-    lui-même**. C'est une référence **territoriale** : « la France
-    vit-elle sur ses propres moyens ? »
+Pour un recalage exact sur {ANNEE}, le seuil serait :
 
-Les deux sont défendables. Elles ne disent pas la même chose, et l'écart
-entre elles est d'un facteur 2 — c'est-à-dire davantage que l'écart entre
-deux mappings.
+  {fr(co2_hab)} ÷ {fr(g['ratio_mondial'])}  =  **{fr(seuil_cal)} tCO₂/hab/an**   (au lieu de {fr(SEUIL_CO2_T_HAB)})
 
-Pour que notre série carbone reproduise le niveau du GFN en {ANNEE}, il
-faudrait un seuil de :
+Un ajustement de {fr(100 * (seuil_cal / SEUIL_CO2_T_HAB - 1), 0)} %, très à l'intérieur de la fourchette
+1–4 t déjà déclarée en sensibilité (fiche EQ-EXEC-002).
 
-  {fr(co2_hab)} ÷ {fr(g['ratio'])}  =  **{fr(seuil_cal)} tCO₂/hab/an**
-
-C'est-à-dire le HAUT de la fourchette 1–4 t déjà déclarée en sensibilité
-dans la fiche EQ-EXEC-002. La calibration GFN ne sort donc pas du cadre
-prévu : elle en désigne le bord supérieur.
+⚠️ POUR MÉMOIRE — l'étalon TERRITORIAL, lui, donnerait x = {fr(g['ratio_territorial'])},
+soit un écart de facteur {fr(ratio_proxy / g['ratio_territorial'])}. C'est cette comparaison-là qui avait
+fait conclure d'abord à un seuil « deux fois trop sévère ». La conclusion
+ne tenait qu'au choix d'étalon, et cet étalon a été écarté (décision D13).
 """)
 
     titre("CE QUE ÇA CHANGE POUR L'IEE ET L'IED")
-    print(f"  {'mapping':<14} {'IEE seuil ' + fr(SEUIL_CO2_T_HAB):>16} "
-          f"{'IEE seuil GFN ' + fr(seuil_cal):>20}")
+    print(f"  {'mapping':<14} {'IEE, seuil ' + fr(SEUIL_CO2_T_HAB):>17} "
+          f"{'IEE, seuil recalé ' + fr(seuil_cal):>24}")
     for nom, f in MAPPINGS.items():
-        print(f"  {nom:<14} {fr(float(f(ratio_proxy))):>16} "
-              f"{fr(float(f(g['ratio']))):>20}")
+        print(f"  {nom:<14} {fr(float(f(ratio_proxy))):>17} "
+              f"{fr(float(f(g['ratio_mondial']))):>24}")
     expo = MAPPINGS["exponentiel"]
-    lin = MAPPINGS["lineaire"]
     print(f"""
 Sous le mapping exponentiel, l'IEE {ANNEE} passe de {fr(float(expo(ratio_proxy)))} à \
-{fr(float(expo(g['ratio'])))} —
-il reste dégradé, mais il n'est plus catastrophique. Sous le mapping
-linéaire il passe de {fr(float(lin(ratio_proxy)))} à {fr(float(lin(g['ratio'])))} : \
-il cesse d'être NUL, ce qui
-supprime l'annulation totale de la création monétaire française.
+{fr(float(expo(g['ratio_mondial'])))} :
+un déplacement mineur. **Le recalage sur le GFN ne change donc pas les
+conclusions du jalon P2.** L'IED français reste très en dessous de 1.
 
-⚠️ CONSÉQUENCE POUR L'ARBITRAGE : le seuil (décision D13) pèse autant que
-le mapping (décision D11). Les deux doivent être tranchés ensemble.
+C'est la bonne nouvelle de cette validation : sur l'étalon retenu, notre
+série carbone tient. Le mapping (décision D11) redevient le seul choix
+vraiment structurant.
 
-⚠️ CE QUE ÇA NE RÈGLE PAS : nous n'avons qu'UNE année. On peut recaler le
-niveau de la série, pas sa forme. Si le rapport empreinte/biocapacité
-français a évolué autrement que son empreinte carbone entre 1990 et 2021,
-nous ne le voyons pas. Obtenir la série complète du GFN (1961→) reste la
-seule vraie solution, et exige une clé d'API nominative.
+⚠️ CE QUE ÇA NE RÈGLE PAS, et il faut le redire :
+  • Une SEULE année d'ancrage. On valide le niveau, pas la forme. Si le
+    « nombre de Terres » français a évolué autrement que son empreinte
+    carbone entre 1990 et 2021, nous ne le voyons pas.
+  • {fr(100 * (1 - g['part_carbone']), 0)} % de l'empreinte reste hors du champ : cultures,
+    forêts, pâturages, pêche, sol bâti. La convergence à {fr(100 * (ratio_proxy / g['ratio_mondial'] - 1), 0)} % est
+    partiellement une compensation d'erreurs, pas une mesure de ces
+    composantes.
 """)
 
 

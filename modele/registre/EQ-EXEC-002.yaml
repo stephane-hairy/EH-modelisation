@@ -18,8 +18,9 @@ variables:
 parametres:
   budget_1_5C_Gt:   {valeur: 500.0, intervalle: [300.0, 900.0], origine: design}
   horizon_ans:      {valeur: 30.0, intervalle: [20.0, 50.0], origine: design}
-  seuil_t_hab:      {valeur: 2.13, intervalle: [1.0, 4.2], origine: design}
-  seuil_calibre_gfn: {valeur: 4.17, intervalle: [3.5, 4.5], origine: calibre}
+  seuil_t_hab:      {valeur: 2.13, intervalle: [1.0, 4.0], origine: design}
+  seuil_recale_gfn: {valeur: 2.44, intervalle: [2.2, 2.7], origine: calibre}
+  etalon:           {valeur: "mondial", intervalle: null, origine: design}
   mapping:          {valeur: "exponentiel", intervalle: null, origine: design}
 
 categorie: D
@@ -39,10 +40,10 @@ sources:
     ce_qu_elle_etablit: "500 GtCO₂ de budget restant au 1er janvier 2020 pour 50 % de chance de limiter le réchauffement à 1,5 °C."
   - ref: "Global Footprint Network, National Footprint Accounts 2017 Public Data Package v1.3 (licence Creative Commons), feuille « Country Results 2017 Ed (2013) »"
     doi_ou_url: "https://data.opendevelopmentmekong.net/dataset/national-footprint-accounts"
-    ce_qu_elle_etablit: "POINT D'ANCRAGE. France 2013 : empreinte écologique de consommation 5,063 gha/pers (dont carbone 2,852, soit 56,3 %), biocapacité 2,910 gha/pers, rapport 1,740. Trouvé via Dateno. Une seule année : ce n'est PAS une série. Servi depuis un miroir CKAN, le portail du GFN n'exposant pas librement le fichier."
+    ce_qu_elle_etablit: "POINT D'ANCRAGE. France 2013 : empreinte écologique de consommation 5,063 gha/pers (dont carbone 2,852, soit 56,3 %). Deux étalons publiés : nombre de Terres 2,969 (biocapacité mondiale — RETENU, décision D13) et nombre de pays 1,740 (biocapacité française — écarté). Trouvé via Dateno. Une seule année : ce n'est PAS une série. Servi depuis un miroir CKAN, le portail du GFN n'exposant pas librement le fichier."
 
 sensibilite:
-  balayage: ["seuil de 1 à 4,2 tCO₂/hab", "seuil GIEC 2,13 vs seuil calibré GFN 4,17", "budget 1,5 °C vs 2 °C", "horizon 20 à 50 ans", "mapping linéaire / hyperbolique / exponentiel", "empreinte (importations incluses) vs territorial"]
+  balayage: ["seuil de 1 à 4 tCO₂/hab", "seuil GIEC 2,13 vs seuil recalé GFN 2,44", "étalon mondial (retenu) vs territorial (écarté, D13)", "budget 1,5 °C vs 2 °C", "horizon 20 à 50 ans", "mapping linéaire / hyperbolique / exponentiel", "empreinte (importations incluses) vs territorial"]
   impact_attendu: >
     DÉCISIF, et c'est l'indicateur qui pilote l'IED français. La France
     est à ~2,9 fois le seuil en 2022. Selon le mapping, IEE vaut 0,00
@@ -57,26 +58,26 @@ limites: |
     partielle. Grade C. À remplacer dès qu'une clé est obtenue.
   - AMPLEUR DE L'APPROXIMATION, MAINTENANT MESURÉE (2026-08-27). Le
     paquet public officiel du GFN a été retrouvé via Dateno — une seule
-    année, 2013 — et permet enfin de chiffrer l'écart :
-      • le carbone pèse 56,3 % de l'empreinte française : l'approximation
-        en rate donc 43,7 %, soit 2,21 gha/pers (cultures, forêts,
-        pâturages, pêche, sol bâti) ;
-      • surtout, le RAPPORT DE PRESSION diffère d'un facteur 1,96. Notre
-        seuil GIEC donne x = 3,41 pour 2013 ; le GFN donne x = 1,74.
-        Notre indicateur était donc DEUX FOIS TROP SÉVÈRE.
-      • cet écart n'est pas une erreur : les deux référentiels ne posent
-        pas la même question. Le seuil GIEC demande « quelle part du
-        budget climatique mondial ? » ; le GFN demande « le pays vit-il
-        sur sa propre biocapacité ? ».
-      • pour reproduire le niveau GFN, il faudrait un seuil de
-        4,17 tCO₂/hab — le bord supérieur de la fourchette déjà déclarée.
-    Conséquence : le SEUIL (décision D13) pèse autant que le MAPPING
-    (décision D11). Les deux doivent être arbitrés ensemble.
+    année, 2013 — et permet de chiffrer l'écart sur l'étalon retenu
+    (mondial, décision D13) :
+      • notre approximation donne x = 3,41 ; le GFN donne x = 2,97.
+        **Écart : 15 %.** L'approximation TIENT, et le jalon P2 n'a pas
+        eu à être refait.
+      • un recalage exact demanderait un seuil de 2,44 tCO₂/hab au lieu
+        de 2,13 — très à l'intérieur de la fourchette déclarée.
+      • le carbone pèse 56,3 % de l'empreinte : l'approximation en rate
+        43,7 %, soit 2,21 gha/pers (cultures, forêts, pâturages, pêche,
+        sol bâti). La convergence à 15 % est donc partiellement une
+        compensation d'erreurs, pas une mesure de ces composantes.
+    ⚠️ CORRECTION ACTÉE : une version antérieure de cette fiche concluait
+    à un seuil « deux fois trop sévère ». Ce facteur 1,96 valait contre
+    l'étalon TERRITORIAL, écarté depuis par la décision D13. Contre
+    l'étalon retenu, l'écart est de 15 %.
     Démonstration : scripts/valider_iee_gfn.py.
-  - LE RECALAGE GFN NE CORRIGE QUE LE NIVEAU, PAS LA FORME. Une seule
-    année d'ancrage. Si le rapport empreinte/biocapacité français a
-    évolué autrement que son empreinte carbone entre 1990 et 2021, nous
-    ne le voyons pas. Seule la série complète du GFN (1961→) le dirait.
+  - LE RECALAGE NE CORRIGE QUE LE NIVEAU, PAS LA FORME. Une seule année
+    d'ancrage. Si le « nombre de Terres » français a évolué autrement que
+    son empreinte carbone entre 1990 et 2021, nous ne le voyons pas.
+    Seule la série complète du GFN (1961→) le dirait.
   - CE QUE L'APPROXIMATION PERD : usage des sols, eau douce, pêche,
     surface forestière, et toute notion de biocapacité disponible.
   - LE PARTAGE ÉGALITAIRE PAR TÊTE EST UN CHOIX POLITIQUE. Il ignore les

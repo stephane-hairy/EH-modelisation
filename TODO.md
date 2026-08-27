@@ -121,9 +121,15 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
   - [?] **D11 mapping** : linéaire / hyperbolique / exponentiel.
         IED 2021 de **0,00 à 0,72**. Fixe aussi le gain de boucle du P5
   - [?] **D12 sort de l'IBD** : garder en grade C / paramètre libre / retirer
-  - [?] **D13 seuils** : carbone **2,13 t (GIEC)** ou **4,17 t (calibré GFN)**
-      · matières 6–12 t/hab. ⚠️ **Facteur 1,96** sur la pression carbone —
-      davantage que l'écart entre deux mappings. À trancher AVEC D11
+  - [x] **D13 TRANCHÉE — étalon de l'IEE : MONDIAL par tête**
+      (`docs/04-decisions.md` D13). L'étalon territorial est écarté : il
+      récompense la géographie, pas le comportement. L'Australie, qui
+      consomme 74 % de nature de plus que la France, y serait 2,3× mieux
+      dotée ; le Bangladesh, qui consomme 7× moins, moins bien noté.
+      ✅ **Conséquence : notre seuil carbone est validé à 15 % près**
+      (notre x = 3,41 contre 2,97 pour le GFN en 2013). Un recalage exact
+      donnerait 2,44 t/hab au lieu de 2,13. **Le jalon P2 tient.**
+- [ ] **P2** Reste ouvert sur les seuils : matières 6–12 t/hab
 - [x] **Empreinte écologique GFN retrouvée via Dateno** — paquet public
       officiel *National Footprint Accounts 2017* (licence CC).
       ⚠️ **Une seule année, 2013** : ce n'est pas la série. Sert de point
@@ -137,7 +143,13 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
       pourrait rouvrir la période 1978–1989 (comptes GFN depuis **1961**)
 - [ ] **P2** Empreinte matières ODD 8.4.1 (UNEP/IRP) : **écartée**,
       l'ONU ne la publie qu'au niveau régional, pas par pays (vérifié)
-- [ ] **P2** Instrumenter EXIOBASE (empreinte matières et sols, 1995–2022)
+- [~] **P1** Instrumenter **EXIOBASE 3.10.2** — faisabilité en cours de
+      chiffrage. Zenodo, ouvert, **1995–2024** (30 ans), 7,1 Go pour les
+      tables `pxp`, ~67 s de téléchargement par année. `pymrio` lit le
+      format nativement. Comptes satellites présents : matières (62
+      indicateurs), sols (26), émissions air (420), eau, énergie, emploi.
+      Permettrait : un IRNR en **empreinte** (au lieu du DMC territorial)
+      dès **1995**, et les **44 % non carbonés** qui manquent à l'IEE
 - [ ] **P2** Chercher une empreinte biodiversité importations incluses
       (Chaudhary & Kastner) — seule voie pour un IBD conforme à §14.1
 

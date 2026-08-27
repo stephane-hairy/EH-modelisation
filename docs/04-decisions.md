@@ -156,3 +156,59 @@ un indicateur s'effondre, la création monétaire s'effondre d'un coup.
 Ce comportement sera examiné au jalon P5 (analyse de stabilité). Si une
 variante s'avère nécessaire pour la stabilité, elle sera proposée comme
 **alternative documentée**, pas substituée en silence.
+
+---
+
+## D13 — IEE : l'étalon est mondial, pas territorial
+
+**Décidé le** 2026-08-27 · **Statut** : adopté
+
+**Contexte.** L'IEE compare une pression à un seuil. Le Global Footprint
+Network en propose deux, et ils ne disent pas du tout la même chose :
+
+| Étalon | Question posée | Ce qu'il note |
+|---|---|---|
+| **« nombre de Terres »** — empreinte ÷ biocapacité **mondiale** par humain | *Combien faudrait-il de planètes si tout le monde vivait comme ce pays ?* | le **comportement** |
+| **« nombre de pays »** — empreinte ÷ biocapacité **du pays** | *Ce pays vit-il sur ses propres moyens ?* | la **géographie** |
+
+**Décision** : l'IEE utilise l'étalon **mondial par tête**.
+
+**Raison — l'étalon territorial crée une incitation perverse.** Chiffres
+2013 (GFN), mapping exponentiel :
+
+| Pays | Empreinte (gha/pers) | IEE, étalon mondial | IEE, étalon territorial |
+|---|---:|---:|---:|
+| Bangladesh | 0,75 | **1,47** | 0,50 |
+| France | 5,06 | 0,26 | 0,60 |
+| Australie | 8,80 | **0,06** | **1,35** |
+
+Sous l'étalon territorial, **l'Australie — qui consomme 74 % de nature de
+plus que la France — recevrait 2,3 fois plus de monnaie**, parce qu'elle
+dispose d'espace. Et le **Bangladesh, qui consomme 7 fois moins que la
+France, serait moins bien noté qu'elle**, parce qu'il est densément
+peuplé.
+
+Pour une théorie mondiale dont le mécanisme central est de récompenser la
+vertu écologique par la création monétaire, récompenser en réalité la
+faible densité de population est une faille de conception majeure.
+
+**Conséquences** :
+
+1. Le seuil carbone actuel (2,13 tCO₂/hab, budget 1,5 °C du GIEC partagé
+   par tête) relève **déjà** de cette logique. Il est **validé à 15 %
+   près** contre le point d'ancrage GFN 2013 : notre approximation donne
+   `x = 3,41`, le GFN donne `x = 2,97`. Un recalage exact donnerait
+   2,44 t/hab — un ajustement mineur, très à l'intérieur de la fourchette
+   1–4 t déjà déclarée en sensibilité.
+2. **Le jalon P2 n'a donc pas à être refait.** Les conclusions tiennent.
+3. L'étalon territorial reste implémenté (`ratio_territorial`) et passe en
+   analyse de sensibilité — jamais en série principale.
+4. **Correction actée** : une note antérieure concluait que « notre seuil
+   était deux fois trop sévère ». Cette conclusion ne valait que contre
+   l'étalon territorial, désormais écarté. Contre l'étalon retenu, l'écart
+   est de 15 %.
+
+**Ce qui reste ouvert** : nous n'avons qu'**une année** d'ancrage (2013).
+Elle valide le *niveau* de la série, pas sa *forme*. Et 44 % de
+l'empreinte (cultures, forêts, pâturages, pêche, sol bâti) reste hors du
+champ de l'approximation carbone.

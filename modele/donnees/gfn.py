@@ -26,6 +26,35 @@ EH (§14.1), et l'empreinte de *consommation* inclut les importations.
 À quoi ça sert malgré une seule année : à **calibrer et à valider**
 l'approximation carbone qui sert d'IEE (fiche EQ-EXEC-002). Un point
 d'ancrage vrai vaut mieux qu'aucun — cf. `scripts/valider_iee_gfn.py`.
+
+---
+
+**Deux étalons, et le choix n'est pas neutre.** Le GFN publie deux façons
+de rapporter l'empreinte à un seuil, et elles ne disent pas du tout la
+même chose :
+
+- **« nombre de Terres »** — empreinte ÷ biocapacité **mondiale** par
+  humain. *Combien faudrait-il de planètes si tout le monde vivait
+  comme ce pays ?* Note le **comportement**.
+- **« nombre de pays »** — empreinte ÷ biocapacité **du pays**. *Ce pays
+  vit-il sur ses propres moyens ?* Note la **géographie**.
+
+L'écart est spectaculaire. Chiffres 2013, sous mapping exponentiel :
+
+| pays | empreinte | IEE, étalon mondial | IEE, étalon territorial |
+|---|---:|---:|---:|
+| Bangladesh | 0,75 | **1,47** | 0,50 |
+| France | 5,06 | 0,26 | 0,60 |
+| Australie | 8,80 | **0,06** | **1,35** |
+
+Sous l'étalon territorial, **l'Australie — qui consomme 74 % de nature de
+plus que la France — recevrait 2,3 fois plus de monnaie**, parce qu'elle
+a de l'espace. Et le **Bangladesh, qui consomme 7 fois moins que la
+France, serait moins bien noté qu'elle**, parce qu'il est dense.
+
+Pour une théorie mondiale qui prétend récompenser la vertu écologique,
+c'est une incitation perverse de premier ordre. **Décision D13 : l'étalon
+retenu est le mondial.**
 """
 from __future__ import annotations
 
@@ -101,8 +130,17 @@ def empreinte_et_biocapacite(pays: str = "France") -> dict[str, float]:
     - `part_carbone` — quelle fraction de l'empreinte totale le carbone
       représente. C'est la mesure directe de ce que l'approximation rate ;
     - `biocapacite` — la surface productive réellement disponible ;
-    - `ratio` — empreinte ÷ biocapacité. **C'est le vrai « x » de l'IEE** :
-      1 signifie « le pays vit exactement sur ses moyens ».
+    - `biocapacite_mondiale` — la biocapacité moyenne disponible **par
+      humain sur Terre** ;
+    - `ratio_mondial` — empreinte ÷ biocapacité mondiale. C'est le
+      « nombre de Terres » : *combien faudrait-il de planètes si tout le
+      monde vivait comme ce pays ?* **C'est l'étalon retenu (décision
+      D13)** ;
+    - `ratio_territorial` — empreinte ÷ biocapacité du pays. C'est le
+      « nombre de pays » : *ce pays vit-il sur ses propres moyens ?*
+      Fourni pour la sensibilité, **pas retenu** — il note la géographie
+      plutôt que le comportement (voir la note du module).
+    - `ratio` — alias de `ratio_mondial`, l'étalon retenu.
     """
     t = comptes_pays()
     ligne = t[t["pays"] == pays]
@@ -119,6 +157,11 @@ def empreinte_et_biocapacite(pays: str = "France") -> dict[str, float]:
     empreinte = col(conso, "Total Ecological Footprint (Consumption)")
     carbone = col(conso, "Carbon Footprint")
     biocapacite = col(bio, "Total biocapacity")
+    ratio_mondial = col(bio, "Number of Earths required")
+    ratio_territorial = col(bio, "Number of Countries required")
+    # Le GFN ne publie pas la biocapacité mondiale par tête directement ;
+    # elle se déduit exactement : empreinte / nombre de Terres.
+    biocapacite_mondiale = empreinte / ratio_mondial
 
     return {
         "annee": float(ANNEE),
@@ -132,13 +175,17 @@ def empreinte_et_biocapacite(pays: str = "France") -> dict[str, float]:
         "empreinte_bati": col(conso, "Built up land"),
         "part_carbone": carbone / empreinte,
         "biocapacite": biocapacite,
+        "biocapacite_mondiale": biocapacite_mondiale,
         "deficit": col(bio, "Biocapacity (Deficit) or Reserve"),
-        "ratio": empreinte / biocapacite,
+        "ratio_mondial": ratio_mondial,
+        "ratio_territorial": ratio_territorial,
+        "ratio": ratio_mondial,      # étalon retenu — décision D13
     }
 
 
 def seuil_carbone_equivalent(co2_par_habitant: float,
-                             pays: str = "France") -> float:
+                             pays: str = "France",
+                             etalon: str = "mondial") -> float:
     """
     Le seuil carbone qui ferait coïncider notre approximation avec le GFN.
 
@@ -154,9 +201,12 @@ def seuil_carbone_equivalent(co2_par_habitant: float,
     `co2_par_habitant` est l'empreinte carbone française de 2013, en
     tonnes par personne (source : Global Carbon Project).
 
+    Par défaut on cale sur l'étalon **mondial** (décision D13) : le
+    « nombre de Terres ». Passer `etalon="territorial"` donne l'autre
+    référence, pour la sensibilité.
+
     ⚠️ Ce que ça reste : un **choix normatif** (catégorie D), pas une
-    mesure. Il déplace la référence — d'un budget climatique mondial
-    partagé par tête vers la biocapacité propre du pays. Les deux sont
-    défendables et ne disent pas la même chose.
+    mesure.
     """
-    return co2_par_habitant / empreinte_et_biocapacite(pays)["ratio"]
+    cle = "ratio_mondial" if etalon == "mondial" else "ratio_territorial"
+    return co2_par_habitant / empreinte_et_biocapacite(pays)[cle]

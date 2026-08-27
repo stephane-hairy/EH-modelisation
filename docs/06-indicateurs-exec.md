@@ -21,7 +21,7 @@
 | **Pourquoi** | Les données écologiques françaises **n'existent pas avant 1990** |
 | **IED français** | **0,41 à 0,57** sur toute la période — jamais proche de 1 (mapping exponentiel) |
 | **Verdict IBD** | ⚠️ **Les données ne suffisent pas.** Bouche-trou documenté, pas une mesure |
-| **Choix à arbitrer** | Le **mapping** (IED 2021 de **0,00 à 0,72**) **et** le **seuil carbone** (facteur **1,96** entre GIEC et GFN) |
+| **Choix à arbitrer** | Le **mapping** vers [0 ; 2] — IED 2021 de **0,00 à 0,72**. *(L'étalon de l'IEE est tranché : mondial, décision D13.)* |
 
 **Le résultat principal, en une phrase** : sous l'économie homéostatique,
 la France aurait été en **régime de création monétaire réduite de moitié
@@ -126,9 +126,10 @@ total : l'indicateur mesure surtout l'activité du bâtiment.
 
 ### IEE — empreinte écologique, importations incluses (fiche EQ-EXEC-002)
 
-⚠️ **Ce n'est pas l'empreinte écologique demandée.** La synthèse (§14.1)
-renvoie au Global Footprint Network — hectares globaux, comparés à la
-biocapacité. Son API exige une clé nominative et répond 403 sans elle.
+⚠️ **Ce n'est pas l'empreinte écologique demandée** — mais on sait
+maintenant de combien on s'en écarte. La synthèse (§14.1) renvoie au
+Global Footprint Network (hectares globaux). Son API exige une clé
+nominative et répond 403 sans elle.
 
 On substitue l'**empreinte carbone importations incluses**, calculée par
 le Global Carbon Project avec un tableau entrées-sorties multirégional
@@ -139,7 +140,7 @@ centrale : les importations sont comptées.
 **Ce que l'approximation perd** : usage des sols, eau douce, pêche,
 forêts, et toute notion de biocapacité. **Grade C.**
 
-#### ⚠️ L'ampleur de l'approximation est maintenant mesurée
+#### ✅ L'approximation est maintenant validée — à 15 % près
 
 Le **paquet public officiel du GFN** a été retrouvé via Dateno (*National
 Footprint Accounts 2017*, licence Creative Commons). Il ne contient
@@ -158,53 +159,71 @@ trompe-t-on ?*
 | dont pâturage | 0,267 |
 | dont pêche | 0,196 |
 | dont sol bâti | 0,184 |
-| **Biocapacité disponible** | **2,910** |
-| Déficit | −2,152 |
-| **Rapport empreinte / biocapacité** | **1,740** |
+| Biocapacité de la France | 2,910 |
+| Biocapacité mondiale par humain | 1,705 |
 
-*Il faudrait 1,74 France pour soutenir le mode de vie français.*
+##### D'abord : quel étalon ? (décision D13)
 
-Deux enseignements :
+Le GFN propose **deux** façons de rapporter cette empreinte à un seuil,
+et elles ne disent pas du tout la même chose :
 
-1. **L'hypothèse « le carbone domine » est vérifiée — de peu.** 56,3 %.
-   L'approximation rate donc **43,7 %** du sujet, soit 2,21 gha/pers.
-2. **Notre seuil était deux fois trop sévère.** Pour la même année 2013 :
+| Étalon | France 2013 | Question posée | Ce qu'il note |
+|---|---:|---|---|
+| **« nombre de Terres »** (÷ biocapacité mondiale) | **2,97** | *Combien de planètes si tout le monde vivait ainsi ?* | le **comportement** |
+| « nombre de pays » (÷ biocapacité française) | 1,74 | *La France vit-elle sur ses moyens ?* | la **géographie** |
 
-   | Référentiel | Pression `x` |
-   |---|---:|
-   | Notre approximation (7,26 tCO₂/hab ÷ 2,13 t) | **3,41** |
-   | Global Footprint Network | **1,74** |
+**L'étalon territorial crée une incitation perverse**, et les chiffres le
+montrent sans appel (mapping exponentiel) :
 
-   **Facteur 1,96.** Ce n'est pas une erreur de calcul : les deux
-   référentiels ne posent pas la même question.
-   - Le seuil GIEC demande : *« quelle part du budget climatique mondial
-     chaque humain peut-il utiliser ? »* — planétaire, égalitaire.
-   - Le rapport du GFN demande : *« la France vit-elle sur sa propre
-     biocapacité ? »* — territorial.
+| Pays | Empreinte | IEE, étalon **mondial** | IEE, étalon territorial |
+|---|---:|---:|---:|
+| Bangladesh | 0,75 | **1,47** | 0,50 |
+| France | 5,06 | 0,26 | 0,60 |
+| Australie | 8,80 | **0,06** | **1,35** |
 
-   Pour reproduire le niveau du GFN, il faudrait un seuil de
-   **4,17 tCO₂/hab** — précisément le bord supérieur de la fourchette
-   1–4 t déjà déclarée en sensibilité.
+L'Australie consomme **74 % de nature de plus** que la France, et serait
+pourtant **2,3 fois mieux dotée en monnaie** — parce qu'elle a de
+l'espace. Le Bangladesh consomme **7 fois moins** que la France et serait
+**moins bien noté** — parce qu'il est dense.
 
-**Ce que ça change** :
+Pour une théorie mondiale dont le mécanisme central est de récompenser la
+vertu écologique, récompenser en réalité la faible densité de population
+est une faille de premier ordre. → **Étalon retenu : le mondial (D13).**
 
-| Mapping | IEE 2013, seuil 2,13 | IEE 2013, seuil GFN 4,17 |
-|---|---:|---:|
-| linéaire | **0,00** | 0,26 |
-| hyperbolique | 0,45 | 0,73 |
-| exponentiel | 0,19 | 0,60 |
+##### Ensuite : notre approximation tient
 
-Sous le mapping linéaire, l'IEE **cesse d'être nul** — ce qui supprime
-l'annulation totale de la création monétaire française.
+Sur l'étalon retenu, pour la même année 2013 :
 
-⚠️ **Conséquence pour l'arbitrage : le seuil (D13) pèse autant que le
-mapping (D11).** Les deux doivent être tranchés ensemble.
+| Mesure | Pression `x` |
+|---|---:|
+| Notre approximation (7,26 tCO₂/hab ÷ 2,13 t) | **3,41** |
+| GFN, nombre de Terres | **2,97** |
 
-⚠️ **Ce que ça ne règle pas** : une seule année d'ancrage recale le
-*niveau*, pas la *forme*. Si le rapport empreinte/biocapacité français a
-évolué autrement que son empreinte carbone entre 1990 et 2021, nous ne le
-voyons pas. Obtenir la série GFN complète (1961→) reste la seule vraie
-solution, et exige une clé d'API nominative.
+**Écart : 15 %.** Les deux posent la même question — *quelle part des
+ressources de la planète, par tête ?* — l'une par le carbone, l'autre par
+les hectares globaux. Elles convergent.
+
+Un recalage exact demanderait un seuil de **2,44 tCO₂/hab** au lieu de
+2,13 : un ajustement de 15 %, très à l'intérieur de la fourchette 1–4 t
+déjà déclarée. Sous mapping exponentiel, l'IEE 2013 passe de 0,19 à 0,26.
+
+⇒ **Le jalon P2 n'a pas à être refait.** L'IED français reste très en
+dessous de 1, et le **mapping (D11) redevient le seul choix vraiment
+structurant**.
+
+> ⚠️ **Correction actée.** Une version antérieure de cette note concluait
+> que « notre seuil était deux fois trop sévère ». Ce facteur 1,96 valait
+> contre l'étalon *territorial*, écarté depuis par D13. Contre l'étalon
+> retenu, l'écart est de 15 %.
+
+##### Ce que ça ne règle pas
+
+- **Une seule année d'ancrage.** On valide le *niveau* de la série, pas sa
+  *forme*. Si le « nombre de Terres » français a évolué autrement que son
+  empreinte carbone entre 1990 et 2021, nous ne le voyons pas.
+- **44 % de l'empreinte reste hors champ** : cultures, forêts, pâturages,
+  pêche, sol bâti. La convergence à 15 % est donc partiellement une
+  compensation d'erreurs, pas une mesure de ces composantes.
 
 Reproductible : `python scripts/valider_iee_gfn.py`.
 
@@ -351,7 +370,7 @@ après.** Le choisir, c'est déjà décider en partie du résultat de P5.
 |---|---|---|---|
 | **D11** | **Mapping** | linéaire / hyperbolique / exponentiel | IED 2021 de **0,00 à 0,72**. Fixe aussi le gain de boucle pour P5. |
 | **D12** | **Sort de l'IBD** | garder en grade C / paramètre libre / **retirer** | ±0,15 point d'IED, et une exigence §14.1 violée s'il est gardé. |
-| **D13** | **Seuils** | carbone **2,13 t (GIEC)** ou **4,17 t (calibré GFN)** · matières 6–12 t | ⚠️ **Facteur 1,96** sur la pression carbone — davantage que l'écart entre deux mappings. À trancher avec D11. |
+| ~~**D13**~~ | ~~**Étalon et seuils**~~ | **TRANCHÉE** : étalon **mondial**, seuil carbone 2,13 t (validé à 15 % près). Reste ouvert : matières 6–12 t | L'étalon territorial est écarté — il récompensait la géographie. Voir `docs/04-decisions.md` D13. |
 
 **Recommandation, à discuter** : mapping **exponentiel** (M3) — c'est le
 seul dont la règle s'énonce en une phrase, il ne s'annule jamais, et sa

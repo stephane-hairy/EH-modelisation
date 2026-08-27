@@ -205,37 +205,75 @@ def test_tous_les_indicateurs_restent_dans_les_bornes():
 # 4. Calibration sur les comptes du Global Footprint Network
 # ======================================================================
 
-def test_seuil_calibre_gfn_reproduit_le_ratio_gfn():
-    """Le seuil calibré doit, par construction, faire coïncider notre
-    rapport de pression avec celui du GFN pour l'année d'ancrage.
-
-    Valeurs France 2013 (GFN, National Footprint Accounts 2017 Public
-    Data Package) : empreinte de consommation 5,063 gha/pers, biocapacité
-    2,910 gha/pers, donc un rapport de 1,740.
-    """
-    empreinte_gfn, biocapacite_gfn = 5.06279562828119, 2.91042466596524
-    ratio_gfn = empreinte_gfn / biocapacite_gfn
-    co2_hab_2013 = 7.2599   # tCO₂/hab, Global Carbon Project
-
-    seuil = co2_hab_2013 / ratio_gfn
-    assert co2_hab_2013 / seuil == pytest.approx(ratio_gfn)
-    # le seuil calibré tombe dans la fourchette 1-4 t déjà déclarée en
-    # sensibilité dans la fiche EQ-EXEC-002 — il en désigne le bord haut
-    assert 3.5 < seuil < 4.5
+# Chiffres France 2013, Global Footprint Network, National Footprint
+# Accounts 2017 Public Data Package (gha par personne).
+GFN_EMPREINTE = 5.06279562828119
+GFN_CARBONE = 2.85153448374666
+GFN_BIOCAP_FRANCE = 2.91042466596524
+GFN_RATIO_MONDIAL = 2.96886710450647      # « nombre de Terres »  — étalon retenu (D13)
+GFN_RATIO_TERRITORIAL = 1.73953845549963  # « nombre de pays »    — écarté (D13)
+CO2_HAB_2013 = 7.2599                     # tCO₂/hab, Global Carbon Project
 
 
-def test_le_seuil_giec_est_environ_deux_fois_plus_severe_que_le_gfn():
-    """Constat central de la validation : les deux référentiels diffèrent
-    d'un facteur ~2, soit plus que l'écart entre deux mappings. Ce test
-    fige le résultat pour qu'une régression silencieuse soit visible."""
-    ratio_gfn = 5.06279562828119 / 2.91042466596524
-    ratio_proxy = 7.2599 / SEUIL_CO2_T_HAB
-    assert ratio_proxy / ratio_gfn == pytest.approx(1.96, abs=0.05)
+def test_les_deux_etalons_gfn_different_d_un_facteur_deux():
+    """Le GFN publie deux façons de rapporter l'empreinte à un seuil, et
+    elles ne disent pas la même chose. C'est le choix tranché par D13."""
+    assert GFN_RATIO_MONDIAL / GFN_RATIO_TERRITORIAL == pytest.approx(1.71,
+                                                                      abs=0.02)
+
+
+def test_l_etalon_territorial_recompenserait_la_geographie():
+    """Pourquoi D13 a écarté l'étalon territorial : l'Australie consomme
+    74 % de nature de plus que la France, et serait pourtant bien mieux
+    notée, parce qu'elle a de l'espace. Incitation perverse pour une
+    théorie qui prétend récompenser la vertu écologique."""
+    australie_empreinte, australie_biocap = 8.80246730610426, 15.6667670253919
+    assert australie_empreinte / GFN_EMPREINTE == pytest.approx(1.74, abs=0.02)
+
+    iee_fr = mapping_exponentiel(GFN_EMPREINTE / GFN_BIOCAP_FRANCE)
+    iee_au = mapping_exponentiel(australie_empreinte / australie_biocap)
+    assert iee_au > 2 * iee_fr          # l'Australie récompensée du double
+
+    # sous l'étalon mondial, l'ordre s'inverse — et c'est le bon sens
+    biocap_monde = GFN_EMPREINTE / GFN_RATIO_MONDIAL
+    assert mapping_exponentiel(australie_empreinte / biocap_monde) < \
+        mapping_exponentiel(GFN_EMPREINTE / biocap_monde)
+
+
+def test_notre_approximation_carbone_tient_a_15_pourcent():
+    """Résultat central de la validation : sur l'étalon retenu (mondial),
+    l'approximation carbone ne surestime la pression que de 15 %.
+
+    C'est la raison pour laquelle le jalon P2 n'a pas eu à être refait.
+    Une régression silencieuse de ce chiffre voudrait dire qu'on a cassé
+    la conversion d'unité ou changé le seuil sans le documenter."""
+    ratio_proxy = CO2_HAB_2013 / SEUIL_CO2_T_HAB
+    assert ratio_proxy / GFN_RATIO_MONDIAL == pytest.approx(1.15, abs=0.03)
+
+
+def test_seuil_recale_sur_l_etalon_mondial():
+    """Le seuil qui ferait coïncider exactement notre série avec le GFN
+    en 2013 vaut 2,44 t — un ajustement de 15 %, bien à l'intérieur de la
+    fourchette 1–4 t déclarée en sensibilité (fiche EQ-EXEC-002)."""
+    seuil = CO2_HAB_2013 / GFN_RATIO_MONDIAL
+    assert CO2_HAB_2013 / seuil == pytest.approx(GFN_RATIO_MONDIAL)
+    assert seuil == pytest.approx(2.44, abs=0.05)
+    assert 1.0 < seuil < 4.0
+
+
+def test_le_recalage_ne_change_pas_les_conclusions():
+    """Le déplacement de l'IEE dû au recalage est mineur : l'IED français
+    reste très en dessous de 1. C'est ce qui a permis de ne pas refaire
+    le jalon P2."""
+    avant = mapping_exponentiel(CO2_HAB_2013 / SEUIL_CO2_T_HAB)
+    apres = mapping_exponentiel(GFN_RATIO_MONDIAL)
+    assert abs(apres - avant) < 0.10
+    assert avant < 0.5 and apres < 0.5
 
 
 def test_le_carbone_est_dominant_mais_pas_ecrasant():
     """L'approximation carbone repose sur l'hypothèse « le carbone domine
     l'empreinte écologique ». Vérifié sur la France 2013 : 56 %.
     Dominant, oui ; mais l'approximation laisse tomber 44 % du sujet."""
-    part = 2.85153448374666 / 5.06279562828119
+    part = GFN_CARBONE / GFN_EMPREINTE
     assert 0.50 < part < 0.60
