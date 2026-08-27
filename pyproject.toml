@@ -1,0 +1,21 @@
+[project]
+name = "eh-modelisation"
+version = "0.1.0"
+description = "Modélisation en système dynamique de l'économie homéostatique"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+    "matplotlib>=3.8",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pypdf>=5.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["reseau: test nécessitant un accès réseau (désactivé par défaut)"]
+addopts = "-m 'not reseau' -q"

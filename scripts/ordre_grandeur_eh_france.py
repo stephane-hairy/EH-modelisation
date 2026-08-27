@@ -11,7 +11,9 @@ Source des formules : Synthèse EH v1.7 (oct. 2020), §11.1 et §10.3.
 
 # --- Entrées -----------------------------------------------------------
 c            = 68.1e6      # habitants France 2023 (INSEE)            [À VÉRIFIER]
-PIB          = 2_800e9     # PIB nominal France ~2023, en €           [À VÉRIFIER]
+PIB          = 2_833.826e9 # PIB France 2023, € courants — VÉRIFIÉ :
+                           # INSEE CNA-2020-PIB, 2 833 826 M€
+                           # (scripts/audit_couverture.py)
 M3_FR        = 3_000e9     # contribution française à M3, en €        [À VÉRIFIER]
 PROD_EXPL    = 4_000e9     # produits d'exploitation cumulés des
                            # entreprises françaises, en €             [À VÉRIFIER]

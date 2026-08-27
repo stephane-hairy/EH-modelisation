@@ -19,6 +19,8 @@ savoir, chiffres à l'appui, si ça peut marcher.
 | [`docs/01-economie-homeostatique.md`](docs/01-economie-homeostatique.md) | **Comment marche l'EH** — explication détaillée et vulgarisée |
 | [`docs/02-strategie-modelisation.md`](docs/02-strategie-modelisation.md) | **La stratégie** — quoi construire, dans quel ordre, comment le valider |
 | [`docs/03-protocole-rigueur.md`](docs/03-protocole-rigueur.md) | **Les règles de preuve** — comment chaque équation est justifiée |
+| [`docs/04-decisions.md`](docs/04-decisions.md) | **Les décisions prises** — formalisme, périmètre, fréquence, période |
+| [`docs/annexes/couverture-donnees.md`](docs/annexes/couverture-donnees.md) | Jusqu'où remontent les données (généré par script) |
 | [`TODO.md`](TODO.md) | Tâches, verrous, décisions en attente |
 | [`JOURNAL.md`](JOURNAL.md) | Journal des actions |
 | [`CLAUDE.md`](CLAUDE.md) | Règles de travail (vulgariser, être concis, tracer) |
@@ -38,11 +40,21 @@ Les règles inventées par l'EH (le « 22 000 € par citoyen », la fonte à
 ## Structure
 
 ```
-docs/       documentation de référence
+docs/       documentation de référence et décisions
 sources/    documents primaires (synthèse EH v1.7)
-scripts/    outils (extraction, récupération de données)
-modele/     le modèle et son registre d'équations
+scripts/    outils (extraction, audit de couverture, calculs)
+modele/     le modèle, ses clients de données, son registre d'équations
+tests/      contrôles automatiques (dont la conformité du registre)
 donnees/    données brutes et traitées (récupérées par script)
+```
+
+## Installation
+
+```bash
+pip install -e ".[dev]"
+python -m pytest -q                        # tests hors réseau
+python -m pytest -q -m reseau              # tests nécessitant le réseau
+python3 scripts/audit_couverture.py        # audit des sources de données
 ```
 
 ## Source primaire

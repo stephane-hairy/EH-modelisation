@@ -95,3 +95,86 @@ Fiche d'exemple rédigée : loi d'Okun (`exemple-EQ-EMP-001.yaml`).
 ### Prochaine étape
 6 décisions de cadrage attendues (`TODO.md`, section rouge) avant tout
 code de modèle.
+
+---
+
+## 2026-08-27 — Session 2 : décisions de cadrage et fondations P0
+
+### Décisions reçues et actées
+Les six questions de cadrage ont été tranchées → `docs/04-decisions.md`.
+Deux ont demandé une vérification préalable, car la réponse dépendait de
+ce que les données permettent réellement.
+
+### Audit de couverture des données (nouveau)
+`scripts/audit_couverture.py` interroge INSEE, Eurostat et la BCE et écrit
+`docs/annexes/couverture-donnees.md`. Résultats :
+
+| Bloc | Fréquence disponible | Début |
+|---|---|---|
+| PIB et agrégats réels (INSEE) | annuelle | **1949** |
+| Comptes financiers par secteur (INSEE) | annuelle | **1995** |
+| Comptes financiers par secteur (BCE QSA) | trimestrielle | **1998-Q4** |
+| Crédits des IFM France (BCE BSI) | mensuelle | **2003-01** |
+| Inventaire GES, flux de matières (Eurostat) | annuelle | **1990** |
+| Comptes d'émissions par branche (Eurostat) | annuelle | **2008** |
+
+### Ce que l'audit a changé aux deux réponses
+
+**Fréquence (D4).** La préférence était « plutôt mensuel ». Ce n'est pas
+praticable : il n'existe aucune donnée mensuelle de PIB, d'investissement
+ou de patrimoine sectoriel en France. Un modèle mensuel complet serait
+calé sur des séries interpolées — des chiffres inventés, exclus par la
+RÈGLE N°3.
+→ Décision **amendée** : cœur annuel, **plus un sous-pas mensuel
+analytique pour la fonte**. La fonte est définie mensuellement (1 % en fin
+de mois) et l'ordre des versements dans l'année change le résultat
+(synthèse §10.3) : on la calcule exactement en 12 sous-pas au lieu de
+l'approximer. La préférence pour le mensuel est ainsi satisfaite là où
+elle a un sens.
+
+**Période (D5).** « 1978 si possible » : possible pour l'économie réelle
+(données depuis 1949), **impossible pour un SFC bouclé** — les comptes
+financiers par secteur, qui disent qui détient quoi, démarrent en 1995.
+→ Décision **à deux périmètres** : 1978–2023 pour le bloc réel+monétaire,
+1995–2023 pour le modèle complet et l'écologie.
+→ **Bénéfice inattendu** : 1978–1998 contient l'encadrement du crédit
+(supprimé en 1987) et la déréglementation financière. C'est une
+expérience naturelle sur exactement notre question — comment le mécanisme
+de création monétaire agit sur l'économie réelle. C'est un actif, pas une
+consolation.
+
+### Fondations P0 construites
+- `pyproject.toml`, arborescence `modele/` + `tests/`.
+- **Clients de données** `modele/donnees/sources.py` — INSEE (SDMX-ML),
+  Eurostat (JSON-stat 2.0), BCE (CSV).
+  *Choix technique* : `pandasdmx` **écarté**. Sa version 1.10 échoue à
+  parser les structures INSEE (`KeyError: 'TIME_PERIOD'`, la dimension
+  temporelle étant déclarée à part). Trois petits lecteurs valent mieux
+  qu'une grosse dépendance fragile. Deux pièges rencontrés et corrigés :
+  le code pays de l'INSEE est `FE` (France entière) et non `FR` ; et dans
+  JSON-stat l'indice doit être décodé en coordonnées, `time` n'étant pas
+  toujours la dernière dimension.
+- **Cache reproductible** `modele/donnees/cache.py` — chaque série est
+  stockée avec son SHA-256, son horodatage et l'URL exacte. Un manifeste
+  signale toute **révision** de série par l'institut. Sans cela un
+  résultat n'est pas reproductible : les instituts révisent en permanence.
+- **Contrôle du registre** `modele/registre.py` + `tests/test_registre.py`.
+  Applique la RÈGLE N°2 automatiquement. En particulier : une fiche de
+  catégorie `D` (design EH) ne peut pas être marquée `empirique: true`,
+  et une fiche de catégorie `S` sans réplication de notre part est
+  refusée. La CI échoue si le registre n'est pas conforme.
+- **CI GitHub Actions** : tests + contrôle du registre à chaque poussée.
+
+### Chiffre vérifié
+PIB France 2023 = **2 833,8 Md€** courants (INSEE CNA-2020-PIB, série
+1949–2025). Remplace une estimation `[À VÉRIFIER]` dans le calcul d'ordre
+de grandeur. Conclusion inchangée : masse monétaire d'équilibre ≈ 17 × PIB.
+
+### Ce qui reste le plus incertain
+`DTENT` (dividende des entreprises) domine la création monétaire totale et
+repose encore sur une estimation non sourcée des produits d'exploitation
+cumulés des entreprises françaises. **C'est le chiffre le plus important à
+sourcer**, avant toute affirmation sur le niveau des prix en EH.
+
+### Prochaine étape
+Jalon **P2** : opérationnaliser IBD, IEE, IRNR — le verrou n°1.

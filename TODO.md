@@ -7,18 +7,20 @@ Priorités : **P0** bloquant · **P1** important · **P2** utile
 
 ---
 
-## 🔴 Décisions attendues (bloquent la suite)
+## ✅ Décisions tranchées
 
-- [?] **P0** Valider le formalisme **SFC** (Stock-Flux Cohérent) —
-      `docs/02-strategie-modelisation.md` §1.1
-- [?] **P0** Valider l'ordre des jalons : **P0 → P2 → P1 → …**
-      (indicateurs EXEC historiques avant le modèle complet) — §6
-- [?] **P0** Périmètre : France seule + Reste du Monde agrégé, ou
-      France + zone euro explicite ? — §8
-- [?] **P0** Fréquence : annuelle, trimestrielle, ou mixte ? — §8
-- [?] **P1** Début de période : 1995 ou 1978 ? — §8
-- [?] **P1** L'IED (moyenne géométrique) est-il figé, ou peut-on tester
-      des variantes si l'analyse de stabilité l'exige ? — §8
+Toutes actées dans `docs/04-decisions.md` (2026-08-27).
+
+- [x] **D1** Formalisme **SFC** (Stock-Flux Cohérent)
+- [x] **D2** Ordre des jalons : **P0 → P2 → P1 → …**
+- [x] **D3** Périmètre : France seule + Reste du Monde agrégé
+- [x] **D4** Fréquence : **cœur annuel + sous-pas mensuel pour la fonte**
+      *(amendement : le mensuel complet est impossible, aucune donnée
+      mensuelle de PIB ni de patrimoine sectoriel n'existe)*
+- [x] **D5** Période : **1978–2023** pour le bloc réel+monétaire,
+      **1995–2023** pour le modèle complet
+      *(restriction : les comptes financiers par secteur démarrent en 1995)*
+- [x] **D6** IED : moyenne géométrique conservée
 
 ---
 
@@ -29,14 +31,27 @@ Priorités : **P0** bloquant · **P1** important · **P2** utile
 - [x] Rédiger `docs/01-economie-homeostatique.md`
 - [x] Rédiger `docs/02-strategie-modelisation.md`
 - [x] Rédiger `docs/03-protocole-rigueur.md` + schéma du registre
-- [ ] **P0** Environnement Python (`pyproject.toml`, versions figées)
-- [ ] **P0** Pipeline de données : `pandasdmx` → INSEE / BCE / Eurostat,
-      avec horodatage + SHA-256 de chaque série
-- [ ] **P0** `pytest` + intégration continue
-- [ ] **P0** Contrôle automatique du registre (fiche ⇄ code)
-- [ ] **P1** Vérifier les entrées `[À VÉRIFIER]` de
-      `scripts/ordre_grandeur_eh_france.py` sur données réelles
-      (population, PIB, M3 France, produits d'exploitation cumulés)
+- [x] **P0** Environnement Python (`pyproject.toml`)
+- [x] **P0** Clients de données INSEE / Eurostat / BCE
+      *(`pandasdmx` écarté : sa v1.10 ne parse pas les structures INSEE)*
+- [x] **P0** Cache reproductible : SHA-256 + horodatage + détection des
+      révisions de séries (`modele/donnees/cache.py`)
+- [x] **P0** `pytest` + intégration continue GitHub Actions
+- [x] **P0** Contrôle automatique du registre d'équations
+- [x] **P0** Audit de couverture des données
+      → `docs/annexes/couverture-donnees.md`
+- [x] **P1** PIB vérifié : 2 833,8 Md€ en 2023 (INSEE CNA-2020-PIB)
+- [ ] **P1** Vérifier les `[À VÉRIFIER]` restants de
+      `scripts/ordre_grandeur_eh_france.py` : population, M3 France,
+      produits d'exploitation cumulés des entreprises (**c'est `DTENT` qui
+      domine le total : c'est le chiffre le plus important à sourcer**)
+- [ ] **P2** Vérifier si la Banque de France publie des comptes financiers
+      par secteur **antérieurs à 1995**, et s'ils sont raccordables
+      (permettrait de remonter le modèle complet avant 1995 — cf. D5)
+- [ ] **P1** Estimer les blocs monétaires sur données mensuelles, puis
+      agréger vers le pas annuel (cf. D4)
+- [ ] **P1** Traiter les ruptures 1987 / 1993 / 1999 / 2008 / 2020 dans
+      toute estimation sur la période longue (cf. D5)
 
 ---
 

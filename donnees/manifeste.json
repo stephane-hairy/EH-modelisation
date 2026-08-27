@@ -1,0 +1,92 @@
+{
+  "bce_BSI_M-FR-N-A-A20-A-1-U2-2240-Z01-E.csv": {
+    "octets": 23462,
+    "recupere_le": "2026-08-27T08:40:04+00:00",
+    "revision": false,
+    "sha256": "1f8587fa4ef7776c6c4a7414142b936755c83cf99a7d79517f3da7182c7bf373",
+    "sha256_precedent": null,
+    "source": "BCE",
+    "url": "https://data-api.ecb.europa.eu/service/data/BSI/M.FR.N.A.A20.A.1.U2.2240.Z01.E?format=csvdata&detail=dataonly"
+  },
+  "bce_QSA_Q-N-FR-W0-S1M-S1-N-A-F-F2-T-_Z-XDC-_T-S-V-N-_T.csv": {
+    "octets": 12632,
+    "recupere_le": "2026-08-27T08:40:03+00:00",
+    "revision": false,
+    "sha256": "0ddf38f59785f753cb7b2941171e700a2e08d34f4b9917eef466bb37637494f4",
+    "sha256_precedent": null,
+    "source": "BCE",
+    "url": "https://data-api.ecb.europa.eu/service/data/QSA/Q.N.FR.W0.S1M.S1.N.A.F.F2.T._Z.XDC._T.S.V.N._T?format=csvdata&detail=dataonly"
+  },
+  "eurostat_env_ac_ainah_r2_FR-GHG-T-TOTAL.json": {
+    "octets": 3991,
+    "recupere_le": "2026-08-27T08:40:05+00:00",
+    "revision": false,
+    "sha256": "51f3d8b195295c63fc76bb0a3b4400019060efd4481ff245cbd1516176d157ae",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_ainah_r2?geo=FR&airpol=GHG&nace_r2=TOTAL&unit=T&format=JSON&lang=en"
+  },
+  "eurostat_env_ac_mfa_DMC-FR-THS_T-TOTAL.json": {
+    "octets": 4218,
+    "recupere_le": "2026-08-27T08:40:05+00:00",
+    "revision": false,
+    "sha256": "635ab13af47a83b5dcf7404d7736ada11f001c80837764d8d3c61f8ee87483e8",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_mfa?geo=FR&indic_env=DMC&material=TOTAL&unit=THS_T&format=JSON&lang=en"
+  },
+  "eurostat_env_air_gge_FR-GHG-MIO_T-TOTX4_MEMO.json": {
+    "octets": 4284,
+    "recupere_le": "2026-08-27T08:40:05+00:00",
+    "revision": false,
+    "sha256": "b77ae95a3b1aeb020fa935ecef4fe612c985a1f9bb3301f7ddcc94ad5ebc6b5f",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_air_gge?geo=FR&airpol=GHG&src_crf=TOTX4_MEMO&unit=MIO_T&format=JSON&lang=en"
+  },
+  "eurostat_env_air_gge_FR-GHG-MIO_T-TOTX4_MEMONIA.json": {
+    "octets": 3804,
+    "recupere_le": "2026-08-27T08:39:41+00:00",
+    "revision": false,
+    "sha256": "946c4c45b10f63930426724e0377323aaab0dde212b29bb2d829ac8348b22b63",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_air_gge?geo=FR&airpol=GHG&src_crf=TOTX4_MEMONIA&unit=MIO_T&format=JSON&lang=en"
+  },
+  "eurostat_nama_10_gdp_B1GQ-CP_MEUR-FR.json": {
+    "octets": 4897,
+    "recupere_le": "2026-08-27T08:39:58+00:00",
+    "revision": false,
+    "sha256": "70276a91803a6db6c3873db6c174e18907a0fe24a0ebff946611202110980963",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?geo=FR&na_item=B1GQ&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "insee_CNA-2014-TOF_A--S11--F4------.xml": {
+    "octets": 25199,
+    "recupere_le": "2026-08-27T08:40:02+00:00",
+    "revision": true,
+    "sha256": "c1060b5f7e88e7554a9d0cf112bad3b7d4b1fd22875e06b20d1a9721f21b4d78",
+    "sha256_precedent": "d94f95a8f9437c42bbde2d0a223fad271dfba3c6d48234c30cac5ebf3f21e542",
+    "source": "INSEE",
+    "url": "https://bdm.insee.fr/series/sdmx/data/CNA-2014-TOF/A..S11..F4......"
+  },
+  "insee_CNA-2020-PIB_------------------------------------------------------------------------------------------------------------------------------------A----PIB----EUROS_COURANTS--.xml": {
+    "octets": 155264,
+    "recupere_le": "2026-08-27T08:38:05+00:00",
+    "revision": false,
+    "sha256": "92dc07fad251349e4067c80b6cb3bc35981fe6b54aa44e73b12f3d9227b119ea",
+    "sha256_precedent": null,
+    "source": "INSEE",
+    "url": "https://bdm.insee.fr/series/sdmx/data/CNA-2020-PIB/....................................................................................................................................A....PIB....EUROS_COURANTS.."
+  },
+  "insee_CNA-2020-PIB_A----PIB-NNTOTAL---EUROS_COURANTS--.xml": {
+    "octets": 8819,
+    "recupere_le": "2026-08-27T08:39:58+00:00",
+    "revision": true,
+    "sha256": "2f577d26dd678add41358a271f1ee39791ddb3e2d4d3bdabba2b3264dfd1ab52",
+    "sha256_precedent": "893076fbec3b69c53767a6bd23d49c6283307ecf3c89c4fb9b08535f57d6a021",
+    "source": "INSEE",
+    "url": "https://bdm.insee.fr/series/sdmx/data/CNA-2020-PIB/A....PIB.NNTOTAL...EUROS_COURANTS.."
+  }
+}
