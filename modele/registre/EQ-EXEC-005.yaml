@@ -1,0 +1,60 @@
+id: EQ-EXEC-005
+nom: IED — agrégation des trois indicateurs (moyenne géométrique)
+description: >
+  Les trois indicateurs sont résumés en un seul nombre, l'IED, qui pilote
+  toute la création monétaire du pays. On prend leur moyenne géométrique
+  et non leur moyenne ordinaire : un indicateur catastrophique ne peut
+  donc pas être racheté par un excédent ailleurs. Contrepartie assumée :
+  si un seul indicateur tombe à zéro, l'IED s'annule et la création
+  monétaire s'arrête net.
+
+formule: "IED = (IBD × IEE × IRNR)^(1/3)"
+
+variables:
+  IBD:  {sens: "indicateur de biodiversité", unite: "sans dimension [0 ; 2]", source: "EQ-EXEC-003"}
+  IEE:  {sens: "indicateur d'empreinte écologique", unite: "sans dimension [0 ; 2]", source: "EQ-EXEC-002"}
+  IRNR: {sens: "indicateur de ressources non renouvelables", unite: "sans dimension [0 ; 2]", source: "EQ-EXEC-001"}
+
+parametres:
+  nb_indicateurs: {valeur: 3, intervalle: [2, 3], origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae, Synthèse v1.7, oct. 2020, §8.2"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Définit IED comme la moyenne géométrique des trois indicateurs EXEC."
+  - ref: "Décision D3 du dépôt — docs/04-decisions.md, D6"
+    doi_ou_url: "https://github.com/stephane-hairy/EH-modelisation/blob/main/docs/04-decisions.md"
+    ce_qu_elle_etablit: "Confirme le maintien de la moyenne géométrique, avec surveillance de son comportement près de zéro au jalon P5."
+
+sensibilite:
+  balayage: ["moyenne géométrique vs moyenne harmonique vs minimum", "avec IBD (3 indicateurs) vs sans IBD (2 indicateurs)", "IED lissé sur 3 ans vs brut"]
+  impact_attendu: >
+    L'écart IED / IED_sans_IBD vaut environ 0,15 point dans les années
+    1990 et devient négligeable après 2019. Le passage à la moyenne
+    harmonique ou au minimum durcirait fortement l'indicateur, l'empreinte
+    carbone étant de loin la plus dégradée des trois.
+
+limites: |
+  - PENTE TRÈS RAIDE PRÈS DE ZÉRO. La dérivée de la moyenne géométrique
+    par rapport à un indicateur tend vers l'infini quand cet indicateur
+    tend vers zéro. Combinée au mapping linéaire (EQ-EXEC-004), la
+    création monétaire du pays passe de « réduite » à « nulle » sans
+    transition. À examiner au jalon P5.
+  - CALCUL STRICT OBLIGATOIRE. Si un indicateur manque, l'IED vaut NaN.
+    Le rebouchage silencieux d'un indicateur manquant par une valeur
+    neutre produit un IED faussement flatteur — piège rencontré et
+    corrigé en cours de développement, verrouillé par le test
+    `test_ied_refuse_de_reboucher_un_indicateur_manquant`.
+  - PAS DE LISSAGE ni de terme dérivé à ce stade. La synthèse pilote la
+    monnaie sur la valeur instantanée de l'IED, c'est-à-dire un régulateur
+    purement proportionnel, alors que les délais écologiques sont de 3 à
+    10 ans. C'est exactement la configuration qui produit des oscillations
+    (Sterman 2000). À trancher au jalon P5.
+
+statut: brouillon
+maj: 2026-08-27

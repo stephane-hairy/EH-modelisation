@@ -227,3 +227,208 @@ périmètre des « entreprises » ; nature de `P` (comptable ou comptes
 nationaux) ; effet de la règle « moyenne des trois meilleures années »
 (biais haussier et cliquet) ; homogénéité dimensionnelle du terme
 `(e × DCIT) / ((r/e) × 10⁴)` et son comportement quand `r → 0`.
+
+---
+
+## 2026-08-27 — Session 3 : verrou DENT levé, indicateurs EXEC construits
+
+### Ce qui a été fait
+Les deux missions du prompt de reprise : **【A】** reconstruire DENT,
+**【B】** reconstituer les indicateurs EXEC de la France.
+
+---
+
+### 【A】 DENT — six défauts démontrés, pas argumentés
+
+La formule §11.1 `DENT = IED × P + (e × DCIT) / ((r/e) × 10⁴)` ne peut pas
+être utilisée telle quelle. Tout est reproductible
+(`scripts/analyse_dent.py`) et testé (`tests/test_dent.py`, 21 tests).
+
+1. **Elle n'est pas homogène.** Le second terme a la dimension d'un
+   **nombre de personnes au carré**, pas d'euros. On ne peut pas
+   l'additionner à `IED × P`. Le résultat tient pour les deux lectures
+   possibles du texte et pour les deux conventions sur la dimension
+   « personne » : le défaut est **structurel**, pas typographique.
+   La faute vient de la **division par `r/e`** ; le produit `e × DCIT`,
+   lui, était juste (c'est une masse salariale). C'est ce qui rend la
+   réparation possible.
+2. **On ne sait pas la lire.** Le PDF sort la formule en glyphes séparés
+   (`( r / e × 1 0 ⁴ )`). Les deux lectures diffèrent d'un facteur
+   **10⁸ exactement**. Le texte d'accompagnement (« *r* est divisé par le
+   nombre d'employé, **lui-même** multiplié par 10⁴ ») désigne plutôt la
+   lecture que le dépôt n'avait *pas* retenue. Sous la lecture A le terme
+   est négligeable partout (8 € pour 1 000 salariés) ; sous la lecture B
+   il dépasse la production entière dès ~70 salariés. Aucune des deux ne
+   réalise l'intention affichée.
+3. **Elle diverge en `r → 0`.** Une entreprise où le mieux payé gagne
+   exactement le revenu minimum reçoit un dividende **infini** — et le
+   signe bascule si ce salaire passe en dessous. La singularité est sur
+   le versant *vertueux* : incitation perverse.
+4. **Elle n'est pas définie pour 96 % des entreprises françaises.**
+   4 718 929 des 4 906 972 entreprises ont moins de 10 personnes
+   occupées, soit **1,17 personne par entreprise** (Eurostat
+   `sbs_sc_ovw` 2022) : pas de salarié, donc ni `e`, ni `r`. Le calcul
+   « entreprise par entreprise » que prescrit la synthèse est
+   **impossible** sur l'écrasante majorité du tissu français.
+5. **Elle explose avec la taille.** Le terme croît en `e²`, la production
+   en `e`.
+6. **Son assiette n'est pas additive.** La somme des chiffres d'affaires
+   compte plusieurs fois la même valeur. Conséquence vérifiable : deux
+   entreprises qui **fusionnent** font *baisser* la création monétaire du
+   pays ; une qui se **scinde** la fait monter. Il suffirait de
+   filialiser pour créer de la monnaie. La valeur ajoutée n'a pas ce
+   défaut (SEC 2010) : production des SNF 3 810 Md€ contre VA 1 481 Md€,
+   **rapport 2,57**.
+
+#### La règle « 3 meilleures années » : rétroaction positive + cliquet
+
+À porter au crédit de la synthèse : elle **anticipe partiellement**
+l'objection, en précisant que `P` est réactualisé « hors DENT ». Cela
+coupe bien la boucle *directe*.
+
+Mais pas la boucle **macro-économique** : le dividende de l'entreprise A
+devient le chiffre d'affaires de B. Exclure son propre dividende ne
+retire que `1/N` du flux — avec N = 4,9 millions d'entreprises, cela ne
+retire rien. La récurrence `P ← X₀ + α·IED·P` converge vers `X₀/(1−α)` :
+**×5 pour α = 0,8**, ×10 pour α = 0,9. À α = 1, la clause « hors DENT »
+est le seul frein restant et plafonne l'amplification à **4,9 millions de
+fois** : elle ne protège de rien.
+
+Effet cliquet mesuré : six ans de récession à −25 % ne font baisser la
+base de référence que de **11,3 %**. *Le thermostat continue de chauffer
+parce qu'il se souvient du meilleur été.*
+
+#### Trois alternatives proposées, non départagées
+
+Toutes homogènes, bornées, définies à `e = 0` et `r = 0`, monotones,
+proportionnelles à l'IED. Clé de la réparation : remplacer l'écart de
+salaire **en euros** (`r`) par un **rapport** `s = salaire_max / DCIT`,
+qui est un nombre pur.
+
+| | Formule | Corrige |
+|---|---|---|
+| `EQ-EH-002` | `IED × P × κ(s)` | défauts 1–5 |
+| `EQ-EH-003` | `IED × [(1−θ)·P + θ·e·DCIT·ψ(s)]` | 1–5, et garde les mots de la synthèse |
+| `EQ-EH-004` | `IED × VA × κ(s)` | 1–6, **y compris la filialisation** |
+
+Écart sur DTENT France : **facteur 7,9** (3 810 Md€ pour la §11.1, 480 Md€
+pour l'alternative 3). C'est bien la formule, et non la théorie EH, qui
+décide de l'ordre de grandeur.
+
+→ **Quatre décisions attendues : D7 assiette · D8 forme · D9 périmètre ·
+D10 base `P`.**
+
+---
+
+### 【B】 Indicateurs EXEC — livrés sur 1990–2021, et pas plus
+
+#### Le résultat le plus important est une absence
+
+Le cadrage demandait **1978–2023**. Livré : **1990–2021**. Ce n'est pas un
+manque de zèle, c'est un fait vérifié :
+
+| Série | Début |
+|---|---|
+| Flux de matières (Eurostat `env_ac_mfa`) | **1990** |
+| Empreinte carbone importations incluses (Global Carbon Project) | **1990** |
+| Oiseaux communs agricoles (Eurostat `env_bio2`) | **1990** |
+
+Les trois commencent en 1990, pour trois raisons indépendantes : les
+comptes de flux de matières français démarrent là ; le protocole STOC de
+comptage des oiseaux a été lancé en 1989 ; et les tableaux entrées-sorties
+mondiaux nécessaires au calcul des empreintes n'existent pas plus tôt.
+Combler 1978–1989 exigerait d'inventer douze années pour les trois
+indicateurs à la fois. **RÈGLE N°3 : on documente le trou.**
+
+Une seule action pourrait rouvrir la période : obtenir une **clé d'API du
+Global Footprint Network** (gratuite sur demande) — leurs comptes
+remontent à **1961**. Noté au `TODO.md` en P1.
+
+#### Ce qui a été construit
+
+- **IRNR** (`EQ-EXEC-001`) — matière non renouvelable par habitant
+  rapportée à 8 t/hab (Bringezu 2015). Point notable : **le recyclage y
+  compte positivement par construction**, puisque le DMC ne compte que la
+  matière vierge. Ajouter un bonus de recyclage aurait été un **double
+  comptage** — c'est le piège évité. La France passe de 10,9 à 7,8 t/hab
+  et traverse le seuil vers 2014.
+- **IEE** (`EQ-EXEC-002`) — ⚠️ **approximation assumée**. Le GFN exige une
+  clé (403 sans elle) ; on substitue l'empreinte **carbone** importations
+  incluses (Global Carbon Project, MRIO Eora), rapportée au budget 1,5 °C
+  du GIEC partagé par tête (2,13 tCO₂/hab). Grade C. La France est à
+  **2,9 fois le seuil** : c'est l'indicateur qui pilote tout.
+- **IBD** (`EQ-EXEC-003`) — ⚠️ **les données ne suffisent pas, et c'est le
+  résultat**. Seule série : oiseaux agricoles, −42 % de 1990 à 2021. Deux
+  limites rédhibitoires : **aucune dimension importations** (l'IBD est le
+  seul des trois à violer §14.1, et il la viole totalement), et une
+  **référence 1990 arbitraire** qui revient à décréter la France de 1990 à
+  l'équilibre — elle ne l'était pas, donc l'IBD est structurellement trop
+  optimiste. Plus une **rupture de série en 2000** (valeur 100,0 encadrée
+  par 69,5 et 72,7), retirée, et qui laisse un trou visible.
+  → Toutes les sorties publient l'IED **avec et sans IBD**.
+- **Mapping vers [0 ; 2]** (`EQ-EXEC-004`) — trois variantes.
+
+#### Le résultat
+
+**L'IED français reste entre 0,41 et 0,57 sur toute la période.** Sous
+l'EH, la France aurait vécu en permanence sous un régime de création
+monétaire réduite de moitié : **11 900 €/an par citoyen en 2021** au lieu
+de 22 000 €. L'amélioration existe mais est lente (+0,09 point en trente
+ans), portée par le carbone et les matières, freinée par la biodiversité.
+
+Graphique : `sorties/creation_monetaire_eh_france.png`. Il publie **une
+bande, pas un trait** — la part entreprises dépendant de DENT, non
+arbitrée. En 2021, la création totale va de **1 794 à 3 275 Md€**.
+
+#### Le mapping est LE choix structurant, et il n'est pas tranché
+
+À seuils identiques, pour la France 2021 :
+
+| Mapping | IED 2021 | Pente en x = 1 |
+|---|---:|---:|
+| linéaire `2 − x` | **0,00** | −1,00 |
+| hyperbolique `2/(1+x)` | **0,72** | −0,50 |
+| exponentiel `2^(1−x)` | **0,54** | −0,69 |
+
+Le mapping **linéaire annule** la création monétaire française : IEE = 0,
+donc la moyenne géométrique s'annule. Ce n'est pas un bug, c'est ce que
+cette règle normative affirme.
+
+Point qui engage la suite : **la pente au point d'équilibre est le gain du
+régulateur EH**. Elle varie d'un facteur 2 selon le mapping. Le mapping
+doit donc être arbitré **avant** l'analyse de stabilité du jalon P5, pas
+après.
+
+→ **Trois décisions attendues : D11 mapping · D12 sort de l'IBD ·
+D13 seuils.**
+
+---
+
+### Deux erreurs commises et corrigées
+
+Notées parce qu'elles sont instructives.
+
+1. **Erreur d'unité sur l'empreinte carbone.** Les émissions du Global
+   Carbon Project sont en *millions* de tonnes ; je les ai d'abord
+   divisées par la population sans conversion, ce qui donnait un IEE
+   constant à 2,00 — c'est-à-dire « la France est parfaitement
+   soutenable ». Un test verrouille désormais la conversion.
+2. **Rebouchage silencieux d'un indicateur manquant.** L'agrégation
+   ignorait les indicateurs absents. En 2023, l'empreinte carbone n'étant
+   pas encore publiée, l'IED affichait **1,06** — la France à l'équilibre
+   écologique — parce que l'indicateur le plus contraignant avait
+   simplement disparu du calcul. Le calcul est désormais **strict** : un
+   indicateur absent donne `NaN`. Test :
+   `test_ied_refuse_de_reboucher_un_indicateur_manquant`.
+
+La leçon est la même dans les deux cas : **les bugs de ce projet ne font
+pas planter le programme, ils rendent la France plus verte qu'elle n'est.**
+Ils doivent être cherchés activement, pas attendus.
+
+### Correctif technique
+`pyproject.toml` ne déclarait pas ses paquets : `pip install -e .` échouait
+(`Multiple top-level packages discovered in a flat-layout`). Corrigé.
+
+### État
+`python -m pytest -q` : **64 tests verts**. Registre : **conforme**
+(11 fiches). Sept décisions attendues : **D7–D13**.

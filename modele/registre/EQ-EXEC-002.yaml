@@ -1,0 +1,65 @@
+id: EQ-EXEC-002
+nom: IEE — indicateur d'empreinte écologique, importations incluses
+description: >
+  Combien de CO₂ la consommation des Français provoque-t-elle dans le
+  monde entier — y compris celui émis en Chine pour fabriquer ce qu'ils
+  achètent — comparé au budget carbone soutenable par personne ? Le
+  rapport est transformé en une note entre 0 et 2.
+  ⚠️ Ce n'est PAS l'empreinte écologique en hectares globaux demandée par
+  la synthèse : c'est sa composante carbone, faute d'accès à la donnée
+  d'origine.
+
+formule: "IEE = mapping( CO2_empreinte_par_habitant / budget_soutenable )"
+
+variables:
+  CO2_empreinte: {sens: "émissions de CO₂ liées à la consommation (importations incluses, exportations déduites)", unite: "tonnes CO₂/habitant/an", source: "Global Carbon Project, MRIO Eora"}
+  budget:        {sens: "budget carbone annuel soutenable par personne", unite: "tonnes CO₂/habitant/an", source: "GIEC AR6 WG1, tableau SPM.2"}
+
+parametres:
+  budget_1_5C_Gt:   {valeur: 500.0, intervalle: [300.0, 900.0], origine: design}
+  horizon_ans:      {valeur: 30.0, intervalle: [20.0, 50.0], origine: design}
+  seuil_t_hab:      {valeur: 2.13, intervalle: [1.0, 4.0], origine: design}
+  mapping:          {valeur: "exponentiel", intervalle: null, origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae, Synthèse v1.7, oct. 2020, §8.2 et §14.1"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Exige que l'empreinte écologique inclue les importations. N'en donne aucune formule."
+  - ref: "Global Carbon Project, Global Carbon Budget 2024 — émissions basées sur la consommation, France, 1990-2022"
+    doi_ou_url: "https://doi.org/10.5194/essd-17-965-2025"
+    ce_qu_elle_etablit: "Émissions de CO₂ importations incluses, calculées par tableau entrées-sorties multirégional (Eora) — même famille de méthode qu'EXIOBASE."
+  - ref: "GIEC (2021), AR6 WG1, Résumé pour décideurs, tableau SPM.2"
+    doi_ou_url: "https://doi.org/10.1017/9781009157896.001"
+    ce_qu_elle_etablit: "500 GtCO₂ de budget restant au 1er janvier 2020 pour 50 % de chance de limiter le réchauffement à 1,5 °C."
+
+sensibilite:
+  balayage: ["seuil de 1 à 4 tCO₂/hab", "budget 1,5 °C vs 2 °C", "horizon 20 à 50 ans", "mapping linéaire / hyperbolique / exponentiel", "empreinte (importations incluses) vs territorial"]
+  impact_attendu: >
+    DÉCISIF, et c'est l'indicateur qui pilote l'IED français. La France
+    est à ~2,9 fois le seuil en 2022. Selon le mapping, IEE vaut 0,00
+    (linéaire), 0,51 (hyperbolique) ou 0,27 (exponentiel) : le mapping
+    linéaire annule à lui seul toute la création monétaire du pays.
+
+limites: |
+  - CE N'EST PAS L'EMPREINTE ÉCOLOGIQUE DEMANDÉE. La synthèse renvoie au
+    Global Footprint Network (hectares globaux, comparés à la
+    biocapacité). Son API exige une clé nominative et répond 403 sans
+    elle. On substitue l'empreinte CARBONE, composante dominante mais
+    partielle. Grade C. À remplacer dès qu'une clé est obtenue.
+  - CE QUE L'APPROXIMATION PERD : usage des sols, eau douce, pêche,
+    surface forestière, et toute notion de biocapacité disponible.
+  - LE PARTAGE ÉGALITAIRE PAR TÊTE EST UN CHOIX POLITIQUE. Il ignore les
+    émissions historiques (qui pénaliseraient la France) et les capacités
+    de réduction. D'autres clés de partage donnent de 1 à 4 t/hab.
+  - PUBLICATION RETARDÉE DE DEUX ANS : la série s'arrête en 2022. C'est
+    la contrainte qui borne la fin de la courbe.
+  - AUCUNE DONNÉE AVANT 1990 : les tableaux entrées-sorties mondiaux
+    nécessaires n'existent pas plus tôt.
+
+statut: brouillon
+maj: 2026-08-27

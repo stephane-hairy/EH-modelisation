@@ -1,0 +1,65 @@
+id: EQ-EXEC-001
+nom: IRNR — indicateur de ressources non renouvelables
+description: >
+  Combien de matière non renouvelable (minerais, minéraux, énergies
+  fossiles) un Français consomme-t-il en un an, comparé à ce qu'on juge
+  soutenable ? Le rapport des deux est transformé en une note entre 0 et
+  2, où 1 signifie « exactement soutenable ». La biomasse, renouvelable,
+  est exclue. Le recyclage fait baisser l'indicateur sans qu'on ajoute
+  de bonus, parce que la donnée utilisée ne compte que la matière vierge.
+
+formule: "IRNR = mapping( DMC_non_renouvelable_par_habitant / seuil )"
+
+variables:
+  DMC_nr: {sens: "consommation intérieure de matières non renouvelables (MF2 minerais métalliques + MF3 minéraux non métalliques + MF4 énergies fossiles)", unite: "tonnes/habitant/an", source: "Eurostat env_ac_mfa"}
+  seuil:  {sens: "consommation jugée soutenable", unite: "tonnes/habitant/an", source: "Bringezu (2015)"}
+
+parametres:
+  seuil_t_hab: {valeur: 8.0, intervalle: [6.0, 12.0], origine: design}
+  mapping:     {valeur: "exponentiel", intervalle: null, origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae, Synthèse v1.7, oct. 2020, §8.2 et §14.1"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Exige un indicateur valant 1 à l'équilibre, borné sur [0 ; 2] — mais n'en donne AUCUNE formule. Celle-ci a été créée pour ce projet."
+  - ref: "Eurostat, Material flow accounts (env_ac_mfa), France, 1990-2024"
+    doi_ou_url: "https://ec.europa.eu/eurostat/databrowser/view/env_ac_mfa"
+    ce_qu_elle_etablit: "Consommation intérieure de matières par catégorie, en poids. Le DMC ne compte que la matière vierge : le recyclage y est donc déjà crédité."
+  - ref: "Bringezu, S. (2015), Possible target corridor for sustainable use of global material resources, Resources 4(1), 25-54"
+    doi_ou_url: "https://doi.org/10.3390/resources4010025"
+    ce_qu_elle_etablit: "Propose un corridor cible d'usage soutenable des matières abiotiques par habitant. C'est un corridor, pas un point : d'où l'intervalle 6-12 t."
+
+sensibilite:
+  balayage: ["seuil de 6 à 12 t/hab", "mapping linéaire / hyperbolique / exponentiel", "DMC (territorial, 1990-2024) vs RMC (empreinte, 2008-2025)", "inclusion ou non des minéraux non métalliques MF3"]
+  impact_attendu: >
+    Le seuil déplace l'indicateur proportionnellement. Le mapping est plus
+    structurant : à ratio 1,0 (France 2022), les trois mappings donnent
+    respectivement 1,03 / 1,01 / 1,02 — proches ici, mais ils divergent
+    fortement dès que le ratio s'éloigne de 1. MF3 (sable, granulats) pèse
+    à lui seul 79 % du total non renouvelable français : l'inclure ou non
+    change tout.
+
+limites: |
+  - MESURE TERRITORIALE, PAS EMPREINTE. Le DMC compte le poids des biens
+    importés, pas la matière remuée à l'étranger pour les produire. La
+    France, gros importateur, est donc flattée. L'empreinte matières
+    (RMC) corrige cela mais n'existe que depuis 2008 : elle est fournie
+    en variante de contrôle, pas en série principale.
+  - LE POIDS N'EST PAS L'IMPACT. Une tonne de sable et une tonne
+    d'uranium comptent pareil. C'est la faiblesse reconnue de tous les
+    indicateurs de flux de matières.
+  - MF3 DOMINE. Les minéraux non métalliques (essentiellement les
+    granulats du bâtiment) font 79 % du total. L'indicateur mesure donc
+    surtout l'activité du BTP français — ce qui n'est pas ce qu'on
+    entend spontanément par « ressources non renouvelables ».
+  - AUCUNE DONNÉE AVANT 1990. Les comptes de flux de matières français
+    commencent là. Le trou 1978-1989 n'est pas comblé (RÈGLE N°3).
+  - Le seuil de 8 t/hab est un choix normatif, pas un fait observé.
+
+statut: brouillon
+maj: 2026-08-27

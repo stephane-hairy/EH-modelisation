@@ -1,0 +1,78 @@
+# ⚠️ FICHE LA PLUS FRAGILE DU REGISTRE. Lire les limites avant l'usage.
+id: EQ-EXEC-003
+nom: IBD — indicateur de biodiversité (bouche-trou documenté)
+description: >
+  On voudrait mesurer l'état de la biodiversité française. On ne le peut
+  pas : aucune série nationale d'état de la biodiversité, toutes espèces
+  et tous milieux, n'existe en accès ouvert. On utilise donc l'indice des
+  oiseaux communs des milieux agricoles — un seul taxon, un seul milieu —
+  rapporté à son niveau de 1990.
+  ⚠️ Ce n'est PAS une mesure de la biodiversité. C'est un bouche-trou
+  explicite, publié pour montrer le trou, pas pour le combler.
+
+formule: "IBD = mapping( indice_oiseaux(1990) / indice_oiseaux(année) )"
+
+variables:
+  indice_oiseaux: {sens: "indice des oiseaux communs des milieux agricoles, France", unite: "base 2000 = 100", source: "Eurostat env_bio2 (PECBMS / STOC)"}
+
+parametres:
+  annee_reference: {valeur: 1990, intervalle: [1990, 2000], origine: design}
+  mapping:         {valeur: "exponentiel", intervalle: null, origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae, Synthèse v1.7, oct. 2020, §8.2"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Exige un indicateur de biodiversité valant 1 à l'équilibre et borné sur [0 ; 2]. N'en donne aucune formule et ne dit pas ce qu'est l'équilibre."
+  - ref: "Eurostat, Common farmland bird index (env_bio2), France, 1990-2021"
+    doi_ou_url: "https://ec.europa.eu/eurostat/databrowser/view/env_bio2"
+    ce_qu_elle_etablit: "Seule série d'état de la biodiversité française disponible par API sur 30 ans. Recul de 93 à 54 entre 1990 et 2021, soit -42 %."
+  - ref: "IPBES (2019), Global Assessment Report on Biodiversity and Ecosystem Services"
+    doi_ou_url: "https://doi.org/10.5281/zenodo.3831673"
+    ce_qu_elle_etablit: "Établit qu'aucun indicateur unique ne résume l'état de la biodiversité, et que les pressions dominantes (usage des sols, exploitation directe) s'exercent largement hors des frontières du pays consommateur."
+
+sensibilite:
+  balayage: ["année de référence 1990 à 2000", "mapping linéaire / hyperbolique / exponentiel", "avec et sans IBD dans l'IED (colonne IED_sans_IBD publiée systématiquement)"]
+  impact_attendu: >
+    Le choix de l'année de référence déplace tout l'indicateur : prendre
+    2000 au lieu de 1990 rendrait la France artificiellement meilleure.
+    L'écart entre IED et IED_sans_IBD, publié dans toutes les sorties,
+    mesure exactement ce que ce maillon faible fait au résultat : environ
+    +0,15 sur l'IED des années 1990, quasi nul à partir de 2019.
+
+limites: |
+  ⚠️ DEUX LIMITES RÉDHIBITOIRES, à citer dans toute publication :
+
+  1. AUCUNE DIMENSION IMPORTATIONS. La déforestation provoquée à
+     l'étranger par la consommation française (soja, huile de palme,
+     bois) n'y figure pas du tout. C'est pourtant l'exigence centrale de
+     la synthèse (§14.1). L'IBD est le SEUL des trois indicateurs à
+     violer cette exigence, et il la viole totalement.
+  2. RÉFÉRENCE GLISSANTE. Prendre 1990 pour référence revient à décréter
+     que la France de 1990 était à l'équilibre écologique. Elle ne
+     l'était pas — le déclin des oiseaux agricoles avait déjà des
+     décennies. L'IBD est donc structurellement TROP OPTIMISTE, d'un
+     facteur inconnu et non estimable avec les données disponibles.
+
+  Trois limites supplémentaires :
+  3. UN TAXON, UN MILIEU. Rien sur les sols, les insectes, le milieu
+     marin, les forêts, l'eau douce, ni l'outre-mer.
+  4. RUPTURE DE SÉRIE EN 2000. La valeur publiée (100,0) est encadrée par
+     69,5 et 72,7 : un bond de +40 % suivi d'une chute équivalente n'a
+     aucun sens biologique. C'est un artefact de raccordement. L'année est
+     retirée, et laisse un trou VISIBLE dans les sorties.
+  5. SÉRIE ARRÊTÉE EN 2021.
+
+  CONCLUSION HONNÊTE : les données ne suffisent pas à construire un IBD
+  sérieux. Conformément à la RÈGLE N°3, on le dit plutôt que de combler
+  au jugé. Trois issues sont ouvertes, aucune n'étant tranchée :
+  approximation documentée (l'état actuel), paramètre libre balayé, ou
+  retrait de l'IBD de l'IED (la colonne IED_sans_IBD existe pour cela).
+  Voir docs/06-indicateurs-exec.md §4.
+
+statut: brouillon
+maj: 2026-08-27

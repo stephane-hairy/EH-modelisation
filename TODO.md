@@ -43,22 +43,36 @@ Toutes actées dans `docs/04-decisions.md` (2026-08-27).
 - [x] **P1** PIB vérifié : 2 833,8 Md€ en 2023 (INSEE CNA-2020-PIB)
 - [x] **P1** Production des SNF 2023 sourcée : 3 810 Md€
       (Eurostat `nasa_10_nf_tr`, série depuis 1971)
-- [!] **P0 VERROU — la formule DENT est à reconstruire.**
-      Son auteur indique (2026-08-27) qu'elle a été construite « au doigt
-      mouillé ». Or DTENT pèse **plus de la moitié** de la création
-      monétaire totale : cette formule décide seule de l'essentiel des
-      résultats. Le calcul d'ordre de grandeur publie désormais une
-      fourchette, pas un point. À traiter avant tout résultat chiffré :
-  - [ ] Clarifier le périmètre « entreprise » (SNF seules ? sociétés
-        financières ? entrepreneurs individuels ? micro-entreprises ?)
-  - [ ] Clarifier `P` : produit d'exploitation comptable ou production au
-        sens des comptes nationaux ? Effet de la règle « moyenne des trois
-        meilleures années » (biais à la hausse, et cliquet)
-  - [ ] Examiner la dimension de `(e × DCIT) / ((r/e) × 10⁴)` : le terme
-        est-il homogène à des euros ? Que vaut-il quand `r → 0` (aucun
-        écart de salaire) — division par zéro ?
-  - [ ] Proposer une ou plusieurs formules alternatives explicites,
-        chacune fichée en catégorie **D** avec plan de sensibilité
+- [x] **P0 — la formule DENT a été analysée, et trois alternatives proposées**
+      → `docs/05-dent.md` · `scripts/analyse_dent.py` · `tests/test_dent.py`
+  - [x] **Périmètre chiffré** : SNF 3 810 Md€ / +finance 4 098 /
+        +entrepreneurs individuels 4 614 / marchand total 5 310
+        (Eurostat 2023) → **±39 %**, soit 1 500 Md€. Et **96 % des
+        entreprises françaises n'ont pas de salarié** (1,17 personne par
+        entreprise dans la classe 0–9, Eurostat `sbs_sc_ovw` 2022) : la
+        formule §11.1 n'y est **pas définie**
+  - [x] **`P` clarifié** : le vrai problème n'est pas « comptable vs
+        comptes nationaux », c'est que **la somme des chiffres d'affaires
+        n'est pas additive** — deux entreprises qui fusionnent font
+        baisser la création monétaire du pays. VA des SNF 1 481 Md€
+        contre production 3 810 Md€ : **rapport 2,57**
+  - [x] **Dimension examinée** : le terme vaut **[personnes²]**, pas des
+        euros, et ce pour les DEUX lectures possibles du PDF — lesquelles
+        diffèrent entre elles d'un facteur **10⁸**. Diverge en `r → 0`
+        (dividende infini pour l'entreprise parfaitement égalitaire)
+  - [x] **Cliquet et rétroaction positive démontrés** : amplification ×5
+        pour α = 0,8 ; la clause « hors DENT » ne retire que 1/N du flux,
+        donc ne protège de rien → fiche `EQ-EH-005`
+  - [x] **Trois alternatives** fichées en catégorie D avec plan de
+        sensibilité : `EQ-EH-002` multiplicative · `EQ-EH-003` deux termes
+        homogènes · `EQ-EH-004` valeur ajoutée. Écart **7,9×** sur DTENT
+- [?] **D7–D10 — quatre décisions attendues de Stéphane** (`docs/05-dent.md` §8)
+      ⚠️ Tant qu'elles ne sont pas prises, **aucun résultat quantitatif sur
+      la masse monétaire en EH n'est publiable**.
+  - [?] **D7 assiette** : production ou valeur ajoutée (facteur 2,6)
+  - [?] **D8 forme** : alternative 1, 2, 3, ou combinaison
+  - [?] **D9 périmètre** : SNF / +finance / +entrepreneurs individuels
+  - [?] **D10 base `P`** : 3 meilleures années / moyenne glissante / exogène
 - [ ] **P1** Vérifier les `[À VÉRIFIER]` restants de
       `scripts/ordre_grandeur_eh_france.py` : population, contribution
       française à M3, vitesse de circulation
@@ -72,24 +86,48 @@ Toutes actées dans `docs/04-decisions.md` (2026-08-27).
 
 ---
 
-## Jalon P2 ⭐ — Indicateurs EXEC historiques (France 1995–2023)
+## Jalon P2 ⭐ — Indicateurs EXEC historiques (France **1990–2021**)
 
-*Livrable phare : « quelle création monétaire l'EH aurait-elle donnée à la
-France depuis 1995 ? »*
+*Livrable phare, LIVRÉ* → `docs/06-indicateurs-exec.md`,
+`sorties/creation_monetaire_eh_france.png`
 
-- [!] **P0 VERROU** Définir une formule calculable pour **IEE**
-      (empreinte écologique, importations incluses) bornée sur [0 ; 2]
-- [!] **P0 VERROU** Idem pour **IRNR** (ressources non renouvelables)
-- [!] **P0 VERROU** Idem pour **IBD** (biodiversité) — *le plus difficile,
-      les données peuvent ne pas suffire*
-- [ ] **P0** Choisir et justifier le **mapping vers [0 ; 2]**
-      (linéaire / log / plafonné) — décision structurante
-- [ ] **P1** Récupérer : Global Footprint Network, Eurostat AEA + MFA,
-      EXIOBASE (empreinte importations), ONB / INPN / Living Planet Index
-- [ ] **P1** Calculer IBD, IEE, IRNR, IED — série annuelle 1995–2023
-- [ ] **P1** Calculer DETA / DTCIT / DCIT / DTENT / DG_FR sur la période
-- [ ] **P1** Graphique + note méthodologique
-- [ ] **P2** Sensibilité au mapping et aux seuils de soutenabilité
+⚠️ **Période réduite, et c'est irréductible.** Le cadrage demandait
+1978–2023. Les trois séries écologiques françaises **commencent toutes en
+1990** (flux de matières, protocole STOC pour les oiseaux, tableaux
+entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
+
+- [x] **IEE** défini et calculé → `EQ-EXEC-002`. ⚠️ **Approximation** :
+      empreinte **carbone** importations incluses (Global Carbon Project,
+      MRIO Eora) et non empreinte écologique GFN — l'API du GFN exige une
+      clé nominative (403 sans elle). Grade C
+- [x] **IRNR** défini et calculé → `EQ-EXEC-001`. Le recyclage y compte
+      positivement **par construction** (le DMC ne compte que la matière
+      vierge) : ajouter un bonus serait un double comptage
+- [x] **IBD** — ⚠️ **les données ne suffisent pas, et c'est le résultat**.
+      Seule série : oiseaux communs agricoles 1990–2021, un taxon, un
+      milieu, **aucune dimension importations** (viole §14.1), référence
+      1990 arbitraire. Bouche-trou documenté → `EQ-EXEC-003`.
+      Toutes les sorties publient l'IED **avec et sans IBD**
+- [x] **Mapping vers [0 ; 2]** : trois variantes implémentées et testées
+      → `EQ-EXEC-004`. **Non tranché** : voir D11
+- [x] Séries récupérées par script, avec cache SHA-256
+      (`modele/donnees/ecologie.py`, `modele/donnees/comptes.py`)
+- [x] IBD, IEE, IRNR, IED calculés 1990–2021 → `donnees/traite/exec_france.csv`
+- [x] DETA / DTCIT / DCIT / DTENT / DG_FR calculés
+      → `donnees/traite/creation_monetaire_eh.csv`
+- [x] **Graphique** + note méthodologique
+- [x] Sensibilité au mapping publiée dans `scripts/construire_exec.py`
+- [?] **D11–D13 — trois décisions attendues** (`docs/06-indicateurs-exec.md` §6)
+  - [?] **D11 mapping** : linéaire / hyperbolique / exponentiel.
+        IED 2021 de **0,00 à 0,72**. Fixe aussi le gain de boucle du P5
+  - [?] **D12 sort de l'IBD** : garder en grade C / paramètre libre / retirer
+  - [?] **D13 seuils** : carbone 1–4 t/hab · matières 6–12 t/hab
+- [ ] **P1** Demander une **clé d'API Global Footprint Network** (gratuite).
+      C'est la seule action qui pourrait rouvrir la période 1978–1989 :
+      les comptes GFN remontent à **1961**
+- [ ] **P2** Instrumenter EXIOBASE (empreinte matières et sols, 1995–2022)
+- [ ] **P2** Chercher une empreinte biodiversité importations incluses
+      (Chaudhary & Kastner) — seule voie pour un IBD conforme à §14.1
 
 ---
 
@@ -156,8 +194,10 @@ France depuis 1995 ? »*
 ## Questions ouvertes à documenter (issues de la synthèse)
 
 - [ ] Taux de change : « à développer » (§15) — bloquant pour l'ouverture
-- [ ] Réactualisation de `P` dans DENT tous les 3 ans sur les meilleures
-      années → rétroaction **positive** cachée dans un modèle qui les refuse
+- [x] Réactualisation de `P` dans DENT sur les meilleures années →
+      rétroaction positive **confirmée et chiffrée** (×5 pour α = 0,8),
+      plus un effet cliquet (six ans de récession à −25 % ne font baisser
+      la base que de 11 %) → `EQ-EH-005`, `docs/05-dent.md` §6
 - [ ] Niveau des prix : la §10.1 affirme l'absence d'hyperinflation sans le
       démontrer — cf. calcul d'ordre de grandeur (16 × M3 actuel)
 - [ ] Psychologie économique : « à développer » (§20)

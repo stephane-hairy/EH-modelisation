@@ -14,11 +14,16 @@ venv/
 .pytest_cache/
 .ipynb_checkpoints/
 
-# Sorties
+# Sorties (régénérables par script)
 sorties/
 *.png
 *.pdf
 !sources/*.pdf
+
+# Exception : le graphique phare du jalon P2. Il est régénérable
+# (scripts/courbe_creation_monetaire.py) mais c'est LE livrable : il doit
+# être visible sur GitHub sans rien exécuter.
+!sorties/creation_monetaire_eh_france.png
 
 # Métadonnées de build
 *.egg-info/

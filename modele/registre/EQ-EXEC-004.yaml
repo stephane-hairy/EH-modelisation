@@ -1,0 +1,63 @@
+id: EQ-EXEC-004
+nom: Mapping des pressions vers l'intervalle [0 ; 2]
+description: >
+  Comment traduire « la France consomme 2,9 fois le budget carbone
+  soutenable » en une note entre 0 et 2 ? Trois règles également
+  défendables donnent des réponses radicalement différentes : 0,00, 0,51
+  ou 0,27. Ce choix, invisible dans les formules de la synthèse, décide
+  de la dynamique entière du modèle. Il est donc isolé dans sa propre
+  fiche.
+
+formule: "I = M1: clip(2−x, 0, 2)  |  M2: 2/(1+x^β)  |  M3: 2^(1−x)"
+
+variables:
+  x: {sens: "pression mesurée divisée par le seuil soutenable", unite: "sans dimension", source: "fiches EQ-EXEC-001 à 003"}
+  I: {sens: "indicateur EXEC", unite: "sans dimension, borné [0 ; 2]", source: "synthèse EH §8.2"}
+
+parametres:
+  variante: {valeur: "exponentiel", intervalle: null, origine: design}
+  beta:     {valeur: 1.0, intervalle: [0.5, 4.0], origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae, Synthèse v1.7, oct. 2020, §8.2"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Impose que les indicateurs valent 1 à l'équilibre et soient bornés sur [0 ; 2]. Ne dit RIEN de la façon d'y arriver : le mapping est entièrement à créer."
+  - ref: "Sterman, J. (2000), Business Dynamics, ch. 17 — gain de rétroaction et stabilité"
+    doi_ou_url: "https://www.worldcat.org/isbn/9780072389159"
+    ce_qu_elle_etablit: "La pente du capteur autour du point de consigne EST le gain de la boucle : c'est elle qui décide si le régulateur converge, oscille ou diverge. Un mapping n'est donc pas un habillage, c'est un paramètre de commande."
+
+sensibilite:
+  balayage: ["linéaire / hyperbolique / exponentiel", "beta de 0,5 à 4 pour l'hyperbolique", "pente au point d'équilibre (gain de la boucle) : -1,0 / -0,5 / -0,69"]
+  impact_attendu: >
+    DÉCISIF. Pour la France 2022 (ratio carbone 2,90) : IED = 0,00
+    (linéaire), 0,72 (hyperbolique), 0,52 (exponentiel). Le mapping
+    linéaire annule la création monétaire du pays ; les deux autres non.
+    Les pentes en x = 1 valent respectivement -1,00, -0,50 et -0,69 :
+    c'est le gain de la boucle EXEC → monnaie, donc l'entrée directe de
+    l'analyse de stabilité du jalon P5.
+
+limites: |
+  - AUCUN DES TROIS N'EST « LE BON ». Ce sont trois affirmations
+    normatives différentes sur ce que mérite un pays qui dépasse le seuil.
+    Le linéaire dit « à deux fois le seuil, plus rien » ; l'hyperbolique
+    dit « on réduit fort mais on ne coupe jamais » ; l'exponentiel dit
+    « chaque dépassement d'une unité divise par deux ».
+  - LE LINÉAIRE EST DISCONTINU EN DÉRIVÉE au point d'écrêtage, et il
+    atteint zéro. Combiné à la moyenne géométrique (décision D6), zéro
+    sur un seul indicateur annule TOUTE la création monétaire. Pour la
+    France, ce n'est pas un cas limite : c'est le cas observé.
+  - CONSÉQUENCE POUR LE JALON P5. La pente du mapping en x = 1 est le
+    gain proportionnel du régulateur EH. Choisir le mapping, c'est
+    choisir le gain — donc décider par avance si la boucle est stable.
+    Le mapping doit être arbitré AVANT l'analyse de stabilité, pas après.
+  - Le comportement pour x < 1 (pays sous le seuil) n'est contraint par
+    aucune donnée : aucun pays riche n'y est. La partie [1 ; 2] de
+    l'intervalle est donc entièrement spéculative.
+
+statut: brouillon
+maj: 2026-08-27
