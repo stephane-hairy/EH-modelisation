@@ -39,18 +39,37 @@ Tables produit × produit (`pxp`), 1995–2024, 49 régions, 200 produits."""
 EXTENSIONS_INUTILES = ("nutrients", "water", "Satellite Accounts_copy",
                        "employment", "energy_use")
 
-# Repères indépendants, pour vérifier que le calcul est crédible.
-REPERES = {
-    2020: {
-        "population": 67.571e6,          # Eurostat demo_gind
-        "co2_gcp_t_hab": 5.69,           # Global Carbon Project (MRIO Eora)
-        "dmc_nr_eurostat_t_hab": 7.50,   # Eurostat env_ac_mfa, TERRITORIAL
-    },
-}
+ANNEES_TESTABLES = (2019, 2020)
+"""Années pour lesquelles les repères de comparaison existent.
+
+⚠️ **La population n'est pas codée en dur, et ce n'est pas un détail.**
+Une première version comparait l'empreinte EXIOBASE (divisée par la
+population Eurostat, 67,6 M) au DMC d'Eurostat (divisé par la population
+OWID du modèle, 65,9 M). Les deux mesures ne portaient donc pas sur la
+même France, et l'écart annoncé était faussé de 2,5 %. On lit désormais
+la population et les repères **depuis le modèle lui-même**."""
 
 
 def fr(x: float, dec: int = 2) -> str:
     return f"{x:,.{dec}f}".replace(",", " ").replace(".", ",")
+
+
+def reperes(annee: int) -> dict[str, float]:
+    """Population et repères de comparaison, lus depuis le modèle.
+
+    Garantit que l'empreinte EXIOBASE et les mesures territoriales
+    auxquelles on la compare sont rapportées à la MÊME population.
+    """
+    from modele.exec.serie_france import construire
+    from modele.donnees.ecologie import co2_empreinte, population
+
+    table, _ = construire()
+    pop = co2_empreinte()["population"].combine_first(population()).dropna()
+    return {
+        "population": float(pop.loc[annee]),
+        "co2_gcp_t_hab": float(table.loc[annee, "co2_empreinte_t_hab"]),
+        "dmc_nr_eurostat_t_hab": float(table.loc[annee, "matiere_nr_t_hab"]),
+    }
 
 
 def telecharger(annee: int, dossier: Path) -> Path:
@@ -100,7 +119,7 @@ def main(annee: int, dossier: Path) -> None:
     ex.calc_all()          # inversion de Leontief + comptes d'empreinte
     t_calcul = time.time() - t1
 
-    rep = REPERES[annee]
+    rep = reperes(annee)
     pop = rep["population"]
 
     print(f"\n{'=' * 74}\nFRANCE {annee} — EMPREINTE DE CONSOMMATION "
@@ -129,6 +148,8 @@ def main(annee: int, dossier: Path) -> None:
     print(f"\n    ↳ Eurostat DMC, mesure TERRITORIALE : {fr(terr, 2)} t/hab")
     print(f"    ⚠️  **L'IRNR actuel sous-estime de {fr(100 * (nr_hab / terr - 1), 0)} %** — "
           f"c'est le biais\n       d'importation, jusqu'ici signalé mais non chiffré.")
+    print(f"       (mesuré sur la même population que le modèle : "
+          f"{fr(pop / 1e6, 1)} M habitants)")
 
     co2_hab = empreinte(ex, "air_emissions", "CO2") / 1e3 / pop
     gcp = rep["co2_gcp_t_hab"]
@@ -150,7 +171,8 @@ def main(annee: int, dossier: Path) -> None:
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--annee", type=int, default=2020, choices=list(REPERES))
+    p.add_argument("--annee", type=int, default=2020,
+                   choices=list(ANNEES_TESTABLES))
     p.add_argument("--dossier", type=Path,
                    default=Path("donnees/brut/exiobase"))
     a = p.parse_args()
