@@ -41,10 +41,27 @@ Toutes actées dans `docs/04-decisions.md` (2026-08-27).
 - [x] **P0** Audit de couverture des données
       → `docs/annexes/couverture-donnees.md`
 - [x] **P1** PIB vérifié : 2 833,8 Md€ en 2023 (INSEE CNA-2020-PIB)
+- [x] **P1** Production des SNF 2023 sourcée : 3 810 Md€
+      (Eurostat `nasa_10_nf_tr`, série depuis 1971)
+- [!] **P0 VERROU — la formule DENT est à reconstruire.**
+      Son auteur indique (2026-08-27) qu'elle a été construite « au doigt
+      mouillé ». Or DTENT pèse **plus de la moitié** de la création
+      monétaire totale : cette formule décide seule de l'essentiel des
+      résultats. Le calcul d'ordre de grandeur publie désormais une
+      fourchette, pas un point. À traiter avant tout résultat chiffré :
+  - [ ] Clarifier le périmètre « entreprise » (SNF seules ? sociétés
+        financières ? entrepreneurs individuels ? micro-entreprises ?)
+  - [ ] Clarifier `P` : produit d'exploitation comptable ou production au
+        sens des comptes nationaux ? Effet de la règle « moyenne des trois
+        meilleures années » (biais à la hausse, et cliquet)
+  - [ ] Examiner la dimension de `(e × DCIT) / ((r/e) × 10⁴)` : le terme
+        est-il homogène à des euros ? Que vaut-il quand `r → 0` (aucun
+        écart de salaire) — division par zéro ?
+  - [ ] Proposer une ou plusieurs formules alternatives explicites,
+        chacune fichée en catégorie **D** avec plan de sensibilité
 - [ ] **P1** Vérifier les `[À VÉRIFIER]` restants de
-      `scripts/ordre_grandeur_eh_france.py` : population, M3 France,
-      produits d'exploitation cumulés des entreprises (**c'est `DTENT` qui
-      domine le total : c'est le chiffre le plus important à sourcer**)
+      `scripts/ordre_grandeur_eh_france.py` : population, contribution
+      française à M3, vitesse de circulation
 - [ ] **P2** Vérifier si la Banque de France publie des comptes financiers
       par secteur **antérieurs à 1995**, et s'ils sont raccordables
       (permettrait de remonter le modèle complet avant 1995 — cf. D5)

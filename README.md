@@ -21,6 +21,7 @@ savoir, chiffres à l'appui, si ça peut marcher.
 | [`docs/03-protocole-rigueur.md`](docs/03-protocole-rigueur.md) | **Les règles de preuve** — comment chaque équation est justifiée |
 | [`docs/04-decisions.md`](docs/04-decisions.md) | **Les décisions prises** — formalisme, périmètre, fréquence, période |
 | [`docs/annexes/couverture-donnees.md`](docs/annexes/couverture-donnees.md) | Jusqu'où remontent les données (généré par script) |
+| [`docs/PROMPT-SUITE.md`](docs/PROMPT-SUITE.md) | **Point d'entrée d'une nouvelle session de travail** |
 | [`TODO.md`](TODO.md) | Tâches, verrous, décisions en attente |
 | [`JOURNAL.md`](JOURNAL.md) | Journal des actions |
 | [`CLAUDE.md`](CLAUDE.md) | Règles de travail (vulgariser, être concis, tracer) |

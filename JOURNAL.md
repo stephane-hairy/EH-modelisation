@@ -178,3 +178,52 @@ sourcer**, avant toute affirmation sur le niveau des prix en EH.
 
 ### Prochaine étape
 Jalon **P2** : opérationnaliser IBD, IEE, IRNR — le verrou n°1.
+
+---
+
+## 2026-08-27 — Session 2 (suite) : DTENT remis à sa place
+
+### Information reçue de l'auteur
+La formule du dividende des entreprises (DENT, §11.1) **a été construite
+« au doigt mouillé »**. C'est une information de première main, et elle
+change le statut de nos chiffres.
+
+### Pourquoi c'est un problème de premier ordre
+DTENT pèse **plus de la moitié** de la création monétaire totale d'un pays
+comme la France. Cette formule décide donc à elle seule de l'essentiel de
+tout résultat quantitatif sur l'EH.
+
+### Ce qui a été fait
+1. **Chiffre sourcé** : production des sociétés non financières françaises
+   2023 = **3 810 Md€** (Eurostat `nasa_10_nf_tr`, S11/P1/RECV, série
+   depuis 1971). L'estimation antérieure de 4 000 Md€ tenait à 5 % près —
+   mais cela ne sauve pas le calcul, puisque c'est la *formule* qui est en
+   cause, pas son entrée.
+2. **Le script ne publie plus un point mais une fourchette** sur DTENT
+   (0,7 × / 1,0 × / 1,5 × la production des SNF), avec la sensibilité
+   affichée.
+3. **Résultat de la sensibilité** :
+
+   | Hypothèse DTENT | Création/an | M équilibre | × PIB | × M3 actuel |
+   |---|---|---|---|---|
+   | basse (2 667 Md€) | 5 664 Md€ | 39 436 Md€ | 13,9 | 13,1 |
+   | centrale (3 810 Md€) | 6 807 Md€ | 47 395 Md€ | 16,7 | 15,8 |
+   | haute (5 715 Md€) | 8 712 Md€ | 60 660 Md€ | 21,4 | 20,2 |
+
+### Conclusion, honnêtement formulée
+- ✅ Le constat est **robuste à la fourchette de DTENT** : même
+  l'hypothèse basse donne ≈ 14 × PIB. Il ne tient pas à un chiffre mal
+  choisi de notre part.
+- ❌ Il n'est **pas robuste à la formule DENT elle-même**. Donner chaque
+  année à chaque entreprise l'équivalent de son produit d'exploitation est
+  un choix structurant qui n'a pas été arbitré.
+
+Le chiffre de sortie n'est donc pas une propriété de l'économie
+homéostatique : c'est une propriété d'une formule provisoire.
+
+### Nouveau verrou (P0)
+**Reconstruire DENT.** Questions à trancher, notées au `TODO.md` :
+périmètre des « entreprises » ; nature de `P` (comptable ou comptes
+nationaux) ; effet de la règle « moyenne des trois meilleures années »
+(biais haussier et cliquet) ; homogénéité dimensionnelle du terme
+`(e × DCIT) / ((r/e) × 10⁴)` et son comportement quand `r → 0`.

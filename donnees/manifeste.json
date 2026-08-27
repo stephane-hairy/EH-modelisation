@@ -62,6 +62,33 @@
     "source": "Eurostat",
     "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?geo=FR&na_item=B1GQ&unit=CP_MEUR&format=JSON&lang=en"
   },
+  "eurostat_nasa_10_nf_tr_B1G-CP_MEUR-FR-RECV-S11.json": {
+    "octets": 5961,
+    "recupere_le": "2026-08-27T09:04:42+00:00",
+    "revision": false,
+    "sha256": "6a0be1ad718c011a1b87515aa26ae6a0ffaf2dc9ef00d351bf61eb08a5d7f431",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&sector=S11&na_item=B1G&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_B2A3G-CP_MEUR-FR-RECV-S11.json": {
+    "octets": 5960,
+    "recupere_le": "2026-08-27T09:04:45+00:00",
+    "revision": false,
+    "sha256": "b15ff9b74e04cbf08dddd3a68696b813f295a84ba50680c378b0f955f61e90eb",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&sector=S11&na_item=B2A3G&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P1-RECV-S11.json": {
+    "octets": 5970,
+    "recupere_le": "2026-08-27T09:04:41+00:00",
+    "revision": false,
+    "sha256": "19eebfbf0febfa00aac74176d9b8fb29db59283571df8754ea44ec2f82fe88df",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&sector=S11&na_item=P1&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
   "insee_CNA-2014-TOF_A--S11--F4------.xml": {
     "octets": 25199,
     "recupere_le": "2026-08-27T08:40:02+00:00",
@@ -70,6 +97,15 @@
     "sha256_precedent": "d94f95a8f9437c42bbde2d0a223fad271dfba3c6d48234c30cac5ebf3f21e542",
     "source": "INSEE",
     "url": "https://bdm.insee.fr/series/sdmx/data/CNA-2014-TOF/A..S11..F4......"
+  },
+  "insee_CNA-2020-CSI_A--S11--B2G-----.xml": {
+    "octets": 8347,
+    "recupere_le": "2026-08-27T09:03:48+00:00",
+    "revision": true,
+    "sha256": "1085397ad0ee19b5dae3eba3fc38575bf10ec95e41b116824c5651cf2381857b",
+    "sha256_precedent": "3292dc696d773d5db3a413567e45ceaadfca39c765bff9a7deb6b43788dd71cf",
+    "source": "INSEE",
+    "url": "https://bdm.insee.fr/series/sdmx/data/CNA-2020-CSI/A..S11..B2G....."
   },
   "insee_CNA-2020-PIB_------------------------------------------------------------------------------------------------------------------------------------A----PIB----EUROS_COURANTS--.xml": {
     "octets": 155264,

@@ -135,6 +135,14 @@ habitant des 10 pays européens qui dépensent le plus. C'est une constante
   grand, plus le bonus fond.
 - Quand IED = 1, le dividende est proche du produit d'exploitation.
 
+> ⚠️ **Avertissement de source.** Un des auteurs de la synthèse
+> (Stéphane Hairy, 2026-08-27) indique que **la formule DENT a été
+> construite « au doigt mouillé »**. Elle est donc à considérer comme une
+> intention de conception, pas comme une règle arrêtée. C'est un problème
+> de premier ordre : DTENT pèse plus de la moitié de la création monétaire
+> totale d'un pays comme la France, donc cette formule décide à elle seule
+> de l'essentiel des résultats quantitatifs. **À reconstruire.**
+
 ### Ce que ça donne
 
 - IED **augmente** → plus de monnaie → plus de consommation et de
@@ -291,32 +299,46 @@ sont nos chantiers, pas des objections :
 | 4 | **Niveau des prix** : rien n'est dit sur l'inflation hors d'une affirmation (§10.1 : « il ne peut y avoir d'hyperinflation ») | Voir calcul ci-dessous |
 | 5 | **`P`, produit d'exploitation** : réactualisé tous les 3 ans sur les meilleures années → mécanisme potentiellement auto-amplifiant | Rétroaction positive cachée dans un modèle qui les refuse |
 | 6 | **Comportements** : la §20 reconnaît que la psychologie économique « est à développer » | Nos élasticités viendront de la littérature sur les transferts monétaires et les monnaies fondantes |
+| 7 | **La formule DENT a été construite « au doigt mouillé »** (auteur, 2026-08-27) | **Verrou majeur.** Elle domine la création monétaire totale. À reconstruire sur une base explicite avant tout résultat chiffré |
 
-### Premier calcul d'ordre de grandeur — pourquoi cette question n°4 est sérieuse
+### Premier calcul d'ordre de grandeur — pourquoi les questions 4 et 7 sont sérieuses
 
-Script : `scripts/ordre_grandeur_eh_france.py`. Entrées à **[VÉRIFIER]**,
-résultat purement illustratif :
+Script : `scripts/ordre_grandeur_eh_france.py`.
+Données sourcées : PIB 2023 = 2 834 Md€ (INSEE CNA-2020-PIB) ; production
+des sociétés non financières 2023 = 3 810 Md€ (Eurostat `nasa_10_nf_tr`,
+série depuis 1971).
+
+Comme la formule DENT n'est pas fiable, on ne publie **pas un point** mais
+une fourchette sur DTENT :
 
 ```
 CRÉATION MONÉTAIRE ANNUELLE (IED = 1, France, 68,1 M hab.)
   DETA  (État)      1 498 Md€      DCIT   22 000 €/an = 1 833 €/mois
-  DTCIT (citoyens)  1 498 Md€      DTENT  ~4 000 Md€  [très incertain]
-  DG_FR             ~7 000 Md€  =  2,5 × PIB
+  DTCIT (citoyens)  1 498 Md€      DTENT  fourchette (formule non fiable)
 
 ÉTAT STATIONNAIRE (création annuelle = destruction par la fonte)
   Fonte : 11,4 %/an sur les soldes + 1 % par transaction
-  Masse monétaire d'équilibre   ~48 700 Md€  =  17 × PIB
-  M3 France aujourd'hui          ~3 000 Md€  =  1,1 × PIB
-  → rapport ≈ 16 ×
+
+  hypothèse DTENT    création/an   M équilibre   × PIB   × M3 actuel
+  basse    2 667 Md€    5 664 Md€    39 436 Md€    13,9        13,1
+  centrale 3 810 Md€    6 807 Md€    47 395 Md€    16,7        15,8
+  haute    5 715 Md€    8 712 Md€    60 660 Md€    21,4        20,2
 ```
 
 **Traduction** : à paramètres inchangés, l'EH converge vers une masse
-monétaire de l'ordre de **16 fois** l'actuelle, pour la même économie
-réelle. Soit les prix montent massivement, soit la vitesse de circulation
-et la demande de monnaie se comportent très différemment de ce qu'on
-observe — c'est précisément ce qu'un modèle sérieux doit trancher.
+monétaire d'un **ordre de grandeur au-dessus** de l'actuelle, pour la
+même économie réelle. Soit les prix montent massivement, soit la vitesse
+de circulation et la demande de monnaie se comportent très différemment
+de ce qu'on observe. C'est ce qu'un modèle doit trancher.
 
-⚠️ Ce calcul est **grossier** : `DTENT` domine le total et repose sur une
-estimation non vérifiée des produits d'exploitation français. Il ne
-constitue pas une réfutation, mais **il justifie à lui seul le projet** :
-les paramètres (22 000 €, 1 %/mois) doivent être calibrés, pas postulés.
+**Ce qui est robuste et ce qui ne l'est pas** :
+- ✅ **Robuste à la fourchette de DTENT** : même l'hypothèse basse donne
+  ≈ 14 × PIB. Le constat ne tient pas à un chiffre mal choisi.
+- ❌ **Non robuste à la formule DENT elle-même**, que son auteur qualifie
+  de « doigt mouillé ». Donner chaque année à chaque entreprise
+  l'équivalent de son produit d'exploitation est un choix structurant qui
+  n'a pas été arbitré.
+
+⚠️ Ce calcul ne réfute rien. Il **justifie le projet** : les paramètres
+(22 000 €, 1 %/mois) et la formule DENT doivent être **calibrés, pas
+postulés**.
