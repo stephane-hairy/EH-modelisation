@@ -1,0 +1,21 @@
+# Texte extrait des sources : fichier de travail, régénérable
+sources/*.txt
+
+# Données récupérées par script
+donnees/brut/*
+donnees/traite/*
+!donnees/**/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Sorties
+sorties/
+*.png
+*.pdf
+!sources/*.pdf

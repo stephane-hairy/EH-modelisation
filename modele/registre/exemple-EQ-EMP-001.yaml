@@ -1,0 +1,51 @@
+# FICHE D'EXEMPLE — modèle à copier. Non encore estimée (statut: brouillon).
+id: EQ-EMP-001
+nom: Loi d'Okun (France)
+description: >
+  Quand l'économie croît plus vite que sa tendance, le chômage baisse.
+  En clair : il faut un minimum de croissance pour créer de l'emploi,
+  et en dessous de ce seuil le chômage monte mécaniquement.
+
+formule: "d_u = a + b * g + e"
+
+variables:
+  d_u: {sens: "variation du taux de chômage", unite: "points de %/an", source: "INSEE, chômage au sens BIT"}
+  g:   {sens: "taux de croissance du PIB réel", unite: "%/an", source: "INSEE, comptes nationaux base 2020"}
+
+parametres:
+  a: {valeur: null, intervalle: null, origine: estime}
+  b: {valeur: null, intervalle: null, origine: estime}   # attendu négatif
+
+categorie: S
+grade: B          # provisoire, à confirmer après nos propres tests
+empirique: true
+couche: A
+
+sources:
+  - ref: "Okun, A. (1962), Potential GNP: Its Measurement and Significance"
+    doi_ou_url: "https://milescorak.files.wordpress.com/2016/01/okun-potential-gnp.pdf"
+    ce_qu_elle_etablit: "Relation empirique stable entre croissance et chômage (États-Unis)"
+  - ref: "Ball, Leigh & Loungani (2017), Okun's Law: Fit at 50?, Journal of Money, Credit and Banking 49(7)"
+    doi_ou_url: "https://doi.org/10.1111/jmcb.12420"
+    ce_qu_elle_etablit: "Relation vérifiée sur 20 pays avancés, dont la France ; coefficients pays-spécifiques"
+
+estimation:
+  methode: "MCO sur différences (les deux séries sont en variation, donc I(0)) + Newey-West"
+  donnees: "INSEE — PIB volume chaîné, taux de chômage BIT"
+  periode: "1995-2012 (estimation) / 2013-2019 (validation)"
+  stationnarite: "À TESTER — ADF + KPSS sur d_u et g"
+  cointegration: "Non applicable si les deux séries sont I(0)"
+  r2: null
+  stabilite: "À TESTER — CUSUM + test de Chow sur 2008"
+  script: "tests/estimation/test_eq_emp_001.py"   # à écrire
+
+limites: |
+  - Le coefficient b n'est pas stable dans le temps : il dépend de la
+    flexibilité du marché du travail, qui a évolué en France.
+  - Rupture probable en 2008 et en 2020 (chômage partiel massif).
+  - Relation de corrélation, pas de causalité identifiée : les deux
+    variables réagissent conjointement au cycle.
+  - Ne dit rien sur la composition de l'emploi (temps partiel, précarité).
+
+statut: brouillon
+maj: 2026-08-27
