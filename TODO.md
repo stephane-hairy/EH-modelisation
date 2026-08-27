@@ -121,6 +121,17 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
   - [?] **D11 mapping** : linéaire / hyperbolique / exponentiel.
         IED 2021 de **0,00 à 0,72**. Fixe aussi le gain de boucle du P5
   - [?] **D12 sort de l'IBD** : garder en grade C / paramètre libre / retirer
+- [?] **D14 borne basse** : à quelle pression l'indicateur tombe-t-il à 0 ?
+      ⚠️ **IED = 0 = extinction monétaire** (demi-vie 4,6–5,7 ans sous la
+      seule fonte, la monnaie n'étant créée que par le don). Le mapping
+      linéaire coupe la France, l'Allemagne ET l'Australie.
+      → `docs/07-bornes-et-seuils.md`
+- [?] **D15 borne haute** : que récompense I = 2 ? Aujourd'hui « le pays
+      ne consomme rien » — donc le système verse le double d'argent à une
+      économie à l'arrêt. Alternative : `[1 ; 2]` = **régénération**
+- [?] **D16 seuil de l'IBD** : c'est un **état passé** (la France de 1990),
+      pas un seuil de soutenabilité — incohérence d'échelle avec les deux
+      autres. Solution : **BII** avec la frontière planétaire à 90 %
   - [x] **D13 TRANCHÉE — étalon de l'IEE : MONDIAL par tête**
       (`docs/04-decisions.md` D13). L'étalon territorial est écarté : il
       récompense la géographie, pas le comportement. L'Australie, qui
@@ -137,6 +148,11 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
       France 2013 : empreinte 5,063 gha/pers (dont carbone 56,3 %),
       biocapacité 2,910, rapport **1,740** contre **3,41** pour notre
       approximation. Notre seuil était **deux fois trop sévère**
+- [ ] **P0 ACTION MANUELLE POUR STÉPHANE** — télécharger le **BII** :
+      `data.nhm.ac.uk/dataset/bii-bte` → ressource `long_data.csv`.
+      Téléchargement automatisé bloqué (Cloudflare 403), navigateur sans
+      affichage aussi. Trente secondes à la main. Débloque D16 **et**
+      rouvre la période 1978 (série 1970–2050). Licence CC-NC.
 - [ ] **P1** Demander une **clé d'API Global Footprint Network** (gratuite).
       Confirmé par la recherche Dateno : **aucune série GFN complète
       n'est librement accessible**. La clé reste la seule action qui

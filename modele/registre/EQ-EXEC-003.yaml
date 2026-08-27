@@ -36,7 +36,7 @@ sources:
     ce_qu_elle_etablit: "Établit qu'aucun indicateur unique ne résume l'état de la biodiversité, et que les pressions dominantes (usage des sols, exploitation directe) s'exercent largement hors des frontières du pays consommateur."
 
 sensibilite:
-  balayage: ["année de référence 1990 à 2000", "mapping linéaire / hyperbolique / exponentiel", "avec et sans IBD dans l'IED (colonne IED_sans_IBD publiée systématiquement)"]
+  balayage: ["seuil : état de 1990 (actuel) vs BII avec frontière planétaire à 90 %", "année de référence 1990 à 2000", "mapping linéaire / hyperbolique / exponentiel", "avec et sans IBD dans l'IED (colonne IED_sans_IBD publiée systématiquement)"]
   impact_attendu: >
     Le choix de l'année de référence déplace tout l'indicateur : prendre
     2000 au lieu de 1990 rendrait la France artificiellement meilleure.

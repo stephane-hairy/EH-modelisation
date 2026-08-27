@@ -592,3 +592,82 @@ qui manquent à l'IEE. La donnée est là, il reste à la brancher.
 ### État
 `python -m pytest -q` : **75 tests verts**. Registre conforme (11 fiches).
 Décisions en attente : **D7–D12** (D13 tranchée).
+
+
+---
+
+## 2026-08-27 — Session 3 (suite) : à quoi correspondent le 0 et le 2 ?
+
+### La question
+Stéphane : « les chiffres me semblent bizarres. Dans ton calcul le 0 et
+le 2 correspondent à quoi au niveau de IBD, IEE et IRNR ? »
+
+### La réponse, et le trou qu'elle révèle
+**Seul le 1 est ancré.** La synthèse exige « vaut 1 à l'équilibre, borné
+sur [0 ; 2] » et s'arrête là. Le 0 et le 2 avaient été remplis
+implicitement par le choix de mapping, sans jamais être posés comme une
+décision. C'était un trou dans le livrable P2.
+
+Ce qu'ils valent réellement :
+- **I = 2 ↔ x = 0** pour les trois mappings : le pays ne consomme *rien*.
+  Ce n'est pas « parfaitement soutenable » — ça, c'est I = 1.
+- **I = 0** dépend du mapping : x = 2 (linéaire) ou jamais (exponentiel,
+  hyperbolique).
+
+### Pourquoi le 0 est la question grave
+Sous l'EH, la monnaie n'est créée **que** par le don. IED = 0 signifie
+donc aucune création, pendant que la fonte continue de détruire le stock.
+**Demi-vie de la masse monétaire : 5,7 ans** (fonte sur soldes seule),
+**4,6 ans** avec la fonte transactionnelle.
+
+⇒ IED = 0 n'est pas une pénalité, c'est l'**extinction monétaire** du
+pays. La question devient : *à partir de quel niveau de destruction
+l'EH décide-t-elle qu'un pays ne doit plus avoir de monnaie du tout ?*
+
+Et le mapping linéaire y répond « deux fois le seuil » — ce qui **coupe
+la France, l'Allemagne et l'Australie**, soit la quasi-totalité des pays
+riches. À écarter.
+
+### Une conséquence symétrique, rarement dite
+Puisque `DETA = IED × 22 000 × c` et que IED est maximal à pression nulle,
+**le système verse le double d'argent au pays dont l'activité économique
+est nulle**. La création monétaire est maximale quand l'économie s'arrête.
+
+### Le second défaut : les trois seuils ne se comparent pas
+
+| | Seuil | Nature |
+|---|---|---|
+| IEE | 2,13 tCO₂/hab | budget planétaire (GIEC) |
+| IRNR | 8 t/hab | corridor scientifique (Bringezu) |
+| IBD | l'état de 1990 | ⚠️ **un état passé, pas un seuil** |
+
+« IBD = 1 » veut dire *« comme en 1990 »* ; « IEE = 1 » veut dire *« dans
+le budget de la planète »*. Ce ne sont pas les mêmes 1, et la moyenne
+géométrique les traite comme s'ils l'étaient. C'était rangé dans les
+limites de l'IBD sous le terme « référence glissante » — c'est en réalité
+une **incohérence d'échelle entre les trois termes de l'IED**.
+
+### La solution identifiée, et un obstacle
+Le **Biodiversity Intactness Index** (BII) mesure la part de biodiversité
+d'origine restante, et le cadre des limites planétaires (Steffen et al.
+2015) fixe la frontière à **BII ≥ 90 %** : un vrai seuil, comparable au
+budget carbone. Série du Natural History Museum, **1970–2050**, CC-NC.
+
+⚠️ Téléchargement automatisé **bloqué par Cloudflare** (403), y compris
+via navigateur sans affichage depuis cet environnement. **À récupérer à
+la main en trente secondes** : `data.nhm.ac.uk/dataset/bii-bte`.
+Bonus : la série remonte à 1970 et **rouvrirait la période 1978**.
+
+### Livrables
+- `docs/07-bornes-et-seuils.md` — les options chiffrées
+- `scripts/bornes_indicateurs.py` — tout est reproductible
+- Fiches `EQ-EXEC-003` et `EQ-EXEC-004` mises à jour
+
+### Trois décisions de plus attendues
+**D14** borne basse · **D15** borne haute · **D16** seuil de l'IBD.
+Recommandation : plancher explicite (jamais d'extinction monétaire) ·
+`[1 ; 2]` = régénération · BII à 90 %.
+
+### État
+`python -m pytest -q` : **75 tests verts**. Registre conforme (11 fiches).
+Décisions en attente : **D7–D12, D14–D16**.

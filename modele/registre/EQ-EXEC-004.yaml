@@ -17,6 +17,9 @@ variables:
 parametres:
   variante: {valeur: "exponentiel", intervalle: null, origine: design}
   beta:     {valeur: 1.0, intervalle: [0.5, 4.0], origine: design}
+  x_haut:   {valeur: 0.0, intervalle: [0.0, 1.0], origine: design}
+  x_bas:    {valeur: null, intervalle: [2.0, null], origine: design}
+  plancher: {valeur: 0.0, intervalle: [0.0, 0.3], origine: design}
 
 categorie: D
 grade: D
@@ -32,7 +35,7 @@ sources:
     ce_qu_elle_etablit: "La pente du capteur autour du point de consigne EST le gain de la boucle : c'est elle qui décide si le régulateur converge, oscille ou diverge. Un mapping n'est donc pas un habillage, c'est un paramètre de commande."
 
 sensibilite:
-  balayage: ["linéaire / hyperbolique / exponentiel", "beta de 0,5 à 4 pour l'hyperbolique", "pente au point d'équilibre (gain de la boucle) : -1,0 / -0,5 / -0,69"]
+  balayage: ["linéaire / hyperbolique / exponentiel", "beta de 0,5 à 4 pour l'hyperbolique", "pente au point d'équilibre (gain de la boucle) : -1,0 / -0,5 / -0,69", "x_bas (pression annulant l'indicateur) : 2 / 5 / 10 / jamais", "x_haut (pression donnant 2) : 0 / 0,5", "plancher : 0 / 0,10 / 0,20"]
   impact_attendu: >
     DÉCISIF. Pour la France 2022 (ratio carbone 2,90) : IED = 0,00
     (linéaire), 0,72 (hyperbolique), 0,52 (exponentiel). Le mapping
@@ -42,6 +45,24 @@ sensibilite:
     l'analyse de stabilité du jalon P5.
 
 limites: |
+  ⚠️ LES BORNES 0 ET 2 N'ÉTAIENT PAS DES DÉCISIONS (corrigé 2026-08-27,
+  sur question de Stéphane Hairy). La synthèse n'ancre QUE le 1. Le 0 et
+  le 2 avaient été remplis implicitement par le choix de mapping. Ils
+  font désormais l'objet des décisions D14 et D15
+  (docs/07-bornes-et-seuils.md).
+    • I = 2 correspond aujourd'hui à x = 0, soit « le pays ne consomme
+      RIEN » — et non « parfaitement soutenable », qui est I = 1.
+      Conséquence : le système verse le double d'argent au pays dont
+      l'activité économique est nulle.
+    • I = 0 n'a pas le même sens selon le mapping : x = 2 (linéaire,
+      atteint par presque tous les pays riches) ou jamais (exponentiel,
+      hyperbolique).
+    • ⚠️ ENJEU RÉEL DU 0 : sous l'EH la monnaie n'est créée QUE par le
+      don. IED = 0 n'est donc pas une pénalité, c'est l'EXTINCTION
+      MONÉTAIRE — demi-vie de la masse monétaire 4,6 à 5,7 ans sous la
+      seule fonte. Un plancher explicite (option B5) l'interdit par
+      construction, et protège aussi de l'annulation de l'IED par la
+      moyenne géométrique.
   - AUCUN DES TROIS N'EST « LE BON ». Ce sont trois affirmations
     normatives différentes sur ce que mérite un pays qui dépasse le seuil.
     Le linéaire dit « à deux fois le seuil, plus rien » ; l'hyperbolique
