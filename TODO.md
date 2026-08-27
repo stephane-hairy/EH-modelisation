@@ -121,10 +121,22 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
   - [?] **D11 mapping** : linéaire / hyperbolique / exponentiel.
         IED 2021 de **0,00 à 0,72**. Fixe aussi le gain de boucle du P5
   - [?] **D12 sort de l'IBD** : garder en grade C / paramètre libre / retirer
-  - [?] **D13 seuils** : carbone 1–4 t/hab · matières 6–12 t/hab
+  - [?] **D13 seuils** : carbone **2,13 t (GIEC)** ou **4,17 t (calibré GFN)**
+      · matières 6–12 t/hab. ⚠️ **Facteur 1,96** sur la pression carbone —
+      davantage que l'écart entre deux mappings. À trancher AVEC D11
+- [x] **Empreinte écologique GFN retrouvée via Dateno** — paquet public
+      officiel *National Footprint Accounts 2017* (licence CC).
+      ⚠️ **Une seule année, 2013** : ce n'est pas la série. Sert de point
+      d'ancrage → `modele/donnees/gfn.py`, `scripts/valider_iee_gfn.py`.
+      France 2013 : empreinte 5,063 gha/pers (dont carbone 56,3 %),
+      biocapacité 2,910, rapport **1,740** contre **3,41** pour notre
+      approximation. Notre seuil était **deux fois trop sévère**
 - [ ] **P1** Demander une **clé d'API Global Footprint Network** (gratuite).
-      C'est la seule action qui pourrait rouvrir la période 1978–1989 :
-      les comptes GFN remontent à **1961**
+      Confirmé par la recherche Dateno : **aucune série GFN complète
+      n'est librement accessible**. La clé reste la seule action qui
+      pourrait rouvrir la période 1978–1989 (comptes GFN depuis **1961**)
+- [ ] **P2** Empreinte matières ODD 8.4.1 (UNEP/IRP) : **écartée**,
+      l'ONU ne la publie qu'au niveau régional, pas par pays (vérifié)
 - [ ] **P2** Instrumenter EXIOBASE (empreinte matières et sols, 1995–2022)
 - [ ] **P2** Chercher une empreinte biodiversité importations incluses
       (Chaudhary & Kastner) — seule voie pour un IBD conforme à §14.1

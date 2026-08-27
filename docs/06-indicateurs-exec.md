@@ -21,7 +21,7 @@
 | **Pourquoi** | Les données écologiques françaises **n'existent pas avant 1990** |
 | **IED français** | **0,41 à 0,57** sur toute la période — jamais proche de 1 (mapping exponentiel) |
 | **Verdict IBD** | ⚠️ **Les données ne suffisent pas.** Bouche-trou documenté, pas une mesure |
-| **Choix à arbitrer** | Le **mapping** vers [0 ; 2] — il fait varier l'IED 2021 de **0,00 à 0,72** |
+| **Choix à arbitrer** | Le **mapping** (IED 2021 de **0,00 à 0,72**) **et** le **seuil carbone** (facteur **1,96** entre GIEC et GFN) |
 
 **Le résultat principal, en une phrase** : sous l'économie homéostatique,
 la France aurait été en **régime de création monétaire réduite de moitié
@@ -137,8 +137,76 @@ dominante de l'empreinte écologique, et elle satisfait l'exigence
 centrale : les importations sont comptées.
 
 **Ce que l'approximation perd** : usage des sols, eau douce, pêche,
-forêts, et toute notion de biocapacité. **Grade C.** *À remplacer dès
-qu'une clé GFN est obtenue — c'est une action concrète à mener.*
+forêts, et toute notion de biocapacité. **Grade C.**
+
+#### ⚠️ L'ampleur de l'approximation est maintenant mesurée
+
+Le **paquet public officiel du GFN** a été retrouvé via Dateno (*National
+Footprint Accounts 2017*, licence Creative Commons). Il ne contient
+qu'**une seule année, 2013** — ce n'est pas la série. Mais une année
+suffit à répondre à la seule question qui compte : *de combien se
+trompe-t-on ?*
+
+**France 2013, chiffres officiels du GFN** (hectares globaux par personne) :
+
+| | gha/pers |
+|---|---:|
+| **Empreinte de consommation** (importations incluses) | **5,063** |
+| dont carbone | 2,852 (**56,3 %**) |
+| dont cultures | 1,041 |
+| dont forêt | 0,523 |
+| dont pâturage | 0,267 |
+| dont pêche | 0,196 |
+| dont sol bâti | 0,184 |
+| **Biocapacité disponible** | **2,910** |
+| Déficit | −2,152 |
+| **Rapport empreinte / biocapacité** | **1,740** |
+
+*Il faudrait 1,74 France pour soutenir le mode de vie français.*
+
+Deux enseignements :
+
+1. **L'hypothèse « le carbone domine » est vérifiée — de peu.** 56,3 %.
+   L'approximation rate donc **43,7 %** du sujet, soit 2,21 gha/pers.
+2. **Notre seuil était deux fois trop sévère.** Pour la même année 2013 :
+
+   | Référentiel | Pression `x` |
+   |---|---:|
+   | Notre approximation (7,26 tCO₂/hab ÷ 2,13 t) | **3,41** |
+   | Global Footprint Network | **1,74** |
+
+   **Facteur 1,96.** Ce n'est pas une erreur de calcul : les deux
+   référentiels ne posent pas la même question.
+   - Le seuil GIEC demande : *« quelle part du budget climatique mondial
+     chaque humain peut-il utiliser ? »* — planétaire, égalitaire.
+   - Le rapport du GFN demande : *« la France vit-elle sur sa propre
+     biocapacité ? »* — territorial.
+
+   Pour reproduire le niveau du GFN, il faudrait un seuil de
+   **4,17 tCO₂/hab** — précisément le bord supérieur de la fourchette
+   1–4 t déjà déclarée en sensibilité.
+
+**Ce que ça change** :
+
+| Mapping | IEE 2013, seuil 2,13 | IEE 2013, seuil GFN 4,17 |
+|---|---:|---:|
+| linéaire | **0,00** | 0,26 |
+| hyperbolique | 0,45 | 0,73 |
+| exponentiel | 0,19 | 0,60 |
+
+Sous le mapping linéaire, l'IEE **cesse d'être nul** — ce qui supprime
+l'annulation totale de la création monétaire française.
+
+⚠️ **Conséquence pour l'arbitrage : le seuil (D13) pèse autant que le
+mapping (D11).** Les deux doivent être tranchés ensemble.
+
+⚠️ **Ce que ça ne règle pas** : une seule année d'ancrage recale le
+*niveau*, pas la *forme*. Si le rapport empreinte/biocapacité français a
+évolué autrement que son empreinte carbone entre 1990 et 2021, nous ne le
+voyons pas. Obtenir la série GFN complète (1961→) reste la seule vraie
+solution, et exige une clé d'API nominative.
+
+Reproductible : `python scripts/valider_iee_gfn.py`.
 
 **Seuil** : 2,13 tCO₂/hab/an — budget 1,5 °C du GIEC (AR6, 500 Gt),
 partagé également par tête sur 30 ans. Le partage égalitaire est un
@@ -283,7 +351,7 @@ après.** Le choisir, c'est déjà décider en partie du résultat de P5.
 |---|---|---|---|
 | **D11** | **Mapping** | linéaire / hyperbolique / exponentiel | IED 2021 de **0,00 à 0,72**. Fixe aussi le gain de boucle pour P5. |
 | **D12** | **Sort de l'IBD** | garder en grade C / paramètre libre / **retirer** | ±0,15 point d'IED, et une exigence §14.1 violée s'il est gardé. |
-| **D13** | **Seuils** | carbone 1–4 t · matières 6–12 t | Déplacent les indicateurs proportionnellement. |
+| **D13** | **Seuils** | carbone **2,13 t (GIEC)** ou **4,17 t (calibré GFN)** · matières 6–12 t | ⚠️ **Facteur 1,96** sur la pression carbone — davantage que l'écart entre deux mappings. À trancher avec D11. |
 
 **Recommandation, à discuter** : mapping **exponentiel** (M3) — c'est le
 seul dont la règle s'énonce en une phrase, il ne s'annule jamais, et sa
@@ -302,7 +370,9 @@ Par ordre d'utilité décroissante :
    Elle remplacerait l'approximation carbone par la vraie empreinte
    écologique, biocapacité comprise, et remonterait à **1961** — ce qui
    couvrirait enfin 1978. *C'est la seule action qui pourrait rouvrir la
-   période demandée.*
+   période demandée.* La recherche via Dateno a confirmé qu'aucune série
+   GFN complète n'est librement accessible : seul le paquet public 2017
+   (année 2013) l'est, et il sert désormais de point d'ancrage.
 2. **EXIOBASE** (Zenodo, téléchargement lourd) : empreintes matières,
    sols et eau importations incluses, 1995–2022. Permettrait un IRNR en
    empreinte plutôt qu'en territorial.

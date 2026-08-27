@@ -432,3 +432,88 @@ Ils doivent être cherchés activement, pas attendus.
 ### État
 `python -m pytest -q` : **64 tests verts**. Registre : **conforme**
 (11 fiches). Sept décisions attendues : **D7–D13**.
+
+
+---
+
+## 2026-08-27 — Session 3 (suite) : l'empreinte écologique retrouvée via Dateno
+
+### Ce qui a été cherché
+Stéphane a fourni une clé d'API **Dateno** (moteur de recherche de jeux de
+données) pour tenter de débloquer l'empreinte écologique du Global
+Footprint Network, inaccessible jusque-là (API à clé nominative, 403).
+
+*La clé est passée en variable d'environnement et n'est écrite nulle part
+dans le dépôt.*
+
+### Ce qui a été trouvé — et ce qui ne l'a pas été
+
+| Cherché | Résultat |
+|---|---|
+| Série GFN 1961→ | ❌ **N'existe pas en accès libre.** Confirmé. Les résultats Dateno sont des copies Kaggle (authentification requise) ou des cartes `.jpg` |
+| Paquet public officiel GFN | ✅ **Trouvé** : *National Footprint Accounts 2017 Public Data Package v1.3*, licence Creative Commons, avec son guide méthodologique |
+| Empreinte matières ODD 8.4.1 (UNEP/IRP) | ❌ **Écartée** : l'ONU ne la publie qu'au niveau régional. France absente (vérifié : 36 zones, toutes des agrégats) |
+| Base de séries statistiques Dateno | ❌ Ne contient qu'ILOSTAT et Banque mondiale |
+
+⚠️ Le paquet GFN ne contient **qu'une seule année, 2013**. Ce n'est pas la
+série espérée. Il est de plus servi depuis un **miroir CKAN** (OD Mekong
+Datahub), le portail du GFN ne l'exposant pas librement : le *contenu* est
+officiel, l'*hébergeur* ne l'est pas. Empreinte SHA-256 au manifeste.
+
+### Ce que cette seule année a révélé
+
+Une année suffisait pour répondre à la seule question qui comptait : **de
+combien notre approximation se trompe-t-elle ?**
+
+**France 2013, chiffres officiels du GFN** (hectares globaux par personne) :
+
+| | gha/pers |
+|---|---:|
+| Empreinte de consommation (importations incluses) | **5,063** |
+| dont carbone | 2,852 (**56,3 %**) |
+| Biocapacité disponible | **2,910** |
+| **Rapport empreinte / biocapacité** | **1,740** |
+
+Il faudrait 1,74 France pour soutenir le mode de vie français.
+
+**Deux enseignements, dont un qui corrige le jalon P2 :**
+
+1. **L'hypothèse « le carbone domine l'empreinte » est vérifiée — de peu.**
+   56,3 %. L'approximation rate donc 43,7 % du sujet (cultures, forêts,
+   pâturages, pêche, sol bâti), soit 2,21 gha/pers.
+
+2. ⚠️ **Notre seuil était deux fois trop sévère.** Pour la même année 2013,
+   notre approximation donne une pression `x = 3,41` ; le GFN donne
+   `x = 1,74`. **Facteur 1,96.**
+
+   Ce n'est pas une erreur de calcul : les deux référentiels ne posent pas
+   la même question. Le seuil GIEC demande « quelle part du budget
+   climatique mondial chaque humain peut-il utiliser ? » — planétaire et
+   égalitaire. Le rapport du GFN demande « la France vit-elle sur sa
+   propre biocapacité ? » — territorial. Les deux sont défendables.
+
+   Pour reproduire le niveau du GFN, il faudrait un seuil de
+   **4,17 tCO₂/hab**, soit exactement le bord supérieur de la fourchette
+   1–4 t que la fiche EQ-EXEC-002 déclarait déjà en sensibilité. La
+   calibration ne sort donc pas du cadre prévu : elle en désigne le bord.
+
+**Ce que ça change concrètement** : sous le mapping linéaire, l'IEE 2013
+passe de **0,00 à 0,26** — il cesse d'être nul, ce qui **supprime
+l'annulation totale de la création monétaire française**. Sous le mapping
+exponentiel, de 0,19 à 0,60.
+
+### Ce que ça change à l'arbitrage
+**Le seuil (D13) pèse autant que le mapping (D11)** — un facteur 1,96
+contre un facteur allant de 0,00 à 0,72. Les deux décisions doivent être
+tranchées **ensemble**, pas l'une après l'autre. D13 est requalifiée en
+conséquence.
+
+### Ce que ça ne règle pas
+Une seule année d'ancrage recale le **niveau**, pas la **forme**. Si le
+rapport empreinte/biocapacité français a évolué autrement que son
+empreinte carbone entre 1990 et 2021, nous ne le voyons pas. Obtenir la
+série GFN complète reste la seule vraie solution — et la recherche Dateno
+a confirmé qu'elle exige la clé nominative.
+
+### État
+`python -m pytest -q` : **67 tests verts**. Registre conforme (11 fiches).
