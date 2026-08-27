@@ -517,3 +517,78 @@ a confirmé qu'elle exige la clé nominative.
 
 ### État
 `python -m pytest -q` : **67 tests verts**. Registre conforme (11 fiches).
+
+
+---
+
+## 2026-08-27 — Session 3 (fin) : EXIOBASE, et une conclusion inversée
+
+### Ce qui a été fait
+Stéphane a demandé de chiffrer EXIOBASE avant de dépendre d'une licence
+GFN. Chiffrage fait, puis série complète calculée.
+
+### Faisabilité, mesurée et non estimée
+EXIOBASE 3.10.2 (Zenodo, ouvert) : **1995–2024**, 7,1 Go, `pymrio` lit le
+format nativement. Une année coûte ~70 s de téléchargement et ~162 s de
+calcul (inversion d'une matrice 9 800 × 9 800). **Série complète : 111
+minutes.** Comptes satellites disponibles : matières, sols, émissions
+air, eau, énergie, emploi.
+
+### Le résultat, qui inverse une conclusion du jalon P2
+
+| Matières non renouvelables | 1995 | 2022 | Tendance |
+|---|---:|---:|---|
+| DMC territorial — *ce que mesurait l'IRNR* | 9,99 | 7,77 t/hab | **−22 %** |
+| Empreinte, importations incluses | 9,58 | **12,12 t/hab** | **+26 %** |
+
+Les deux mesures ne diffèrent pas en niveau : **elles vont en sens
+contraire**. Le DMC disait que la France s'était allégée d'un cinquième ;
+l'empreinte dit qu'elle s'est alourdie d'un quart.
+
+L'écart passe de **−4 % en 1995 à +80 % en 2023** (moyenne +49 %). Cette
+croissance régulière est la signature de la délocalisation :
+**l'« amélioration » que mesurait l'IRNR était, pour l'essentiel, un
+déménagement.**
+
+**Conséquences :**
+- L'IRNR n'est plus le seul indicateur à atteindre l'équilibre. En
+  territorial il passait sous le seuil de 8 t/hab vers 2014 ; en
+  empreinte, il ne passe **jamais** sous le seuil.
+- L'IED baisse de ~9 % (0,54 → 0,49 en 2021). La conclusion du jalon P2
+  tient, mais le récit change : **seul le carbone progresse vraiment**
+  (IEE 0,12 → 0,26 entre 1995 et 2021). L'IRNR s'est effondré à 0,51 en
+  2000 avant de remonter partiellement, sans revenir à son niveau de 1995.
+- Le dividende par citoyen 2021 passe de 11 900 à **10 881 €/an**.
+
+### Validation
+Contrôle croisé du CO₂ entre EXIOBASE et le Global Carbon Project, deux
+constructions indépendantes : **1,4 % d'écart en 2019**, 4,4 % en 2020.
+⚠️ Aucun contrôle équivalent n'existe pour les matières. EXIOBASE est un
+modèle, pas une observation directe — c'est écrit dans la fiche.
+
+### Une erreur de comparaison, trouvée et corrigée
+Le script de faisabilité comparait l'empreinte EXIOBASE divisée par la
+population **Eurostat** (67,6 M) au DMC divisé par la population **OWID**
+utilisée partout ailleurs (65,9 M) : deux France différentes. L'écart
+annoncé était faussé de 2,5 %. Les repères sont désormais lus **depuis le
+modèle lui-même**, ce qui rend l'erreur impossible à refaire.
+
+### Une affirmation antérieure corrigée
+`docs/06` affirmait que l'IBD était « le seul des trois indicateurs à
+violer l'exigence §14.1 » (inclure les importations). C'était **faux** :
+l'IRNR territorial la violait aussi. Depuis le passage à l'empreinte,
+l'affirmation est devenue vraie.
+
+### Ce que ça ne règle pas
+L'empreinte démarre en **1995**, contre 1990 pour le DMC : cinq ans perdus
+pour gagner la justesse du concept. Le territorial reste implémenté pour
+la sensibilité et pour couvrir 1990–1994. Le trou 1978–1989 reste entier.
+
+### Prochaine étape évidente
+Les comptes **« sols »** d'EXIOBASE sont déjà dans la série calculée
+(cultures, pâturages, forêt). Ils couvriraient les **44 % non carbonés**
+qui manquent à l'IEE. La donnée est là, il reste à la brancher.
+
+### État
+`python -m pytest -q` : **75 tests verts**. Registre conforme (11 fiches).
+Décisions en attente : **D7–D12** (D13 tranchée).

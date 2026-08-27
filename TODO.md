@@ -143,13 +143,19 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
       pourrait rouvrir la période 1978–1989 (comptes GFN depuis **1961**)
 - [ ] **P2** Empreinte matières ODD 8.4.1 (UNEP/IRP) : **écartée**,
       l'ONU ne la publie qu'au niveau régional, pas par pays (vérifié)
-- [~] **P1** Instrumenter **EXIOBASE 3.10.2** — faisabilité en cours de
-      chiffrage. Zenodo, ouvert, **1995–2024** (30 ans), 7,1 Go pour les
-      tables `pxp`, ~67 s de téléchargement par année. `pymrio` lit le
-      format nativement. Comptes satellites présents : matières (62
-      indicateurs), sols (26), émissions air (420), eau, énergie, emploi.
-      Permettrait : un IRNR en **empreinte** (au lieu du DMC territorial)
-      dès **1995**, et les **44 % non carbonés** qui manquent à l'IEE
+- [x] **P1 EXIOBASE 3.10.2 intégré** — série 1995–2024 calculée
+      (30 années, 111 min) → `donnees/traite/empreinte_exiobase_france.csv`,
+      versionnée. Scripts : `serie_exiobase.py` (reprenable),
+      `comparer_irnr.py`, `faisabilite_exiobase.py`.
+      ⚠️ **Résultat : le DMC territorial inversait le signe de la
+      tendance.** Territorial −22 % entre 1995 et 2022, empreinte **+26 %**.
+      L'écart passe de −4 % (1995) à +80 % (2023) : signature de la
+      délocalisation. L'IRNR n'atteint plus jamais l'équilibre, et l'IED
+      baisse de ~9 %. Contrôle croisé CO₂ avec le Global Carbon Project :
+      1,4 % d'écart en 2019
+- [ ] **P1** Exploiter les **comptes « sols » d'EXIOBASE** (déjà dans la
+      série : cultures, pâturages, forêt) pour couvrir les **44 % non
+      carbonés** de l'IEE. C'est la suite logique et la donnée est là
 - [ ] **P2** Chercher une empreinte biodiversité importations incluses
       (Chaudhary & Kastner) — seule voie pour un IBD conforme à §14.1
 

@@ -15,8 +15,8 @@ Le dépôt est déjà bien avancé. Commence par lire, dans cet ordre :
                                   non négociable : toujours vulgariser,
                                   toujours être concis.
   2. docs/04-decisions.md       — les 6 décisions de cadrage actées
-  3. TODO.md                    — état des tâches, et les 7 décisions
-                                  en attente (D7–D13)
+  3. TODO.md                    — état des tâches, et les 6 décisions
+                                  en attente (D7–D12)
   4. JOURNAL.md                 — session 3 en particulier
   5. docs/05-dent.md            — l'analyse critique de DENT
   6. docs/06-indicateurs-exec.md — les indicateurs EXEC et leurs trous
@@ -24,7 +24,7 @@ Le dépôt est déjà bien avancé. Commence par lire, dans cet ordre :
 Branche de travail : claude/homeostatic-economy-model-f7kcbq
 Développe dessus, commite, pousse. Pas de pull request sauf demande.
 
-Vérifie que tout tourne : `python -m pytest -q` doit être vert (64 tests).
+Vérifie que tout tourne : `python -m pytest -q` doit être vert (75 tests).
 
 CE QUI EST DÉJÀ FAIT (ne pas refaire)
 - Documentation EH, stratégie, protocole de rigueur, décisions (docs/01-04)
@@ -33,11 +33,17 @@ CE QUI EST DÉJÀ FAIT (ne pas refaire)
 - Registre d'équations à contrôle automatique (11 fiches, CI verte)
 - VERROU DENT LEVÉ : six défauts démontrés, trois alternatives fichées
   (docs/05-dent.md). pandasdmx reste écarté. Code pays INSEE = FE.
-- JALON P2 LIVRÉ : indicateurs EXEC de la France 1990–2021, IED, et la
-  courbe de création monétaire (sorties/creation_monetaire_eh_france.png)
+- JALON P2 LIVRÉ : indicateurs EXEC de la France, IED, et la courbe de
+  création monétaire (sorties/creation_monetaire_eh_france.png)
+- D13 TRANCHÉE : l'étalon de l'IEE est MONDIAL par tête, pas territorial
+  (l'étalon territorial récompense la géographie, pas le comportement).
+  L'approximation carbone est validée à 15 % près contre le GFN 2013.
+- EXIOBASE 3.10.2 INTÉGRÉ : empreintes françaises 1995–2024 calculées
+  (2 h), série versionnée. L'IRNR utilise désormais l'EMPREINTE, pas le
+  DMC territorial — qui inversait le signe de la tendance.
 
-⚠️ CE QUI BLOQUE : SEPT DÉCISIONS M'APPARTIENNENT
-Tant que D7–D13 ne sont pas tranchées, aucun résultat quantitatif sur la
+⚠️ CE QUI BLOQUE : SIX DÉCISIONS M'APPARTIENNENT
+Tant que D7–D12 ne sont pas tranchées, aucun résultat quantitatif sur la
 masse monétaire en EH n'est publiable. Si je ne te les ai pas données
 dans ce message, DEMANDE-LES-MOI avant de calculer quoi que ce soit.
 
@@ -49,12 +55,13 @@ dans ce message, DEMANDE-LES-MOI avant de calculer quoi que ce soit.
                             grandeur exogène
   D11 mapping vers [0 ; 2]  linéaire / hyperbolique / exponentiel
                             → IED 2021 de 0,00 à 0,72
+                            ⚠️ SEUL CHOIX VRAIMENT STRUCTURANT QUI RESTE
   D12 sort de l'IBD         garder en grade C / paramètre libre / retirer
-  D13 seuils                carbone 1–4 t/hab · matières 6–12 t/hab
+  D13 étalon de l'IEE       ✅ TRANCHÉE : mondial par tête
 
 TA MISSION, DANS CET ORDRE
 
-【A】 Une fois D7–D13 tranchées : figer les formules retenues, regénérer
+【A】 Une fois D7–D12 tranchées : figer les formules retenues, regénérer
      la courbe de création monétaire, et publier la sensibilité complète
      aux décisions écartées. Les fiches de registre existent déjà : il
      s'agit de passer les fiches retenues en statut `valide` et les
@@ -77,11 +84,18 @@ TA MISSION, DANS CET ORDRE
        correctifs documentés (IED lissé, terme dérivé — un régulateur PID
        plutôt que proportionnel).
 
-【C】 P1 — demander/obtenir une clé d'API Global Footprint Network.
-     C'est la SEULE action qui pourrait rouvrir la période 1978–1989 :
-     les comptes GFN remontent à 1961, et remplaceraient l'approximation
-     carbone par la vraie empreinte écologique. Si tu ne peux pas
-     l'obtenir toi-même, dis-le-moi, je la demanderai.
+【C】 P1 — brancher les comptes « SOLS » d'EXIOBASE sur l'IEE.
+     C'est la suite logique, et LA DONNÉE EST DÉJÀ CALCULÉE : la série
+     donnees/traite/empreinte_exiobase_france.csv contient déjà les
+     colonnes sol_cultures_ha_hab, sol_paturages_ha_hab,
+     sol_foret_ha_hab. Elles couvrent les 44 % non carbonés qui manquent
+     à l'IEE. Il reste à définir le seuil de soutenabilité pour les sols
+     et à agréger avec le carbone — un choix normatif de plus, à ficher
+     en catégorie D et à me soumettre.
+
+     La clé GFN reste la seule voie pour remonter avant 1995 (comptes
+     depuis 1961). Elle est gratuite pour les universitaires et
+     étudiants inscrits. Si tu la veux, dis-le-moi.
 
 【D】 Puis JALON P1 — le modèle SFC France proprement dit (voir TODO.md).
 
@@ -96,10 +110,11 @@ RAPPELS QUI COMPTENT
   cointégration.
 - Si une relation manque, documente le trou. Ne le comble pas au jugé.
 - ⚠️ LEÇON DE LA SESSION 3 : les bugs de ce projet ne font pas planter le
-  programme, ils rendent la France plus verte qu'elle n'est. Deux ont été
-  trouvés (erreur d'unité sur l'empreinte carbone ; rebouchage silencieux
-  d'un indicateur manquant, qui donnait IED = 1,06 pour 2023). Cherche-les
-  activement, ne les attends pas.
+  programme, ils rendent la France plus verte qu'elle n'est. QUATRE ont
+  été trouvés : erreur d'unité sur l'empreinte carbone ; rebouchage
+  silencieux d'un indicateur manquant (IED = 1,06 pour 2023) ; comparaison
+  entre deux populations différentes ; et le biais territorial de l'IRNR,
+  qui inversait le signe d'une tendance. Cherche-les activement.
 - Mets à jour JOURNAL.md et TODO.md en fin de session, et regénère ce
   fichier (docs/PROMPT-SUITE.md) pour la session suivante.
 ```
@@ -120,7 +135,9 @@ RAPPELS QUI COMPTENT
 | Entreprises France 2022 | 4 906 972 | Eurostat `sbs_sc_ovw` |
 | … dont 0–9 personnes | 4 718 929 (96,2 %) | idem |
 | Empreinte carbone 2022 | 6,16 tCO₂/hab | Global Carbon Project |
-| Matière non renouvelable 2022 | 7,8 t/hab | Eurostat `env_ac_mfa` |
+| Matière non renouv. 2022, **empreinte** | **12,12 t/hab** | EXIOBASE 3.10.2 |
+| Matière non renouv. 2022, territorial | 7,77 t/hab | Eurostat `env_ac_mfa` |
+| Empreinte écologique 2013 | 5,063 gha/hab | GFN, paquet public 2017 |
 | Oiseaux agricoles 1990→2021 | 93 → 54 (−42 %) | Eurostat `env_bio2` |
 
 ### Les trous documentés, à ne pas combler au jugé
@@ -128,6 +145,7 @@ RAPPELS QUI COMPTENT
 | Trou | Raison |
 |---|---|
 | Écologie avant **1990** | Les trois séries commencent en 1990 |
+| Empreinte matières avant **1995** | EXIOBASE démarre en 1995 |
 | Empreinte carbone après **2022** | Publication à deux ans de retard |
 | Oiseaux après **2021** | Série arrêtée |
 | Année **2000** des oiseaux | Rupture de série (100,0 entre 69,5 et 72,7) |
@@ -160,4 +178,20 @@ python scripts/analyse_dent.py                 # l'analyse critique de DENT
 python scripts/construire_exec.py              # les indicateurs EXEC
 python scripts/courbe_creation_monetaire.py    # le graphique phare
 python scripts/audit_couverture.py             # couverture des données
+python scripts/comparer_irnr.py                # territorial vs empreinte
+python scripts/valider_iee_gfn.py              # IEE contre le vrai GFN
+python scripts/serie_exiobase.py               # la série EXIOBASE (2 h)
 ```
+
+### Leçons de la session 3, à ne pas réapprendre
+
+1. **Les bugs de ce projet ne font pas planter le programme : ils rendent
+   la France plus verte qu'elle n'est.** Quatre trouvés — erreur d'unité
+   sur le carbone, rebouchage silencieux d'un indicateur manquant,
+   comparaison entre deux populations différentes, et le biais territorial
+   de l'IRNR. Cherche-les activement.
+2. **Avant de chercher plus de données, demande à quelle question elles
+   répondent.** Le choix d'étalon (D13) valait plus que trois heures de
+   recherche de sources.
+3. **Une mesure territoriale n'est pas une empreinte.** L'écart n'est pas
+   un niveau, il peut inverser le signe d'une tendance.

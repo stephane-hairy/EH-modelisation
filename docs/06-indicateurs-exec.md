@@ -19,14 +19,15 @@
 | **Période demandée** | 1978–2023 (décision D5) |
 | **Période livrée** | **1990–2021**, l'année 2000 exclue |
 | **Pourquoi** | Les données écologiques françaises **n'existent pas avant 1990** |
-| **IED français** | **0,41 à 0,57** sur toute la période — jamais proche de 1 (mapping exponentiel) |
+| **IED français** | **0,36 à 0,51** avec l'IRNR en empreinte — jamais proche de 1 (mapping exponentiel) |
 | **Verdict IBD** | ⚠️ **Les données ne suffisent pas.** Bouche-trou documenté, pas une mesure |
 | **Choix à arbitrer** | Le **mapping** vers [0 ; 2] — IED 2021 de **0,00 à 0,72**. *(L'étalon de l'IEE est tranché : mondial, décision D13.)* |
 
 **Le résultat principal, en une phrase** : sous l'économie homéostatique,
 la France aurait été en **régime de création monétaire réduite de moitié
-en permanence** depuis 1990 — et cela sans jamais s'améliorer beaucoup,
-l'IED passant seulement de 0,45 à 0,54 en trente ans.
+en permanence** depuis 1990 — et sa lente amélioration apparente tient
+entièrement au carbone : mesurée en **empreinte**, sa consommation de
+matières s'est **aggravée de 26 %** sur la période.
 
 ---
 
@@ -59,6 +60,7 @@ C'est le point le plus important de ce document.
 | Flux de matières (DMC) | Eurostat `env_ac_mfa` | **1990**–2024 |
 | Empreinte carbone importations incluses | Global Carbon Project (MRIO Eora) | **1990**–**2022** |
 | Oiseaux communs agricoles | Eurostat `env_bio2` | **1990**–**2021** |
+| **Empreinte matières, importations incluses** | **EXIOBASE 3.10.2** via `pymrio` | **1995–2024** |
 | Empreinte matières (RMC) | Eurostat `env_ac_rme` | 2008–2025 |
 | Taux d'utilisation circulaire | Eurostat `cei_srm030` | 2010–2024 |
 
@@ -114,15 +116,57 @@ circulaire est publié à part, comme diagnostic.
 
 **Seuil** : 8 t/hab/an (Bringezu 2015, corridor 6–12).
 
-**Résultat** : la France passe de **10,9 t/hab** (1990) à **7,8 t/hab**
-(2022) — elle traverse le seuil vers 2014. C'est le seul des trois
-indicateurs à atteindre l'équilibre.
+#### ⚠️ Correction majeure : le territorial inversait le signe de la tendance
 
-⚠️ **Deux limites lourdes.** D'abord, le DMC est *territorial* : il compte
-le poids des biens importés, pas la matière remuée à l'étranger pour les
-produire. La France, gros importateur, est flattée. Ensuite, les minéraux
-non métalliques (essentiellement les granulats du BTP) font **79 %** du
-total : l'indicateur mesure surtout l'activité du bâtiment.
+La première version de cet indicateur utilisait le **DMC** d'Eurostat, une
+mesure **territoriale** : elle compte le poids des biens qui franchissent
+la frontière, pas la matière remuée à l'étranger pour les fabriquer.
+EXIOBASE a permis de calculer l'**empreinte** réelle, 1995–2024. Le
+résultat ne corrige pas un niveau, il **inverse une conclusion** :
+
+| Mesure | 1995 | 2022 | Tendance |
+|---|---:|---:|---|
+| DMC territorial — *ce que disait l'IRNR* | 9,99 | 7,77 t/hab | **−22 %** |
+| **Empreinte, importations incluses** | 9,58 | **12,12 t/hab** | **+26 %** |
+
+Le DMC disait que la France s'était allégée d'un cinquième. L'empreinte
+dit qu'elle s'est **alourdie d'un quart**.
+
+L'écart entre les deux passe de **−4 % en 1995 à +80 % en 2023** (moyenne
++49 %). Cette croissance régulière est la signature de la délocalisation :
+*l'« amélioration » que mesurait l'IRNR était, pour l'essentiel, un
+déménagement.*
+
+**Conséquences directes :**
+
+- L'IRNR **n'est plus le seul indicateur à atteindre l'équilibre**. En
+  territorial il passait sous le seuil de 8 t/hab vers 2014 ; en
+  empreinte, **il ne passe jamais sous le seuil**.
+- L'IED français baisse d'environ **9 %** (0,54 → 0,49 en 2021). La
+  conclusion du jalon P2 tient — mais le récit change : la seule
+  amélioration réelle est celle du **carbone**.
+- **Correction annexe** : ce document affirmait que l'IBD était « le seul
+  des trois indicateurs à violer l'exigence §14.1 » (inclure les
+  importations). C'était faux : l'IRNR territorial la violait aussi.
+  Depuis le passage à l'empreinte, l'affirmation est devenue vraie.
+
+**Validation** : contrôle croisé du CO₂ entre EXIOBASE et le Global Carbon
+Project, deux constructions indépendantes — **1,4 % d'écart en 2019**,
+4,4 % en 2020. ⚠️ **Aucun contrôle équivalent n'existe pour les
+matières** : EXIOBASE est un modèle, pas une observation directe.
+
+Reproductible : `python scripts/comparer_irnr.py`
+(la série : `python scripts/serie_exiobase.py`, ≈ 2 h).
+
+**Ce qui subsiste comme limites**, quelle que soit la mesure :
+
+- **Le poids n'est pas l'impact.** Une tonne de sable et une tonne
+  d'uranium comptent pareil.
+- **Les minéraux non métalliques dominent** (74 % de l'empreinte 2020) :
+  l'indicateur mesure surtout l'activité du bâtiment.
+- **L'empreinte démarre en 1995**, contre 1990 pour le DMC. On perd cinq
+  ans pour gagner la justesse du concept. Le territorial reste implémenté
+  pour la sensibilité et pour couvrir 1990–1994.
 
 ### IEE — empreinte écologique, importations incluses (fiche EQ-EXEC-002)
 
@@ -277,30 +321,32 @@ simple de l'IBD** — la colonne `IED_sans_IBD` existe pour cela.
 
 ## 4. Résultats
 
-IED français, mapping exponentiel, 1990–2021 :
+IED français, mapping exponentiel, IRNR en empreinte, 1995–2021 :
 
 | Année | mat. t/hab | IRNR | CO₂ t/hab | IEE | oiseaux | IBD | **IED** | IED sans IBD |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1990 | 10,9 | 0,78 | 8,7 | 0,12 | 93 | 1,00 | **0,45** | 0,30 |
-| 1995 | 10,0 | 0,84 | 8,6 | 0,12 | 75 | 0,84 | **0,44** | 0,32 |
-| 2005 | 9,6 | 0,87 | 9,0 | 0,11 | 79 | 0,88 | **0,44** | 0,31 |
-| 2010 | 8,4 | 0,96 | 7,9 | 0,15 | 62 | 0,70 | **0,47** | 0,38 |
-| 2015 | 7,6 | 1,04 | 6,5 | 0,24 | 62 | 0,70 | **0,56** | 0,50 |
-| 2021 | 7,9 | 1,01 | 6,3 | 0,26 | 54 | 0,60 | **0,54** | 0,51 |
+| 1995 | 9,6 | 0,87 | 8,6 | 0,12 | 75 | 0,84 | **0,45** | 0,32 |
+| 2005 | 14,7 | 0,56 | 9,0 | 0,11 | 79 | 0,88 | **0,38** | 0,25 |
+| 2010 | 13,3 | 0,63 | 7,9 | 0,15 | 62 | 0,70 | **0,41** | 0,31 |
+| 2015 | 13,0 | 0,65 | 6,5 | 0,24 | 62 | 0,70 | **0,48** | 0,39 |
+| 2021 | 11,0 | 0,77 | 6,3 | 0,26 | 54 | 0,60 | **0,49** | 0,45 |
 
 **Trois lectures :**
 
-1. **L'IED français n'approche jamais 1.** Il oscille entre 0,41 et 0,57.
+1. **L'IED français n'approche jamais 1.** Il reste entre 0,36 et 0,51.
    Sous l'EH, la France aurait vécu en permanence sous un régime de
    création monétaire réduite de moitié. Le dividende par citoyen aurait
-   valu **11 900 €/an (991 €/mois) en 2021**, non 22 000 €.
-2. **L'amélioration est réelle mais lente** : +0,09 point en trente ans,
-   portée par la baisse de l'empreinte carbone et de la consommation de
-   matières.
-3. **Elle est freinée par la biodiversité.** IRNR et IEE s'améliorent,
-   IBD se dégrade continûment. L'écart entre les deux courbes d'IED se
-   referme — non parce que la biodiversité va mieux, mais parce qu'elle
-   rejoint les autres par le bas.
+   valu **10 881 €/an (907 €/mois) en 2021**, non 22 000 €.
+2. **L'amélioration est faible, et elle tient à un seul terme.** L'IED
+   gagne +0,04 point entre 1995 et 2021 (0,45 → 0,49), et il passe même
+   par un creux à 0,38 en 2005. **Seul le carbone progresse vraiment**
+   (IEE 0,12 → 0,26). L'IRNR, lui, s'est d'abord effondré (0,87 → 0,51 en
+   2000) avant de remonter partiellement — sans jamais revenir à son
+   niveau de 1995.
+3. **La biodiversité se dégrade sans interruption** (IBD 0,84 → 0,60).
+   L'écart entre les deux courbes d'IED se referme — non parce que la
+   biodiversité va mieux, mais parce qu'elle rejoint les autres par le
+   bas.
 
 ### La courbe de création monétaire
 
@@ -313,9 +359,10 @@ Elle publie **une bande, pas un trait**, et c'est délibéré :
 - **bande** : le total, dont la part entreprises dépend de la formule
   DENT, **non arbitrée** (verrou P0, `docs/05-dent.md`).
 
-En 2021, la création totale va de **1 794 à 3 275 Md€** selon la variante
+En 2021, la création totale va de **1 641 à 2 995 Md€** selon la variante
 de DENT retenue — **un facteur 1,8** sur le total, **7,7** sur la seule
-part entreprises. Cette fourchette n'est pas une incertitude de mesure :
+part entreprises. *(Chiffres recalculés avec l'IRNR en empreinte ; ils
+étaient de 1 794 à 3 275 Md€ avec l'IRNR territorial.)* Cette fourchette n'est pas une incertitude de mesure :
 c'est **l'effet d'une décision de conception non prise**. Elle se
 refermera quand D7–D10 seront tranchées, pas avec de meilleures données.
 

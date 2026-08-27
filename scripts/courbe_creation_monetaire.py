@@ -8,8 +8,8 @@ Assemble les indicateurs EXEC (jalon P2) et les formules de monnaie-don
 ⚠️ **Deux honnêtetés obligatoires, portées par le graphique lui-même** :
 
 1. **La courbe ne peut pas commencer en 1978.** Les données écologiques
-   françaises commencent en 1990. Le graphique s'arrête là où les données
-   s'arrêtent.
+   françaises commencent en 1990, et l'empreinte matières en 1995. Le
+   graphique s'arrête là où les données s'arrêtent.
 2. **Le dividende des entreprises n'est pas un trait, c'est une bande.**
    La formule DENT n'est pas arbitrée (verrou P0, `docs/05-dent.md`).
    Publier un trait unique laisserait croire à une précision qui n'existe
@@ -77,9 +77,14 @@ def coefficients_dent(dcit_reference: float = 22_000.0) -> dict[str, tuple]:
     }
 
 
-def construire_courbe(mapping: str = "exponentiel") -> pd.DataFrame:
-    """Création monétaire annuelle qu'aurait produite l'EH, en euros."""
-    exec_fr, _ = construire(mapping=mapping)
+def construire_courbe(mapping: str = "exponentiel",
+                      source_irnr: str = "empreinte") -> pd.DataFrame:
+    """Création monétaire annuelle qu'aurait produite l'EH, en euros.
+
+    `source_irnr` vaut « empreinte » par défaut : le DMC territorial
+    inversait le signe de la tendance matières (cf. `comparer_irnr.py`).
+    """
+    exec_fr, _ = construire(mapping=mapping, source_irnr=source_irnr)
     assiettes = assiettes_dent()
 
     from modele.donnees.ecologie import co2_empreinte
@@ -175,7 +180,8 @@ def tracer(d: pd.DataFrame) -> None:
 
     fig.text(.012, .022,
              "Sources : Eurostat env_ac_mfa, env_bio2, nasa_10_nf_tr · "
-             "Global Carbon Project (empreinte carbone, importations incluses).",
+             "Global Carbon Project · EXIOBASE 3.10.2 "
+             "(empreintes, importations incluses).",
              fontsize=7.4, color="#555")
     fig.text(.012, .006,
              "Indicateurs EXEC et formules DENT : choix normatifs de "
