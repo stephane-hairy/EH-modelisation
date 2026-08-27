@@ -1,0 +1,67 @@
+# La règle d'actualisation de la base P. Isolée de EQ-EH-001 parce qu'elle
+# s'applique à TOUTES les variantes de DENT, y compris les alternatives.
+id: EQ-EH-005
+nom: Base de référence P — règle « moyenne des 3 meilleures années »
+description: >
+  La synthèse propose de fixer la base du dividende à la moyenne des trois
+  meilleures années d'exploitation, réactualisée tous les trois ans. Cette
+  règle a deux effets non voulus, démontrés par simulation : elle
+  amplifie durablement la création monétaire (rétroaction positive), et
+  elle empêche la base de redescendre après une récession (effet cliquet).
+
+formule: "P(k+1) = moyenne des m meilleures années de X observées ; DENT = f(IED, P(k))"
+
+variables:
+  X: {sens: "produit d'exploitation observé, hors dividende reçu", unite: "€/an", source: "comptabilité d'entreprise"}
+  P: {sens: "base de référence en vigueur", unite: "€/an", source: "règle de conception EH"}
+
+parametres:
+  m:      {valeur: 3, intervalle: [1, 10], origine: design}
+  periode: {valeur: 3, intervalle: [1, 10], origine: design}
+  alpha:  {valeur: null, intervalle: [0.5, 1.0], origine: calibre}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae (Albouy, Hairy, Lavilley), Synthèse v1.7, oct. 2020, §11.1, p. 39"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "« moyenne des trois dernières meilleurs années » ; réactualisation « tous les trois ans » ; réactualisation « hors DENT »"
+  - ref: "Sterman, J. (2000), Business Dynamics, ch. 17 — délais et rétroactions"
+    doi_ou_url: "https://www.worldcat.org/isbn/9780072389159"
+    ce_qu_elle_etablit: "Une boucle de rétroaction positive avec délai amplifie et déstabilise ; un régulateur ne doit pas mémoriser les extrema"
+
+sensibilite:
+  balayage: ["alpha de 0,5 à 1,0", "m de 1 à 10 (moyenne des meilleures vs moyenne simple)", "periode de 1 à 10 ans", "avec et sans la clause « hors DENT »"]
+  impact_attendu: >
+    Décisif. L'amplification de la base vaut 1/(1−α) : ×2 à α = 0,5, ×5 à
+    α = 0,8, ×10 à α = 0,9. Remplacer « moyenne des m meilleures » par
+    « moyenne glissante simple » supprime le cliquet mais pas
+    l'amplification ; celle-ci ne disparaît qu'en indexant P sur une
+    grandeur exogène au dividende.
+
+limites: |
+  - RÉTROACTION POSITIVE. Le dividende d'une entreprise devient le chiffre
+    d'affaires des autres. La récurrence P ← X₀ + α·IED·P converge vers
+    X₀/(1−α·IED) : une amplification permanente, ×5 pour α = 0,8.
+    C'est une rétroaction positive dans une théorie qui affirme n'en
+    comporter aucune.
+  - LA CLAUSE « HORS DENT » NE PROTÈGE PAS. Exclure son propre dividende
+    retire 1/N du flux. Avec N = 4,9 millions d'entreprises françaises,
+    cela ne retire rien : à α = 1, cette clause est le seul frein restant
+    et elle plafonne l'amplification à 4,9 millions de fois.
+  - EFFET CLIQUET. Retenir les MEILLEURES années rend la base quasi
+    non décroissante. Simulation : après six ans de récession à −25 %, la
+    base ne perd que 11 %. La création monétaire reste calée sur un niveau
+    d'activité que l'économie n'atteint plus.
+  - alpha (part du dividende revenant aux entreprises en chiffre
+    d'affaires) n'est pas connu : il dépend de la propension à consommer
+    sous fonte, du taux d'importation et de la fiscalité EH. Il est ici
+    balayé, pas estimé. Sa calibration relève de la couche C.
+  - Démonstration : scripts/analyse_dent.py, section 3. Tests :
+    tests/test_dent.py.
+
+statut: brouillon
+maj: 2026-08-27

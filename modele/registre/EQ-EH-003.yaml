@@ -1,0 +1,60 @@
+# Alternative 2 — deux termes, tous deux en euros. Proposition, non arbitrée.
+id: EQ-EH-003
+nom: Dividende d'entreprise — alternative 2, deux termes homogènes
+description: >
+  Le dividende mélange deux choses, dosées par un curseur θ : la taille
+  économique de l'entreprise (son produit d'exploitation) et son emploi
+  (ce que coûterait sa masse salariale si tout le monde était au revenu
+  minimum). La seconde part est pondérée par un facteur d'équité : une
+  entreprise très inégalitaire n'en touche rien. C'est la variante la plus
+  proche des mots de la synthèse — le produit « e × DCIT » y figure
+  littéralement — mais avec des mathématiques réparées.
+
+formule: "DENT = IED × [ (1−θ)·P + θ · e · DCIT · ψ(s) ],  ψ(s) = 1 / (1 + ((s−1)/s₀)^γ)"
+
+variables:
+  IED:  {sens: "indicateur d'équilibre dynamique", unite: "sans dimension [0 ; 2]", source: "synthèse EH §8.2"}
+  P:    {sens: "produit d'exploitation de référence", unite: "€/an", source: "comptes nationaux ou liasses fiscales"}
+  e:    {sens: "nombre de salariés", unite: "personnes", source: "déclarations sociales (DSN)"}
+  DCIT: {sens: "dividende d'un citoyen", unite: "€/an/personne", source: "synthèse EH §11.1"}
+  s:    {sens: "plus haut salaire en multiples du revenu minimum", unite: "sans dimension", source: "déclarations sociales (DSN)"}
+
+parametres:
+  theta: {valeur: 0.3, intervalle: [0.0, 1.0], origine: design}
+  s_0:   {valeur: 4.0, intervalle: [1.0, 20.0], origine: design}
+  gamma: {valeur: 2.0, intervalle: [1.0, 6.0], origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae (Albouy, Hairy, Lavilley), Vers une économie bio-intégrée — Synthèse, v1.7, oct. 2020, §11.1, p. 39"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Le terme « e × DCIT » et l'intention de récompenser l'emploi et pénaliser les écarts de salaires"
+
+sensibilite:
+  balayage: ["theta de 0 à 1", "s_0 de 1 à 20", "gamma de 1 à 6", "périmètre SNF / SNF+SF / marchand"]
+  impact_attendu: >
+    theta est le paramètre décisif. À θ = 0 on retrouve DENT = IED × P
+    (assiette ≈ 3 810 Md€ pour les SNF françaises). À θ = 1 l'assiette
+    devient e × DCIT, soit environ 450 Md€ pour 20,5 millions de personnes
+    occupées : un facteur 8 entre les deux extrêmes. C'est le paramètre à
+    arbitrer en premier.
+
+limites: |
+  - θ n'a aucun fondement empirique : c'est un arbitrage politique entre
+    « récompenser la taille » et « récompenser l'emploi ». À présenter
+    comme tel, jamais comme un résultat.
+  - Conserve l'assiette « production » dans son premier terme, donc
+    conserve partiellement le défaut de non-additivité (fusion / scission).
+  - Une entreprise sans salarié (96 % des entreprises françaises) ne
+    touche que la part (1−θ)·P : le curseur θ redistribue mécaniquement
+    des micro-entreprises vers les employeurs. Effet voulu ou non, il doit
+    être chiffré avant arbitrage.
+  - ψ sature à s = 1 : on ne modélise pas les salaires inférieurs au
+    revenu minimum, qui n'ont pas de sens en EH.
+
+statut: brouillon
+maj: 2026-08-27

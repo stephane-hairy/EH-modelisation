@@ -15,6 +15,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pypdf>=5.0"]
 
+[tool.setuptools.packages.find]
+include = ["modele*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["reseau: test nécessitant un accès réseau (désactivé par défaut)"]

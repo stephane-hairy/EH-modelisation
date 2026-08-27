@@ -1,0 +1,69 @@
+# La formule de la synthèse, telle qu'elle est écrite.
+# Fiche conservée en statut « rejete » : elle documente ce qui a été
+# examiné et pourquoi c'est écarté. Elle ne doit pas servir à produire un
+# résultat chiffré.
+id: EQ-EH-001
+nom: Dividende d'une entreprise — formule §11.1 (rejetée)
+description: >
+  Chaque année, la banque centrale donne de l'argent à chaque entreprise.
+  La synthèse propose un montant égal au produit d'exploitation de
+  l'entreprise, plus un bonus censé récompenser l'emploi et pénaliser les
+  écarts de salaires. Ce bonus est mathématiquement défectueux : il n'est
+  pas en euros, et il devient infini pour une entreprise parfaitement
+  égalitaire.
+
+formule: "DENT = IED × P + (e × DCIT) / ((r/e) × 10⁴)"
+
+variables:
+  IED:  {sens: "indicateur d'équilibre dynamique", unite: "sans dimension [0 ; 2]", source: "synthèse EH §8.2"}
+  P:    {sens: "produit d'exploitation de référence, moyenne des 3 meilleures années", unite: "€/an", source: "comptabilité d'entreprise — non défini précisément par la synthèse"}
+  e:    {sens: "nombre de salariés", unite: "personnes", source: "déclarations sociales"}
+  DCIT: {sens: "dividende d'un citoyen, tenant lieu de revenu minimum", unite: "€/an/personne", source: "synthèse EH §11.1"}
+  r:    {sens: "écart entre le plus haut salaire de l'entreprise et DCIT", unite: "€/an/personne", source: "déclarations sociales"}
+
+parametres:
+  base_10_4: {valeur: 10000, intervalle: null, origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae (Albouy, Hairy, Lavilley), Vers une économie bio-intégrée — Synthèse, v1.7, oct. 2020, §11.1, p. 39"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Énonce la formule du dividende d'entreprise et son intention"
+  - ref: "Hairy, S., co-auteur — communication directe, 2026-08-27"
+    doi_ou_url: "https://github.com/stephane-hairy/EH-modelisation/blob/main/JOURNAL.md"
+    ce_qu_elle_etablit: "La formule a été construite « au doigt mouillé » ; elle n'est pas arrêtée"
+
+sensibilite:
+  balayage: ["lecture A vs lecture B (facteur 10⁸)", "r de 0 à 500 000 €", "e de 0 à 100 000", "P = production ou valeur ajoutée"]
+  impact_attendu: >
+    Décisif et non borné. Le total DTENT domine la création monétaire
+    française ; selon la lecture retenue et le périmètre, il varie d'un
+    facteur supérieur à 4, et diverge dans deux cas limites atteignables.
+
+limites: |
+  Six défauts établis (démonstration : scripts/analyse_dent.py,
+  tests : tests/test_dent.py) :
+  1. INHOMOGÈNE. Le second terme a la dimension d'un nombre de personnes
+     au carré, pas d'euros. On ne peut pas l'ajouter à IED × P.
+     Le résultat tient pour les deux lectures possibles du texte.
+  2. AMBIGU. Le PDF sort la formule en glyphes séparés : on ne sait pas si
+     10⁴ multiplie (r/e) ou e seul. Les deux lectures diffèrent d'un
+     facteur 10⁸.
+  3. SINGULIER EN r = 0. Une entreprise où le plus haut salaire vaut le
+     revenu minimum reçoit un dividende infini — et le signe bascule si ce
+     salaire passe en dessous.
+  4. NON DÉFINI SANS SALARIÉ. 96 % des entreprises françaises comptent
+     moins de 10 personnes occupées (1,17 en moyenne) : ni « nombre de
+     salariés », ni « plus haut salaire », ni écart r.
+  5. EXPLOSIF EN TAILLE. Le terme croît comme e², la production comme e.
+  6. ASSIETTE NON ADDITIVE. La somme des produits d'exploitation compte
+     plusieurs fois la même valeur. Deux entreprises qui fusionnent font
+     baisser la création monétaire du pays sans que rien n'ait changé.
+  Défaut supplémentaire de la règle d'actualisation de P, fiche EQ-EH-005.
+
+statut: rejete
+maj: 2026-08-27

@@ -1,0 +1,56 @@
+# Alternative 1 — modulation multiplicative. Proposition, non arbitrée.
+id: EQ-EH-002
+nom: Dividende d'entreprise — alternative 1, modulation multiplicative
+description: >
+  Le dividende vaut le produit d'exploitation, multiplié par un
+  coefficient d'équité salariale. Plus l'écart entre le plus haut salaire
+  et le revenu minimum est grand, plus le coefficient est petit. C'est la
+  correction minimale de la formule §11.1 : on remplace un terme ajouté
+  (qui n'était pas en euros) par un coefficient sans unité, ce qui rend la
+  formule homogène par construction.
+
+formule: "DENT = IED × P × κ(s),  κ(s) = 2 / (1 + (s/s_ref)^γ),  s = salaire_max / DCIT"
+
+variables:
+  IED: {sens: "indicateur d'équilibre dynamique", unite: "sans dimension [0 ; 2]", source: "synthèse EH §8.2"}
+  P:   {sens: "produit d'exploitation de référence", unite: "€/an", source: "comptes nationaux ou liasses fiscales"}
+  s:   {sens: "plus haut salaire exprimé en multiples du revenu minimum", unite: "sans dimension", source: "déclarations sociales (DSN)"}
+
+parametres:
+  s_ref: {valeur: 5.0, intervalle: [2.0, 20.0], origine: design}
+  gamma: {valeur: 2.0, intervalle: [1.0, 6.0], origine: design}
+
+categorie: D
+grade: D
+empirique: false
+couche: B
+
+sources:
+  - ref: "Ex Naturae (Albouy, Hairy, Lavilley), Vers une économie bio-intégrée — Synthèse, v1.7, oct. 2020, §11.1, p. 39"
+    doi_ou_url: "https://exnaturae.ong/"
+    ce_qu_elle_etablit: "Énonce l'intention de conception que cette variante cherche à réaliser correctement"
+
+sensibilite:
+  balayage: ["s_ref de 2 à 20", "gamma de 1 à 6", "périmètre SNF / SNF+SF / marchand"]
+  impact_attendu: >
+    s_ref déplace le dividende moyen proportionnellement ; gamma change la
+    dispersion entre entreprises sans beaucoup déplacer la moyenne.
+    L'assiette reste celle de la production, donc DTENT reste du même ordre
+    de grandeur que dans la §11.1.
+
+limites: |
+  - Ne récompense plus explicitement l'emploi : à production égale, une
+    entreprise très automatisée et une entreprise très intensive en
+    main-d'œuvre touchent le même dividende. C'est un renoncement assumé
+    par rapport à l'intention affichée de la synthèse.
+  - Conserve l'assiette « production », donc conserve le défaut de non-
+    additivité : filialiser augmente encore la création monétaire.
+    Seule l'alternative 3 corrige cela.
+  - s_ref et gamma sont des choix normatifs sans fondement empirique.
+    Aucune donnée ne dit quel écart de salaire est « le bon ».
+  - Suppose que le plus haut salaire de chaque entreprise est observable.
+    En France, la DSN le permet en principe ; sa disponibilité pour la
+    recherche est à vérifier. [À VÉRIFIER]
+
+statut: brouillon
+maj: 2026-08-27

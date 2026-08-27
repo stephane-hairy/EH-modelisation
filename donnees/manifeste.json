@@ -62,14 +62,41 @@
     "source": "Eurostat",
     "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?geo=FR&na_item=B1GQ&unit=CP_MEUR&format=JSON&lang=en"
   },
+  "eurostat_nasa_10_nf_tr_B1G-CP_MEUR-FR-RECV-S1.json": {
+    "octets": 5386,
+    "recupere_le": "2026-08-27T09:17:34+00:00",
+    "revision": false,
+    "sha256": "1f211b21d3bf1478573cdd7b0d2145faba76ac6f89295d330656b1c5c236237b",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=B1G&sector=S1&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
   "eurostat_nasa_10_nf_tr_B1G-CP_MEUR-FR-RECV-S11.json": {
     "octets": 5961,
-    "recupere_le": "2026-08-27T09:04:42+00:00",
+    "recupere_le": "2026-08-27T09:17:25+00:00",
     "revision": false,
     "sha256": "6a0be1ad718c011a1b87515aa26ae6a0ffaf2dc9ef00d351bf61eb08a5d7f431",
     "sha256_precedent": null,
     "source": "Eurostat",
-    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&sector=S11&na_item=B1G&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=B1G&sector=S11&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_B1G-CP_MEUR-FR-RECV-S12.json": {
+    "octets": 5888,
+    "recupere_le": "2026-08-27T09:17:28+00:00",
+    "revision": false,
+    "sha256": "518512f5235e51aa5c40b28c46fe6e87afc55513c64678b4e4bffbcd8d98beb6",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=B1G&sector=S12&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_B1G-CP_MEUR-FR-RECV-S14.json": {
+    "octets": 5922,
+    "recupere_le": "2026-08-27T09:17:31+00:00",
+    "revision": false,
+    "sha256": "4f1e9c4393e39f8c2f6f7938aa9fe14203907684e68a6fed1eb0509f27b1f882",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=B1G&sector=S14&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
   },
   "eurostat_nasa_10_nf_tr_B2A3G-CP_MEUR-FR-RECV-S11.json": {
     "octets": 5960,
@@ -80,14 +107,149 @@
     "source": "Eurostat",
     "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&sector=S11&na_item=B2A3G&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
   },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-D1-FR-PAID-S1.json": {
+    "octets": 5949,
+    "recupere_le": "2026-08-27T09:17:36+00:00",
+    "revision": false,
+    "sha256": "70ec4afb0ef71d986c5ac574ee2a75714ee767166c4f288195bb9b0da81f3503",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=D1&sector=S1&direct=PAID&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-D1-FR-PAID-S11.json": {
+    "octets": 5945,
+    "recupere_le": "2026-08-27T09:17:26+00:00",
+    "revision": false,
+    "sha256": "e054b16f9d87f837babcb29cb3dcf40ff60268bccf1f1c5569c0e4359da5dfe0",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=D1&sector=S11&direct=PAID&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-D1-FR-PAID-S12.json": {
+    "octets": 5883,
+    "recupere_le": "2026-08-27T09:17:29+00:00",
+    "revision": false,
+    "sha256": "6d41c5d73feb744e6979d560b7f8fa640d7d5feda7fc4bc9deb7b8623cc37114",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=D1&sector=S12&direct=PAID&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-D1-FR-PAID-S14.json": {
+    "octets": 5875,
+    "recupere_le": "2026-08-27T09:17:32+00:00",
+    "revision": false,
+    "sha256": "0f6e39f93f01ae38c05d00b437620a0b0ea96bc9d5f83e5d09d4f4af9287df46",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=D1&sector=S14&direct=PAID&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P1-RECV-S1.json": {
+    "octets": 5963,
+    "recupere_le": "2026-08-27T09:17:33+00:00",
+    "revision": false,
+    "sha256": "a7025d94a1e9512f4f9d89b33ca4b82b6c7192e71dae3d6ed83a1e006ff4355f",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P1&sector=S1&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
   "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P1-RECV-S11.json": {
     "octets": 5970,
-    "recupere_le": "2026-08-27T09:04:41+00:00",
+    "recupere_le": "2026-08-27T09:17:25+00:00",
     "revision": false,
     "sha256": "19eebfbf0febfa00aac74176d9b8fb29db59283571df8754ea44ec2f82fe88df",
     "sha256_precedent": null,
     "source": "Eurostat",
-    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&sector=S11&na_item=P1&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P1&sector=S11&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P1-RECV-S12.json": {
+    "octets": 5911,
+    "recupere_le": "2026-08-27T09:17:27+00:00",
+    "revision": false,
+    "sha256": "bb16521c25bed00782beea00a31d6be0b48ef21808159f3fdd39300232e4282e",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P1&sector=S12&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P1-RECV-S14.json": {
+    "octets": 5913,
+    "recupere_le": "2026-08-27T09:17:30+00:00",
+    "revision": false,
+    "sha256": "d5be292cef35fff52e9789cbb18a191468a0793f8fd316dcbc2c33479a510491",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P1&sector=S14&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P2-RECV-S1.json": {
+    "octets": 5390,
+    "recupere_le": "2026-08-27T09:17:35+00:00",
+    "revision": false,
+    "sha256": "68d7846766ac54d22d5e5f17bdd83c51eca98f49a1989365b967c89e2480bcac",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P2&sector=S1&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P2-RECV-S11.json": {
+    "octets": 5405,
+    "recupere_le": "2026-08-27T09:17:26+00:00",
+    "revision": false,
+    "sha256": "674631c3cc067834827b4f8057784e1a50ac9cda0890f503bce95451bfb4edfa",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P2&sector=S11&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P2-RECV-S12.json": {
+    "octets": 5401,
+    "recupere_le": "2026-08-27T09:17:29+00:00",
+    "revision": false,
+    "sha256": "5ebe5af61ca28ec965b614b1fdcb39bda03e96269533158a1a8f0152fe62c0de",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P2&sector=S12&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_nasa_10_nf_tr_CP_MEUR-FR-P2-RECV-S14.json": {
+    "octets": 5389,
+    "recupere_le": "2026-08-27T09:17:32+00:00",
+    "revision": false,
+    "sha256": "6576d79aa6fe603a5c9362fc6aa0539d931675df2fbcdc7e226f671046270d0a",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?geo=FR&na_item=P2&sector=S14&direct=RECV&unit=CP_MEUR&format=JSON&lang=en"
+  },
+  "eurostat_sbs_sc_ovw_0_1-2022-B-S_X_O_S94-ENT_NR-FR.json": {
+    "octets": 3035,
+    "recupere_le": "2026-08-27T09:18:28+00:00",
+    "revision": false,
+    "sha256": "9157e8812f9e872c2c87dfbc083f30076e053623cee7dee49bf6c9b92d4e3add",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_sc_ovw?geo=FR&nace_r2=B-S_X_O_S94&indic_sbs=ENT_NR&time=2022&size_emp=0_1&format=JSON&lang=en"
+  },
+  "eurostat_sbs_sc_ovw_2-9-2022-B-S_X_O_S94-ENT_NR-FR.json": {
+    "octets": 3036,
+    "recupere_le": "2026-08-27T09:18:29+00:00",
+    "revision": false,
+    "sha256": "933e3118685f4a295b47157741a07d4d631b61795dc3c3d5e5b4e2179d9c4a6b",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_sc_ovw?geo=FR&nace_r2=B-S_X_O_S94&indic_sbs=ENT_NR&time=2022&size_emp=2-9&format=JSON&lang=en"
+  },
+  "eurostat_sbs_sc_ovw_2022-B-S_X_O_S94-EMP_NR-FR.json": {
+    "octets": 3430,
+    "recupere_le": "2026-08-27T09:18:15+00:00",
+    "revision": false,
+    "sha256": "bb53e8244a0d83627c869d8759df78d9eff9584cd17e43b88631100cdcfaa2fe",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_sc_ovw?geo=FR&nace_r2=B-S_X_O_S94&indic_sbs=EMP_NR&time=2022&format=JSON&lang=en"
+  },
+  "eurostat_sbs_sc_ovw_2022-B-S_X_O_S94-ENT_NR-FR.json": {
+    "octets": 3416,
+    "recupere_le": "2026-08-27T09:18:15+00:00",
+    "revision": false,
+    "sha256": "bf691cb27165816a9c619ef9f9d9768d11f42988f93946a1067d7f9484a67933",
+    "sha256_precedent": null,
+    "source": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_sc_ovw?geo=FR&nace_r2=B-S_X_O_S94&indic_sbs=ENT_NR&time=2022&format=JSON&lang=en"
   },
   "insee_CNA-2014-TOF_A--S11--F4------.xml": {
     "octets": 25199,

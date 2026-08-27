@@ -19,3 +19,6 @@ sorties/
 *.png
 *.pdf
 !sources/*.pdf
+
+# Métadonnées de build
+*.egg-info/
