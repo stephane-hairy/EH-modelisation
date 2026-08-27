@@ -19,7 +19,7 @@
   },
   "eurostat_cei_srm030_FR-PC.json": {
     "octets": 5649,
-    "recupere_le": "2026-08-27T14:41:45+00:00",
+    "recupere_le": "2026-08-27T17:32:01+00:00",
     "revision": false,
     "sha256": "970b6b2088b77cddfab05e0180c0395b8d8cbf549881b5a71c99c9faf549d35a",
     "sha256_precedent": null,
@@ -28,7 +28,7 @@
   },
   "eurostat_demo_gind_AVG-FR.json": {
     "octets": 4829,
-    "recupere_le": "2026-08-27T14:42:24+00:00",
+    "recupere_le": "2026-08-27T17:32:01+00:00",
     "revision": false,
     "sha256": "f1448d99b3a59172b9894ec7a3588e55efa0eec25d587e7240ce748acc857dd7",
     "sha256_precedent": null,
@@ -46,7 +46,7 @@
   },
   "eurostat_env_ac_mfa_DMC-FR-MF1-THS_T.json": {
     "octets": 4209,
-    "recupere_le": "2026-08-27T14:41:40+00:00",
+    "recupere_le": "2026-08-27T17:31:57+00:00",
     "revision": false,
     "sha256": "c50289e6797bc1ef8839d5b410309935335044173157411e071560efff5959c7",
     "sha256_precedent": null,
@@ -55,7 +55,7 @@
   },
   "eurostat_env_ac_mfa_DMC-FR-MF2-THS_T.json": {
     "octets": 4066,
-    "recupere_le": "2026-08-27T14:41:41+00:00",
+    "recupere_le": "2026-08-27T17:31:57+00:00",
     "revision": false,
     "sha256": "c53b6b6c0d0de4c08a7c51ae0429f94de2c7a2549e5d660aced494d9e25d07ac",
     "sha256_precedent": null,
@@ -64,7 +64,7 @@
   },
   "eurostat_env_ac_mfa_DMC-FR-MF3-THS_T.json": {
     "octets": 4101,
-    "recupere_le": "2026-08-27T14:41:41+00:00",
+    "recupere_le": "2026-08-27T17:31:58+00:00",
     "revision": false,
     "sha256": "1ad1061c9dbe6950487329447d4354454d4e5b112baa78ba9288fb4fbc4e123f",
     "sha256_precedent": null,
@@ -73,7 +73,7 @@
   },
   "eurostat_env_ac_mfa_DMC-FR-MF4-THS_T.json": {
     "octets": 4219,
-    "recupere_le": "2026-08-27T14:41:42+00:00",
+    "recupere_le": "2026-08-27T17:31:59+00:00",
     "revision": false,
     "sha256": "c488210b4febf9fa86da5b964c854395c9911da33c90511b214721e0c43c8eeb",
     "sha256_precedent": null,
@@ -127,7 +127,7 @@
   },
   "eurostat_env_bio2_FR-I00.json": {
     "octets": 3630,
-    "recupere_le": "2026-08-27T14:41:44+00:00",
+    "recupere_le": "2026-08-27T17:32:00+00:00",
     "revision": false,
     "sha256": "6b258153cdcd2a1dd750658f6c388a1da71bd4f7ef3ce4484d9bed97037c2cef",
     "sha256_precedent": null,
@@ -332,6 +332,222 @@
     "source": "Eurostat",
     "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sbs_sc_ovw?geo=FR&nace_r2=B-S_X_O_S94&indic_sbs=ENT_NR&time=2022&format=JSON&lang=en"
   },
+  "exiobase_IOT_1995_pxp.zip": {
+    "octets": 156241774,
+    "recupere_le": "2026-08-27T14:43:08+00:00",
+    "revision": false,
+    "sha256": "37c4ca25f229659e959137fdc2c5db9e92f86d07cd3ab4ba52823a37cb7d9758",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_1995_pxp.zip/content"
+  },
+  "exiobase_IOT_1996_pxp.zip": {
+    "octets": 205920936,
+    "recupere_le": "2026-08-27T14:46:43+00:00",
+    "revision": false,
+    "sha256": "5ecb84abd663a7496daf67f374d333314c4c67863abb19237300b44174287c3f",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_1996_pxp.zip/content"
+  },
+  "exiobase_IOT_1997_pxp.zip": {
+    "octets": 213052554,
+    "recupere_le": "2026-08-27T14:50:53+00:00",
+    "revision": false,
+    "sha256": "e7ea50a70e0af32c396927f766295362463aba6630a2c74d407c8c3af93c0359",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_1997_pxp.zip/content"
+  },
+  "exiobase_IOT_1998_pxp.zip": {
+    "octets": 211990434,
+    "recupere_le": "2026-08-27T14:54:56+00:00",
+    "revision": false,
+    "sha256": "600268a53b7c80eb3725f8681f749f578dc0df6c8c23b69cc12dd340b6e8bdf1",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_1998_pxp.zip/content"
+  },
+  "exiobase_IOT_1999_pxp.zip": {
+    "octets": 221427942,
+    "recupere_le": "2026-08-27T14:58:15+00:00",
+    "revision": false,
+    "sha256": "d834b87a56fa3759ae9ad7c82f784b8e7def006cb8a30c36ecd4a72092f565db",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_1999_pxp.zip/content"
+  },
+  "exiobase_IOT_2000_pxp.zip": {
+    "octets": 232537775,
+    "recupere_le": "2026-08-27T15:02:20+00:00",
+    "revision": false,
+    "sha256": "b062c1c186af9174b06825438d40cb5539d7b57552c8b93245e183aa3b0f1252",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2000_pxp.zip/content"
+  },
+  "exiobase_IOT_2001_pxp.zip": {
+    "octets": 232666942,
+    "recupere_le": "2026-08-27T15:06:12+00:00",
+    "revision": false,
+    "sha256": "f94233ffe17be94bcbd0ad60c0f72d7e7c91ee58cbf903132adf3d77da35ab3b",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2001_pxp.zip/content"
+  },
+  "exiobase_IOT_2002_pxp.zip": {
+    "octets": 238671732,
+    "recupere_le": "2026-08-27T15:10:04+00:00",
+    "revision": false,
+    "sha256": "81d1565c0057d93e23d4cde6c4a829062fd9fbd94891e9db261593ed868a4f5d",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2002_pxp.zip/content"
+  },
+  "exiobase_IOT_2003_pxp.zip": {
+    "octets": 231904641,
+    "recupere_le": "2026-08-27T15:13:36+00:00",
+    "revision": false,
+    "sha256": "3926ed62003e6e2b9eb5da0bb1cbff450acabb1c855c2bfdde774228570911fa",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2003_pxp.zip/content"
+  },
+  "exiobase_IOT_2004_pxp.zip": {
+    "octets": 252253236,
+    "recupere_le": "2026-08-27T15:18:14+00:00",
+    "revision": false,
+    "sha256": "b825649affcaf0edc1957a6e8f8bb18706c71e497c0d4a5c87ec4feaa7210620",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2004_pxp.zip/content"
+  },
+  "exiobase_IOT_2005_pxp.zip": {
+    "octets": 246427996,
+    "recupere_le": "2026-08-27T15:21:59+00:00",
+    "revision": false,
+    "sha256": "9a9f38dc77727bfdd0d72b989a7424e33ea35e36ab9a4d24fa282a09c48dd1a2",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2005_pxp.zip/content"
+  },
+  "exiobase_IOT_2006_pxp.zip": {
+    "octets": 260452840,
+    "recupere_le": "2026-08-27T15:26:03+00:00",
+    "revision": false,
+    "sha256": "658a60fc5827af186303b732d245f5a1b4316dd25e8bcad38745457201b2f43f",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2006_pxp.zip/content"
+  },
+  "exiobase_IOT_2007_pxp.zip": {
+    "octets": 258161935,
+    "recupere_le": "2026-08-27T15:29:55+00:00",
+    "revision": false,
+    "sha256": "6a38ac2bb06b15e3704ff2c2f6f8d13f9af1acf3474fa0988b3699bca7a41f40",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2007_pxp.zip/content"
+  },
+  "exiobase_IOT_2008_pxp.zip": {
+    "octets": 255427696,
+    "recupere_le": "2026-08-27T15:34:11+00:00",
+    "revision": false,
+    "sha256": "59bc79350acc6cf0a75824f725d799df3c068dab2ecba913a993bb687940df6a",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2008_pxp.zip/content"
+  },
+  "exiobase_IOT_2009_pxp.zip": {
+    "octets": 247766840,
+    "recupere_le": "2026-08-27T15:38:13+00:00",
+    "revision": false,
+    "sha256": "98c0adf5ffa3e332e8ff923a3664dde62962e7f440f2721b26a1502f7bef2b46",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2009_pxp.zip/content"
+  },
+  "exiobase_IOT_2010_pxp.zip": {
+    "octets": 257400223,
+    "recupere_le": "2026-08-27T15:42:25+00:00",
+    "revision": false,
+    "sha256": "74773acff0898734e3da2d6d0bbb804bdaa68887526b35d57ae4873056d942e2",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2010_pxp.zip/content"
+  },
+  "exiobase_IOT_2011_pxp.zip": {
+    "octets": 246206116,
+    "recupere_le": "2026-08-27T15:46:17+00:00",
+    "revision": false,
+    "sha256": "199aa94d3d77a5c06ca383747489d08118208ed25a9475ce16af38e5a2acbd8d",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2011_pxp.zip/content"
+  },
+  "exiobase_IOT_2012_pxp.zip": {
+    "octets": 248941205,
+    "recupere_le": "2026-08-27T15:50:22+00:00",
+    "revision": false,
+    "sha256": "8371a21422cdedf905eae31dc799e6c9207552231265e531604e4a5a91e9e93e",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2012_pxp.zip/content"
+  },
+  "exiobase_IOT_2013_pxp.zip": {
+    "octets": 251760235,
+    "recupere_le": "2026-08-27T15:55:06+00:00",
+    "revision": false,
+    "sha256": "d3ca200eb8a56a3c6767ec727826a9361de019c5b728cd6ac38b1e58b9958cba",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2013_pxp.zip/content"
+  },
+  "exiobase_IOT_2014_pxp.zip": {
+    "octets": 253605306,
+    "recupere_le": "2026-08-27T15:59:03+00:00",
+    "revision": false,
+    "sha256": "50a373fd1815df69e146e5583a77a62316f8c6fdbeedd18b846a8419c37e1b89",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2014_pxp.zip/content"
+  },
+  "exiobase_IOT_2015_pxp.zip": {
+    "octets": 254545526,
+    "recupere_le": "2026-08-27T16:03:05+00:00",
+    "revision": false,
+    "sha256": "d9120785d07ab06b7429dd229196737483c88f1740a65e6a56040903468b3317",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2015_pxp.zip/content"
+  },
+  "exiobase_IOT_2016_pxp.zip": {
+    "octets": 246096706,
+    "recupere_le": "2026-08-27T16:07:34+00:00",
+    "revision": false,
+    "sha256": "24cfa8ee83db6157eaec2afd299ee0e181b1081f7ed5c71b0d635bc0ba9db758",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2016_pxp.zip/content"
+  },
+  "exiobase_IOT_2017_pxp.zip": {
+    "octets": 238255076,
+    "recupere_le": "2026-08-27T16:10:53+00:00",
+    "revision": false,
+    "sha256": "8d049dd34182bf363bbdf872ce53218271ac74cf388818365ca969e1be3c8600",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2017_pxp.zip/content"
+  },
+  "exiobase_IOT_2018_pxp.zip": {
+    "octets": 251754416,
+    "recupere_le": "2026-08-27T16:15:08+00:00",
+    "revision": false,
+    "sha256": "12c9e4e59c74e250614b5f46db4225f1f89a87775deb4fd2d84798e3a1b127da",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2018_pxp.zip/content"
+  },
   "exiobase_IOT_2019_pxp.zip": {
     "octets": 242375075,
     "recupere_le": "2026-08-27T14:35:32+00:00",
@@ -340,6 +556,42 @@
     "sha256_precedent": null,
     "source": "EXIOBASE 3.10.2 (Zenodo)",
     "url": "https://zenodo.org/api/records/20051562/files/IOT_2019_pxp.zip/content"
+  },
+  "exiobase_IOT_2021_pxp.zip": {
+    "octets": 241386452,
+    "recupere_le": "2026-08-27T16:19:07+00:00",
+    "revision": false,
+    "sha256": "e1e86cb5f749b9ce3110de42056efd1097be155c35f568271813616dd75ead03",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2021_pxp.zip/content"
+  },
+  "exiobase_IOT_2022_pxp.zip": {
+    "octets": 234096377,
+    "recupere_le": "2026-08-27T16:23:01+00:00",
+    "revision": false,
+    "sha256": "d15364d280568637e44db77c96e520b27061dbc46edf0156302350524c5af0d5",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2022_pxp.zip/content"
+  },
+  "exiobase_IOT_2023_pxp.zip": {
+    "octets": 231973553,
+    "recupere_le": "2026-08-27T16:27:05+00:00",
+    "revision": false,
+    "sha256": "6184a3c1070acea937972ec889e7524be4d7df606298fa5327384d6ef15a0230",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2023_pxp.zip/content"
+  },
+  "exiobase_IOT_2024_pxp.zip": {
+    "octets": 231122098,
+    "recupere_le": "2026-08-27T16:31:05+00:00",
+    "revision": false,
+    "sha256": "3cea9352d4756245d918a49ad9377284065bbb5a033b55a9bf8382b4242306af",
+    "sha256_precedent": null,
+    "source": "EXIOBASE 3.10.2 (Zenodo)",
+    "url": "https://zenodo.org/api/records/20051562/files/IOT_2024_pxp.zip/content"
   },
   "gfn_nfa_2017_public_data_package.xlsx": {
     "octets": 19513998,
@@ -388,7 +640,7 @@
   },
   "owid_co2_data.csv": {
     "octets": 14280395,
-    "recupere_le": "2026-08-27T14:42:23+00:00",
+    "recupere_le": "2026-08-27T17:31:59+00:00",
     "revision": false,
     "sha256": "f659db45a92b7cd295e950c4ee9733104000a331657a96e630e00e1ec95076ca",
     "sha256_precedent": null,

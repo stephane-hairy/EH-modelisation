@@ -11,9 +11,10 @@ import pandas as pd
 import pytest
 
 from modele.exec.indicateurs import (BORNE_HAUTE, MAPPINGS, SEUIL_CO2_T_HAB,
-                                     assembler, ibd, ied, iee,
+                                     SEUIL_MATIERE_T_HAB, assembler, ibd,
+                                     ied, iee, irnr, irnr_empreinte,
                                      mapping_exponentiel, mapping_hyperbolique,
-                                     mapping_lineaire, irnr)
+                                     mapping_lineaire)
 
 ANNEES = list(range(1990, 2000))
 
@@ -277,3 +278,68 @@ def test_le_carbone_est_dominant_mais_pas_ecrasant():
     Dominant, oui ; mais l'approximation laisse tomber 44 % du sujet."""
     part = GFN_CARBONE / GFN_EMPREINTE
     assert 0.50 < part < 0.60
+
+
+# ======================================================================
+# 5. IRNR en empreinte — la correction du biais territorial
+# ======================================================================
+
+# Chiffres France, matières non renouvelables, t/hab/an.
+# territorial : Eurostat env_ac_mfa (DMC) · empreinte : EXIOBASE 3.10.2
+IRNR_TERRITORIAL = {1995: 9.99, 2010: 8.44, 2022: 7.77, 2023: 7.35}
+IRNR_EMPREINTE = {1995: 9.58, 2010: 13.34, 2022: 12.12, 2023: 13.20}
+
+
+def test_les_deux_mesures_de_matiere_vont_en_sens_contraire():
+    """Le résultat central de l'intégration d'EXIOBASE, et le plus
+    dérangeant : entre 1995 et 2022, le DMC territorial BAISSE de 22 %
+    tandis que l'empreinte MONTE de 26 %.
+
+    L'« amélioration » que mesurait l'IRNR était pour l'essentiel un
+    déménagement. Si ce test tombe un jour, c'est que les données ou le
+    calcul ont changé — pas que la conclusion s'est adoucie."""
+    terr = IRNR_TERRITORIAL[2022] / IRNR_TERRITORIAL[1995] - 1
+    emp = IRNR_EMPREINTE[2022] / IRNR_EMPREINTE[1995] - 1
+    assert terr < 0, "le territorial doit baisser"
+    assert emp > 0, "l'empreinte doit monter"
+    assert terr == pytest.approx(-0.22, abs=0.02)
+    assert emp == pytest.approx(+0.26, abs=0.02)
+
+
+def test_le_biais_d_importation_grandit_avec_le_temps():
+    """Signature de la délocalisation : l'écart entre les deux mesures
+    passe de −4 % en 1995 à +80 % en 2023."""
+    def ecart(a):
+        return IRNR_EMPREINTE[a] / IRNR_TERRITORIAL[a] - 1
+    assert ecart(1995) == pytest.approx(-0.04, abs=0.02)
+    assert ecart(2023) == pytest.approx(+0.80, abs=0.03)
+    assert ecart(1995) < ecart(2010) < ecart(2023)
+
+
+def test_en_empreinte_la_france_ne_passe_jamais_sous_le_seuil():
+    """En territorial, la France franchit le seuil de 8 t/hab vers 2014,
+    ce qui faisait de l'IRNR le seul indicateur à atteindre l'équilibre.
+    En empreinte, elle reste au-dessus sur toute la période."""
+    assert IRNR_TERRITORIAL[2022] < SEUIL_MATIERE_T_HAB
+    assert all(v > SEUIL_MATIERE_T_HAB for v in IRNR_EMPREINTE.values())
+
+
+def test_irnr_empreinte_a_les_memes_proprietes_que_irnr():
+    """La correction ne doit rien casser : bornes, monotonie, valeur 1 au
+    seuil."""
+    d = pd.DataFrame({"mat_non_renouv_t_hab": [4.0, 8.0, 16.0, 24.0]},
+                     index=[2000, 2001, 2002, 2003])
+    r = irnr_empreinte(d)
+    assert r["indice"].loc[2001] == pytest.approx(1.0)   # pile au seuil
+    assert r["indice"].is_monotonic_decreasing
+    assert r["indice"].min() >= 0.0
+    assert r["indice"].max() <= BORNE_HAUTE
+
+
+def test_irnr_empreinte_est_plus_severe_que_le_territorial():
+    """À seuil identique, l'empreinte donne un indicateur plus bas —
+    parce qu'elle voit la matière que le territorial ignore."""
+    for a in (2010, 2022, 2023):
+        i_terr = mapping_exponentiel(IRNR_TERRITORIAL[a] / SEUIL_MATIERE_T_HAB)
+        i_emp = mapping_exponentiel(IRNR_EMPREINTE[a] / SEUIL_MATIERE_T_HAB)
+        assert i_emp < i_terr, a

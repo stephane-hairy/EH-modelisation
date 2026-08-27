@@ -6,6 +6,11 @@ donnees/brut/*
 donnees/traite/*
 !donnees/**/.gitkeep
 
+# Exception : la série d'empreintes EXIOBASE. Régénérable
+# (scripts/serie_exiobase.py) mais coûte 2 h de calcul et 7 Go de
+# téléchargement. 8 Ko versionnés valent mieux.
+!donnees/traite/empreinte_exiobase_france.csv
+
 # Python
 __pycache__/
 *.py[cod]
@@ -20,10 +25,11 @@ sorties/
 *.pdf
 !sources/*.pdf
 
-# Exception : le graphique phare du jalon P2. Il est régénérable
-# (scripts/courbe_creation_monetaire.py) mais c'est LE livrable : il doit
-# être visible sur GitHub sans rien exécuter.
+# Exceptions : les graphiques livrables. Régénérables par script, mais ce
+# sont LES résultats : ils doivent être visibles sur GitHub sans rien
+# exécuter.
 !sorties/creation_monetaire_eh_france.png
+!sorties/irnr_territorial_vs_empreinte.png
 
 # Métadonnées de build
 *.egg-info/

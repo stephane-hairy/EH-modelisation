@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import io
 import urllib.request
+from pathlib import Path
 
 import pandas as pd
 
@@ -196,3 +197,35 @@ def tout_recuperer() -> dict[str, pd.DataFrame | pd.Series]:
         "biodiversite": serie_biodiversite(),
         "population": population(),
     }
+
+
+# --------------------------------------------------------------------
+# Empreintes calculées depuis EXIOBASE (importations incluses)
+# --------------------------------------------------------------------
+CHEMIN_EXIOBASE = (Path(__file__).resolve().parents[2] / "donnees"
+                   / "traite" / "empreinte_exiobase_france.csv")
+
+
+def empreinte_exiobase() -> pd.DataFrame:
+    """
+    Empreinte de consommation de la France, **importations incluses**,
+    calculée depuis EXIOBASE. Série annuelle **1995–2024**.
+
+    Contrairement au DMC d'Eurostat, qui ne compte que le poids des biens
+    franchissant la frontière, cette empreinte compte **toute la matière
+    remuée à l'étranger** pour fabriquer ce que les Français consomment.
+
+    Colonnes utiles (toutes par habitant) :
+    `mat_non_renouv_t_hab`, `co2_t_hab`, `sol_cultures_ha_hab`,
+    `sol_paturages_ha_hab`, `sol_foret_ha_hab`.
+
+    Le fichier est produit par `scripts/serie_exiobase.py` (≈ 2 h de
+    calcul). Il est versionné dans le dépôt : le recalculer donne le même
+    résultat, mais coûte deux heures.
+    """
+    if not CHEMIN_EXIOBASE.exists():
+        raise FileNotFoundError(
+            f"{CHEMIN_EXIOBASE} absent — lancer d'abord "
+            "`python scripts/serie_exiobase.py` (environ 2 h).")
+    return (pd.read_csv(CHEMIN_EXIOBASE)
+              .set_index("annee").sort_index().astype(float))

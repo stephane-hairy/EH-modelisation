@@ -8,15 +8,16 @@ description: >
   est exclue. Le recyclage fait baisser l'indicateur sans qu'on ajoute
   de bonus, parce que la donnée utilisée ne compte que la matière vierge.
 
-formule: "IRNR = mapping( DMC_non_renouvelable_par_habitant / seuil )"
+formule: "IRNR = mapping( matière_non_renouvelable_par_habitant / seuil )"
 
 variables:
-  DMC_nr: {sens: "consommation intérieure de matières non renouvelables (MF2 minerais métalliques + MF3 minéraux non métalliques + MF4 énergies fossiles)", unite: "tonnes/habitant/an", source: "Eurostat env_ac_mfa"}
+  matiere_nr: {sens: "matière non renouvelable consommée (minerais métalliques + minéraux non métalliques + énergies fossiles). Deux mesures possibles, cf. paramètre `source`", unite: "tonnes/habitant/an", source: "EXIOBASE 3.10.2 (empreinte) ou Eurostat env_ac_mfa (territorial)"}
   seuil:  {sens: "consommation jugée soutenable", unite: "tonnes/habitant/an", source: "Bringezu (2015)"}
 
 parametres:
   seuil_t_hab: {valeur: 8.0, intervalle: [6.0, 12.0], origine: design}
   mapping:     {valeur: "exponentiel", intervalle: null, origine: design}
+  source:      {valeur: "empreinte", intervalle: null, origine: design}
 
 categorie: D
 grade: D
@@ -30,36 +31,68 @@ sources:
   - ref: "Eurostat, Material flow accounts (env_ac_mfa), France, 1990-2024"
     doi_ou_url: "https://ec.europa.eu/eurostat/databrowser/view/env_ac_mfa"
     ce_qu_elle_etablit: "Consommation intérieure de matières par catégorie, en poids. Le DMC ne compte que la matière vierge : le recyclage y est donc déjà crédité."
+  - ref: "EXIOBASE 3.10.2 (2026), tableau entrées-sorties multirégional mondial, comptes satellites « material », France 1995-2024"
+    doi_ou_url: "https://doi.org/10.5281/zenodo.3583070"
+    ce_qu_elle_etablit: >
+      Permet de calculer l'empreinte matières importations incluses. Résultat décisif : entre 1995 et 2022 le DMC territorial BAISSE de 22 % (9,99 -> 7,77 t/hab) tandis que l'empreinte MONTE de 26 % (9,58 -> 12,12 t/hab). Les deux mesures vont en sens contraire. Écart moyen +49 %, croissant de -4 % (1995) à +80 % (2023). Contrôle croisé du CO2 avec le Global Carbon Project : 1,4 % d'écart en 2019.
+  - ref: "Wiedmann, T. et al. (2015), The material footprint of nations, PNAS 112(20)"
+    doi_ou_url: "https://doi.org/10.1073/pnas.1220362110"
+    ce_qu_elle_etablit: "Établit que les mesures territoriales de consommation de matières sous-estiment systématiquement les pays riches importateurs, et que l'empreinte inverse la tendance apparente pour plusieurs d'entre eux."
   - ref: "Bringezu, S. (2015), Possible target corridor for sustainable use of global material resources, Resources 4(1), 25-54"
     doi_ou_url: "https://doi.org/10.3390/resources4010025"
     ce_qu_elle_etablit: "Propose un corridor cible d'usage soutenable des matières abiotiques par habitant. C'est un corridor, pas un point : d'où l'intervalle 6-12 t."
 
 sensibilite:
-  balayage: ["seuil de 6 à 12 t/hab", "mapping linéaire / hyperbolique / exponentiel", "DMC (territorial, 1990-2024) vs RMC (empreinte, 2008-2025)", "inclusion ou non des minéraux non métalliques MF3"]
+  balayage: ["seuil de 6 à 12 t/hab", "mapping linéaire / hyperbolique / exponentiel", "source empreinte EXIOBASE 1995-2024 (retenue) vs DMC territorial 1990-2024 (écartée)", "inclusion ou non des minéraux non métalliques"]
   impact_attendu: >
-    Le seuil déplace l'indicateur proportionnellement. Le mapping est plus
-    structurant : à ratio 1,0 (France 2022), les trois mappings donnent
-    respectivement 1,03 / 1,01 / 1,02 — proches ici, mais ils divergent
-    fortement dès que le ratio s'éloigne de 1. MF3 (sable, granulats) pèse
-    à lui seul 79 % du total non renouvelable français : l'inclure ou non
-    change tout.
+    Le choix de SOURCE domine tout le reste, et il change le signe de la
+    tendance, pas seulement son niveau. Passer du territorial à
+    l'empreinte fait baisser l'IED français d'environ 9 % et retire à
+    l'IRNR son statut de seul indicateur atteignant l'équilibre. Le seuil
+    déplace l'indicateur proportionnellement ; le mapping devient
+    structurant dès que le ratio s'éloigne de 1. Les minéraux non
+    métalliques (sable, granulats) pèsent 74 à 79 % du total :
+    les inclure ou non change tout.
 
 limites: |
-  - MESURE TERRITORIALE, PAS EMPREINTE. Le DMC compte le poids des biens
-    importés, pas la matière remuée à l'étranger pour les produire. La
-    France, gros importateur, est donc flattée. L'empreinte matières
-    (RMC) corrige cela mais n'existe que depuis 2008 : elle est fournie
-    en variante de contrôle, pas en série principale.
+  ⚠️ CORRECTION MAJEURE (2026-08-27). Cette fiche reposait sur le DMC
+  d'Eurostat, une mesure TERRITORIALE. EXIOBASE a permis de calculer
+  l'empreinte réelle, importations incluses, et le résultat ne corrige
+  pas un niveau : il INVERSE une conclusion.
+
+    | mesure                | 1995 | 2022  | tendance |
+    | DMC territorial       | 9,99 |  7,77 |  -22 %   |
+    | Empreinte (EXIOBASE)  | 9,58 | 12,12 |  +26 %   |
+
+  Le DMC disait que la France s'était allégée d'un cinquième. L'empreinte
+  dit qu'elle s'est alourdie d'un quart. L'écart entre les deux passe de
+  -4 % en 1995 à +80 % en 2023 : c'est la signature de la délocalisation.
+  L'« amélioration » que mesurait l'IRNR était, pour l'essentiel, un
+  déménagement.
+
+  Conséquence directe : l'IRNR n'est PLUS le seul indicateur à atteindre
+  l'équilibre. En territorial il passait sous le seuil de 8 t/hab vers
+  2014 ; en empreinte il ne passe jamais sous le seuil.
+  Démonstration : scripts/comparer_irnr.py. Tests : tests/test_exec.py.
+
+  Limites qui subsistent :
   - LE POIDS N'EST PAS L'IMPACT. Une tonne de sable et une tonne
-    d'uranium comptent pareil. C'est la faiblesse reconnue de tous les
-    indicateurs de flux de matières.
-  - MF3 DOMINE. Les minéraux non métalliques (essentiellement les
-    granulats du bâtiment) font 79 % du total. L'indicateur mesure donc
-    surtout l'activité du BTP français — ce qui n'est pas ce qu'on
-    entend spontanément par « ressources non renouvelables ».
-  - AUCUNE DONNÉE AVANT 1990. Les comptes de flux de matières français
-    commencent là. Le trou 1978-1989 n'est pas comblé (RÈGLE N°3).
-  - Le seuil de 8 t/hab est un choix normatif, pas un fait observé.
+    d'uranium comptent pareil. Faiblesse reconnue de tous les indicateurs
+    de flux de matières, territoriaux comme empreinte.
+  - LES MINÉRAUX NON MÉTALLIQUES DOMINENT (74 % de l'empreinte 2020,
+    79 % du DMC). L'indicateur mesure donc surtout l'activité du
+    bâtiment. C'est vrai des deux mesures.
+  - L'EMPREINTE DÉMARRE EN 1995, contre 1990 pour le DMC. On perd cinq
+    ans pour gagner la justesse du concept. Le territorial reste
+    implémenté pour la sensibilité et pour couvrir 1990-1994.
+  - EXIOBASE EST UN MODÈLE, pas une observation directe. Ses tableaux
+    entrées-sorties mondiaux comportent une incertitude propre. Contrôle
+    croisé disponible sur le CO2 : 1,4 % d'écart avec le Global Carbon
+    Project en 2019, 4,4 % en 2020 — deux constructions indépendantes.
+    Aucun contrôle équivalent n'existe pour les matières.
+  - LE SEUIL DE 8 t/hab est un choix normatif, pas un fait observé.
+  - AUCUNE DONNÉE AVANT 1990 quelle que soit la mesure. Le trou
+    1978-1989 n'est pas comblé (RÈGLE N°3).
 
 statut: brouillon
 maj: 2026-08-27

@@ -142,6 +142,43 @@ def irnr(dmc: pd.DataFrame, population: pd.Series,
     })
 
 
+def irnr_empreinte(empreinte: pd.DataFrame,
+                   seuil_t_hab: float = SEUIL_MATIERE_T_HAB,
+                   mapping: str = "exponentiel") -> pd.DataFrame:
+    """
+    **IRNR calculé sur l'empreinte matières, importations incluses.**
+
+    Même définition que `irnr`, mais la pression n'est plus le DMC
+    territorial : c'est toute la matière non renouvelable remuée **dans le
+    monde entier** pour ce que les Français consomment (EXIOBASE, 1995–2024).
+
+    ⚠️ **Ce n'est pas un raffinement, c'est une correction.** Les deux
+    mesures ne diffèrent pas seulement en niveau — elles vont **en sens
+    contraire** :
+
+    | | 1995 | 2022 | tendance |
+    |---|---:|---:|---|
+    | DMC territorial | 9,99 | 7,77 t/hab | **−22 %** |
+    | Empreinte (EXIOBASE) | 9,58 | 12,12 t/hab | **+26 %** |
+
+    Le DMC dit que la France s'est allégée d'un cinquième. L'empreinte dit
+    qu'elle s'est alourdie d'un quart. L'écart entre les deux passe de
+    −4 % en 1995 à **+80 % en 2023** : c'est la signature de la
+    délocalisation. *L'« amélioration » mesurée par l'IRNR territorial
+    était, pour l'essentiel, un déménagement.*
+
+    Le recyclage continue d'être compté positivement : l'empreinte
+    matières ne compte que l'extraction primaire.
+    """
+    pression = empreinte["mat_non_renouv_t_hab"].dropna()
+    x = pression / seuil_t_hab
+    return pd.DataFrame({
+        "pression_t_hab": pression,
+        "ratio": x,
+        "indice": MAPPINGS[mapping](x),
+    })
+
+
 def iee(co2: pd.DataFrame, seuil_t_hab: float = SEUIL_CO2_T_HAB,
         mapping: str = "exponentiel",
         colonne: str = "empreinte") -> pd.DataFrame:
