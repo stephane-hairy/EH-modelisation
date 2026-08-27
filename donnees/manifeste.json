@@ -638,6 +638,24 @@
     "source": "INSEE",
     "url": "https://bdm.insee.fr/series/sdmx/data/CNA-2020-PIB/A....PIB.NNTOTAL...EUROS_COURANTS.."
   },
+  "ocde_amae_par_biome.xls": {
+    "octets": 37376,
+    "recupere_le": "2026-08-27T18:46:36+00:00",
+    "revision": false,
+    "sha256": "a78b116d302834479c34ee3ab41cd6ed0bd07bcfe7296e1e48e6b5fbb0505007",
+    "sha256_precedent": null,
+    "source": "OCDE, Perspectives de l'environnement à l'horizon 2050",
+    "url": "https://dx.doi.org/10.1787/888932594256"
+  },
+  "ocde_amae_par_region.xls": {
+    "octets": 44544,
+    "recupere_le": "2026-08-27T18:46:34+00:00",
+    "revision": false,
+    "sha256": "bd252dfc4e7b52c85ea6c07fc8cc000bd6ff95f69916088863157cf1885d28e1",
+    "sha256_precedent": null,
+    "source": "OCDE, Perspectives de l'environnement à l'horizon 2050",
+    "url": "https://dx.doi.org/10.1787/888932594294"
+  },
   "owid_co2_data.csv": {
     "octets": 14280395,
     "recupere_le": "2026-08-27T17:39:18+00:00",

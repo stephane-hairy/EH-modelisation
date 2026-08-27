@@ -671,3 +671,56 @@ Recommandation : plancher explicite (jamais d'extinction monétaire) ·
 ### État
 `python -m pytest -q` : **75 tests verts**. Registre conforme (11 fiches).
 Décisions en attente : **D7–D12, D14–D16**.
+
+
+---
+
+## 2026-08-27 — Session 3 (fin) : l'AMAE de l'OCDE chiffre le biais de l'IBD
+
+### Ce qui s'est passé
+Stéphane a transmis les *Perspectives de l'environnement de l'OCDE à
+l'horizon 2050* (2012) en demandant si c'était le document dont je
+parlais. **Non** — je parlais du BII du Natural History Museum et de
+Steffen *et al.* (2015) pour la frontière à 90 %. Mais le document est
+utile, et il a été versé au dépôt.
+
+### Ce qu'il apporte
+L'OCDE utilise l'**AMAE** (abondance moyenne des espèces, modèle GLOBIO)
+et la définit exactement comme il faut : *« une AMAE de 100 % correspond
+à l'absence de perturbation »* — un pourcentage de l'**état d'origine**,
+pas d'un état passé arbitraire. C'est la construction qui manque à l'IBD.
+
+Chiffres récupérés **par script** via les StatLinks du rapport
+(`modele/donnees/ocde_amae.py`) :
+
+| AMAE terrestre | 2010 | 2050 (projeté) |
+|---|---:|---:|
+| **Europe** | **38,4 %** | 29,3 % |
+| Monde | 67,5 % | 60,4 % |
+
+| Biome | 1970 | 2010 |
+|---|---:|---:|
+| **Forêts tempérées** (celui de la France) | **49,7 %** | **37,3 %** |
+
+### Ce que ça démontre
+**Dès 1970, le biome français n'avait déjà plus que la moitié de son
+abondance d'origine.** Prendre 1990 comme référence, comme le fait notre
+IBD, revient donc à déclarer à l'équilibre un écosystème déjà amputé de
+moitié. Le biais était soupçonné et documenté ; il est maintenant
+**chiffré**.
+
+### Trois réserves, écrites dans le module et la fiche
+1. **L'AMAE n'est pas le BII.** Cousins conceptuels, pas synonymes. La
+   frontière de 90 % porte sur le **BII** (Steffen et al. 2015). La
+   transférer à l'AMAE serait une erreur de catégorie — pas faite.
+2. **Pas de France** : l'OCDE ne descend qu'à « Europe ».
+3. **Projections de modèle** (GLOBIO/IMAGE) sur quatre points, pas des
+   observations annuelles.
+
+⇒ L'AMAE documente le concept et donne l'ordre de grandeur européen.
+Elle **ne remplace pas** le BII pour construire l'IBD. Le téléchargement
+manuel du BII reste noté en P0.
+
+### État
+`python -m pytest -q` : **78 tests verts**. Registre conforme (11 fiches).
+Décisions en attente : **D7–D12, D14–D16**.

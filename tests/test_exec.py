@@ -343,3 +343,43 @@ def test_irnr_empreinte_est_plus_severe_que_le_territorial():
         i_terr = mapping_exponentiel(IRNR_TERRITORIAL[a] / SEUIL_MATIERE_T_HAB)
         i_emp = mapping_exponentiel(IRNR_EMPREINTE[a] / SEUIL_MATIERE_T_HAB)
         assert i_emp < i_terr, a
+
+
+# ======================================================================
+# 6. AMAE de l'OCDE — le référentiel qui manque à l'IBD
+# ======================================================================
+
+# OCDE (2012), Perspectives de l'environnement à l'horizon 2050, ch. 4,
+# modèle GLOBIO. AMAE = abondance des espèces rapportée à un écosystème
+# INTACT (100 % = absence de perturbation).
+AMAE_EUROPE_2010 = 0.3836
+AMAE_MONDE_2010 = 0.6752
+AMAE_FORETS_TEMPEREES = {1970: 49.7, 2010: 37.3}
+
+
+def test_l_amae_montre_que_1990_est_une_reference_trop_tardive():
+    """Le cœur du problème de l'IBD : dès 1970, les forêts tempérées —
+    le biome français — n'avaient déjà plus que la MOITIÉ de leur
+    abondance d'origine. Prendre 1990 pour référence revient donc à
+    décréter à l'équilibre un écosystème déjà amputé de moitié."""
+    assert AMAE_FORETS_TEMPEREES[1970] < 55.0
+    assert AMAE_FORETS_TEMPEREES[2010] < AMAE_FORETS_TEMPEREES[1970]
+
+
+def test_l_europe_est_la_region_ocde_la_plus_degradee():
+    """38 % de l'abondance d'origine : moins que la moyenne mondiale."""
+    assert AMAE_EUROPE_2010 < AMAE_MONDE_2010
+    assert 0.35 < AMAE_EUROPE_2010 < 0.42
+
+
+def test_l_ibd_actuel_est_plus_indulgent_qu_un_referentiel_d_origine():
+    """Comparaison d'ORDRE DE GRANDEUR, pas de calcul à retenir.
+
+    ⚠️ On n'applique PAS la frontière de 90 % à l'AMAE : elle a été
+    définie sur le BII (Steffen et al. 2015), pas sur l'AMAE. Ce test
+    vérifie seulement le SENS de l'écart : un référentiel « état
+    d'origine » est plus sévère que le référentiel « France de 1990 ».
+    """
+    x_ibd_actuel = 93.30 / 53.93            # oiseaux, référence 1990
+    x_ordre_de_grandeur = 0.90 / AMAE_EUROPE_2010
+    assert x_ordre_de_grandeur > x_ibd_actuel

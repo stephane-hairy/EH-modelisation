@@ -131,7 +131,12 @@ entrées-sorties mondiaux). Le trou est documenté, pas comblé (RÈGLE N°3).
       économie à l'arrêt. Alternative : `[1 ; 2]` = **régénération**
 - [?] **D16 seuil de l'IBD** : c'est un **état passé** (la France de 1990),
       pas un seuil de soutenabilité — incohérence d'échelle avec les deux
-      autres. Solution : **BII** avec la frontière planétaire à 90 %
+      autres. Solution : **BII** avec la frontière planétaire à 90 %.
+      ✅ **Biais désormais chiffré** grâce à l'AMAE de l'OCDE (source
+      fournie par Stéphane) : dès **1970**, le biome des forêts tempérées
+      — celui de la France — n'avait plus que **49,7 %** de son abondance
+      d'origine (37,3 % en 2010). Europe à **38,4 %** en 2010.
+      → `modele/donnees/ocde_amae.py`, récupéré par script
   - [x] **D13 TRANCHÉE — étalon de l'IEE : MONDIAL par tête**
       (`docs/04-decisions.md` D13). L'étalon territorial est écarté : il
       récompense la géographie, pas le comportement. L'Australie, qui

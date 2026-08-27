@@ -31,6 +31,14 @@ sources:
   - ref: "Eurostat, Common farmland bird index (env_bio2), France, 1990-2021"
     doi_ou_url: "https://ec.europa.eu/eurostat/databrowser/view/env_bio2"
     ce_qu_elle_etablit: "Seule série d'état de la biodiversité française disponible par API sur 30 ans. Recul de 93 à 54 entre 1990 et 2021, soit -42 %."
+  - ref: "OCDE (2012), Perspectives de l'environnement de l'OCDE à l'horizon 2050, chapitre 4 — abondance moyenne des espèces (AMAE / MSA), modèle GLOBIO"
+    doi_ou_url: "https://doi.org/10.1787/9789264122246-fr"
+    ce_qu_elle_etablit: >
+      Documente le bon référentiel : « une AMAE de 100 % correspond à l'absence de perturbation », c'est-à-dire un pourcentage de l'ÉTAT D'ORIGINE et non d'un état passé arbitraire. Chiffres extraits par script (StatLinks 888932594294 et 888932594256) : Europe terrestre 38,4 % en 2010 (projeté 29,3 % en 2050), monde 67,5 % ; biome « forêts tempérées », celui de la France, 49,7 % en 1970 puis 37,3 % en 2010. Ce dernier chiffre montre que dès 1970 le biome français avait déjà perdu la moitié de son abondance d'origine — donc que la référence 1990 de notre IBD est très en aval de l'équilibre.
+      ⚠️ NE REMPLACE PAS LE BII : l'AMAE n'a pas de frontière planétaire chiffrée (le 90 % de Steffen et al. 2015 porte sur le BII), l'OCDE ne descend qu'à « Europe » et non à la France, et ce sont des PROJECTIONS de modèle sur quatre points (2010, 2020, 2030, 2050).
+  - ref: "Alkemade, R. et al. (2009), GLOBIO3: A Framework to Investigate Options for Reducing Global Terrestrial Biodiversity Loss, Ecosystems 12"
+    doi_ou_url: "https://doi.org/10.1007/s10021-009-9229-5"
+    ce_qu_elle_etablit: "Modèle sous-jacent à l'AMAE utilisée par l'OCDE."
   - ref: "IPBES (2019), Global Assessment Report on Biodiversity and Ecosystem Services"
     doi_ou_url: "https://doi.org/10.5281/zenodo.3831673"
     ce_qu_elle_etablit: "Établit qu'aucun indicateur unique ne résume l'état de la biodiversité, et que les pressions dominantes (usage des sols, exploitation directe) s'exercent largement hors des frontières du pays consommateur."

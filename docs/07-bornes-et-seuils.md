@@ -198,6 +198,47 @@ environnement. **Le fichier se récupère à la main en trente secondes dans
 un navigateur** : `data.nhm.ac.uk/dataset/bii-bte`, ressource
 `long_data.csv`.
 
+#### Un adossement complémentaire : l'AMAE de l'OCDE
+
+Source apportée par Stéphane : *Perspectives de l'environnement de l'OCDE
+à l'horizon 2050* (2012, ch. 4). L'OCDE y utilise l'**AMAE** (abondance
+moyenne des espèces), et la définit exactement comme il faut :
+*« une AMAE de 100 % correspond à l'absence de perturbation »* — un
+pourcentage de l'**état d'origine**, pas d'un état passé arbitraire.
+
+Chiffres extraits par script (`modele/donnees/ocde_amae.py`) :
+
+| AMAE terrestre, part de l'état intact | 2010 | 2050 (projeté) |
+|---|---:|---:|
+| **Europe** | **38,4 %** | 29,3 % |
+| Monde | 67,5 % | 60,4 % |
+| Amérique du Nord | 70,4 % | 65,3 % |
+
+Et par biome — celui de la France est « forêts tempérées » :
+
+| Biome | 1970 | 2010 |
+|---|---:|---:|
+| **Forêts tempérées** | **49,7 %** | **37,3 %** |
+| Total monde | 75,8 % | 67,5 % |
+
+**Ce que ça démontre.** Dès **1970**, le biome français n'avait déjà plus
+que la **moitié** de son abondance d'origine. Prendre 1990 pour référence,
+comme le fait notre IBD, revient donc à déclarer à l'équilibre un
+écosystème déjà amputé de moitié. Le biais est chiffré, il n'est plus
+seulement soupçonné.
+
+⚠️ **Trois réserves, pour ne pas aller trop vite.**
+
+1. **L'AMAE n'est pas le BII.** Cousins conceptuels, pas synonymes. La
+   frontière de 90 % a été définie sur le **BII** (Steffen *et al.* 2015),
+   pas sur l'AMAE. La transférer serait une erreur de catégorie.
+2. **Pas de France** : l'OCDE ne descend qu'à « Europe ».
+3. **Ce sont des projections de modèle** (GLOBIO/IMAGE), sur quatre points
+   seulement, pas des observations annuelles.
+
+⇒ L'AMAE **documente le concept** et donne l'ordre de grandeur européen.
+Elle ne remplace pas le BII pour construire l'indicateur.
+
 Trois options pour D16 :
 
 - **S1 — BII avec la frontière planétaire à 90 %.** Le bon seuil, et la
